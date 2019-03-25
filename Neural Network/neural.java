@@ -8,4 +8,4 @@ public class neural {
 
 
   // getters and setters for all the above
-}c
+}
