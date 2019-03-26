@@ -3,7 +3,7 @@ public class cell {
   String functionType; // ReLU or Sigmoid
   final int bias = 1; // Bias term added to function each time
   double[] inputWeights; // Weights for all inputs including bias term as index 0
-  double outputWeights; // Weights for all outputs from cell
+  double[] outputWeights; // Weights for all outputs from cell
 
 
   // function - runs RELU or Sigmoid based on functionType field
@@ -34,14 +34,14 @@ public class cell {
     return output;
   }
 
-  // gets outputWeight
-  public getOutputWeight() {
-    return outputWeight;
+  // gets outputWeights
+  public double[] getOutputWeights() {
+    return outputWeights;
   }
 
-  // sets outputWeight
-  public setOutputWeight(double weight) {
-    outputWeight = weight;
+  // sets outputWeights
+  public setOutputWeights(double[] weights) {
+    outputWeight = weights;
   }
 
 }
