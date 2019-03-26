@@ -45,27 +45,47 @@ public class train_neural {
   }
 
   // Find error with respect to data in second layer (Sigmoid function input "u")
-  public static double[] secondLayerDataError(double[] actual, double[] expected) {
+  public static double[] secondLayerDataError(Neural network, double[] actual, double[] expected) {
     double[] outputLayerErrors = outputLayerError(actual, expected);
     // One error term for each second layer cell/unit
-    double[] errors = new double[];
-
+    double[] errors = new double[outputLayerErrors.length];
+    for (int i = 0; i < errors.length; i++) {
       // Error with respect to data in second layer is error with respect to output layer * (output * (1 - output))
       errors[i] = outputLayerErrors[i] * (actual[i] * (1 - actual[i]));
-
+    }
     return errors;
   }
 
+  // TODO FINISH THIS
   // Find error with respect to output of first layer (ReLU function output "v")
-  public static double[] firstLayerOutputError(double[] actual, double[] expected) {
-    secondLayerErrors = secondLayerDataError(actual, expected);
+  public static double[] firstLayerOutputError(Neural network, double[] actual, double[] expected) {
+    double[] secondLayerErrors = secondLayerDataError(network, actual, expected);
+    Cell[] firstLayer = network.getFirstLayer();
     // One error term for each first layer cell/unit
-    double[] errors = new double[];
-
+    double[] errors = new double[firstLayer.length];
+    for (int i = 0; i < errors.length; i++) {
       // Error with respect to output of first layer is sum of (errors from data in second
       // layer times the corresponding weight between the layers)
 
+    }
+  }
 
+  // TODO FINISH THIS
+  // Find error with respect to data in first layer (ReLU function input "u")
+  public static double[] firstLayerDataError(Neural network, double[] actual, double[] expected) {
+    double[] firstLayerOutputErrors = firstLayerOutputError(network, actual, expected);
+    Cell[] firstLayer = network.getFirstLayer();
+    // One error term for each first layer cell/unit
+    double[] errors = new double[firstLayer.length];
+    for (int i = 0; i < errors.length); i++) {
+      // Error with respect to data in first layer is ??? TODO
+    }
+  }
+
+  // TODO FINISH THIS
+  // Find error with respect to weights
+  public static double[] weightError(Neural network, double[] actual, double[] expected) {
+    
   }
 
 
