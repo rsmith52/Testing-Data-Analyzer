@@ -11,7 +11,18 @@ public class train_neural {
     }
   }
 
-  // Find overall error for each output produced by the network
+
+  /*
+
+  Input to All functions below take "actual" and "expected" where these are the data produced by and expected
+  of the network. Each index in the array corresponds to one of the outputs of the network.
+
+  actual[0] for example could be what the network thought was the probability of the case being about O365 Calendar and Email, while
+  expected[0] is a 1 if the label should be that, and a 0 if it shouldn't be.
+
+  */
+
+  // Find overall error for each output produced by the network after running one Case
   public static double[] networkError(double[] actual, double[] expected) {
     // One error term for each output
     double[] errors = new double[actual.length];
@@ -53,7 +64,7 @@ public class train_neural {
 
       // Error with respect to output of first layer is sum of (errors from data in second
       // layer times the corresponding weight between the layers)
-    
+
 
   }
 
