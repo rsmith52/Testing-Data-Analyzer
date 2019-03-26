@@ -5,10 +5,31 @@ public class cell {
   double[] inputWeights; // Weights for all inputs including bias term as index 0
 
   // function - runs RELU or Sigmoid based on functionType field
+  public double function(double[] inputs) {
+
+    double u = bias * inputWeights[0];
+    for (int i = 0; i < inputs.size(); i++) {
+      u += inputs[i] * inputWeights[i+1];
+    }
+
+    switch(functionType) {
+      case "ReLU":
+        return relu(u);
+      case "Sigmoid":
+        return sigmoid(u);
+    }
+  }
 
   // RELU function
+  public double relu(double u) {
+    double output = Math.max(0,u);
+    return output;
+  }
 
-
-  // Sigmoid function
+  // sigmoid function
+  public double sigmoid(double u) {
+    double output = 1 / (1 + Math.exp(-1 * u));
+    return output;
+  }
 
 }
