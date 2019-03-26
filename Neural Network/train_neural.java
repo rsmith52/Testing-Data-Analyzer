@@ -47,5 +47,11 @@ public class train_neural {
 
   }
 
+  public void gradientDescent() {
+    double[] weightDerivatives = weightDerivatives();
+    double[] newFirstLayerWeights = new double[network.getFirstLayer.size()];
+    double[] newSecondLayerWeights = new double[network.getSecondLayer.size()];
+  }
+
 
 }
