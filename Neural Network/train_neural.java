@@ -11,7 +11,6 @@ public class train_neural {
     }
   }
 
-
   // Find overall error for each output produced by the network
   public static double[] networkError(double[] actual, double[] expected) {
     double[] errors = new double[actual.length];
@@ -22,7 +21,7 @@ public class train_neural {
     return errors;
   }
 
-  // Find error with respect to output layer itself
+  // Find error with respect to output layer itself (Sigmoid function output "v")
   public static double[] outputLayerError(double[] actual, double[] expected) {
     double[] errors = new double[actual.length];
     for (int i = 0; i < errors.length; i++) {
@@ -32,7 +31,7 @@ public class train_neural {
     return errors;
   }
 
-  // Find error with respect to data in second layer (Sigmoid function Input "u")
+  // Find error with respect to data in second layer (Sigmoid function input "u")
   public static double[] secondLayerDataError(double[] actual, double[] expected) {
     double[] outputLayerErrors = outputLayerError(actual, expected);
     double[] errors = new double[actual.length];
@@ -41,6 +40,11 @@ public class train_neural {
       errors[i] = outputLayerErrors[i] * (actual[i] * (1 - actual[i]));
     }
     return errors;
+  }
+
+  // Find error with respect to output of first layer (ReLU function output "v")
+  public static double[] firstLayerOutputError(double[] actual, double[] expected) {
+
   }
 
 
