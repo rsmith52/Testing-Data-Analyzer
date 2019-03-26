@@ -8,11 +8,7 @@ public class cell {
 
   // function - runs RELU or Sigmoid based on functionType field
   public double function(double[] inputs) {
-
-    double u = bias * inputWeights[0];
-    for (int i = 0; i < inputs.size(); i++) {
-      u += inputs[i] * inputWeights[i+1];
-    }
+    double u = getU(inputs);
 
     switch(functionType) {
       case "ReLU":
@@ -20,6 +16,15 @@ public class cell {
       case "Sigmoid":
         return sigmoid(u);
     }
+  }
+
+  // returns the weighted sum of inputs and their weights
+  public double getU(double[] inputs) {
+    double u = bias * inputWeights[0];
+    for (int i = 0; i < inputs.size(); i++) {
+      u += inputs[i] * inputWeights[i+1];
+    }
+    return u;
   }
 
   // RELU function
@@ -41,7 +46,17 @@ public class cell {
 
   // sets outputWeights
   public setOutputWeights(double[] weights) {
-    outputWeight = weights;
+    outputWeights = weights;
+  }
+
+  // gets inputWeights
+  public double[] getInputWeights() {
+    return inputWeights;
+  }
+
+  // sets inputWeights
+  public setInputWeights(double[] weights) {
+    inputWeights = weights;
   }
 
 }

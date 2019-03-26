@@ -56,43 +56,78 @@ public class train_neural {
     return errors;
   }
 
-  // TODO FINISH THIS
   // Find error with respect to output of first layer (ReLU function output "v")
   public static double[] firstLayerOutputError(Neural network, double[] actual, double[] expected) {
     double[] secondLayerErrors = secondLayerDataError(network, actual, expected);
     Cell[] firstLayer = network.getFirstLayer();
     // One error term for each first layer cell/unit
     double[] errors = new double[firstLayer.length];
+    // Error with respect to output of first layer is sum of (errors from data in second
+    // layer times the corresponding weight between the layers)
     for (int i = 0; i < errors.length; i++) {
-      // Error with respect to output of first layer is sum of (errors from data in second
-      // layer times the corresponding weight between the layers)
-
+        double[] outputWeights = firstLayer[i].getOutputWeights();
+        errors[i] = 0;
+        for (int j = 0; j < secondLayerErrors.length; j++) {
+          errors[i] += outputWeights[j] * secondLayerErrors[j];
+      }
     }
+    return errors;
   }
 
-  // TODO FINISH THIS
   // Find error with respect to data in first layer (ReLU function input "u")
   public static double[] firstLayerDataError(Neural network, double[] actual, double[] expected) {
     double[] firstLayerOutputErrors = firstLayerOutputError(network, actual, expected);
     Cell[] firstLayer = network.getFirstLayer();
     // One error term for each first layer cell/unit
     double[] errors = new double[firstLayer.length];
-    for (int i = 0; i < errors.length); i++) {
-      // Error with respect to data in first layer is ??? TODO
+    for (int i = 0; i < errors.length; i++) {
+      // TODO: make sure network.getInputs() gives an array, not a mapping
+      double u = firstLayer[i].getU(network.getInputs());
+      // Error w.r.t. data in first layer (u) is the error w.r.t. the output of
+      // first layer (v) times the partial derivative of u with respect to v
+      // The latter quantity is 1 if u >= 0, and 0 otherwise
+      if (u >= 0) {
+        errors[i] = firstLayerOutputErrors[i];
+      } else {
+        errors[i] = 0;
+      }
     }
   }
 
-  // TODO FINISH THIS
+  // TODO FINISH THIS - the for loop currently misses a lot of edges
   // Find error with respect to weights
   public static double[] weightError(Neural network, double[] actual, double[] expected) {
-    
+    double[] firstLayerDataErrors = firstLayerDataError(network, actual, expected);
+    Cell[] firstLayer = network.getFirstLayer();
+    // The error w.r.t. edge weights is the output of the first layer times the
+    // error w.r.t the data of the first layer
+    double[] errors = new double[firstLayer.length];
+    for (int i = 0; i < errors.length; i++) {
+      errors[i] = firstLayer[i].function(network.getInputs()) * firstLayerDataErrors[i];
+    }
+    return errors;
   }
 
-  public void gradientDescent() {
-    double[] weightDerivatives = weightDerivatives();
-    double[] newFirstLayerWeights = new double[network.getFirstLayer.size()];
-    double[] newSecondLayerWeights = new double[network.getSecondLayer.size()];
-  }
+  // TODO FINISH THIS
+  /** perform one step of stochastic gradient descent with step size n.
+   * In general, a new weight is obtained by subtracting (from the old weight)
+   * n times the partial derivative w.r.t. the edge weight
+   */
+  public void gradientDescent(Neural network, double[] actual, double[] expected, double n) {
+    // TODO: Make sure inputWeights and outputWeights are updated for each cell
+    Cell[] firstLayer = network.getFirstLayer();
+    Cell[] secondLayer = network.getSecondLayer();
+    double[] firstLayerDataErrors = firstLayerDataError(network, actual, expected);
 
+  // We'll iterate through the firstLayer first, updating the inputWeights and
+  // outputWeights of the firstLayer, and also the inputWeights of the secondLayer
+  // (which will be the same as the outputWeights of the firstLayer)
+    for (int i = 0; i < firstLayer.length; i++) {
+      // TODO: verify that this is how clone is actually used...
+      double[] newInputWeights = firstLayer[i].getInputWeights().clone();
+      // handling the weight of the bias
+      //TODO: newInputWeights[0] -= n *
+    }
+  }
 
 }
