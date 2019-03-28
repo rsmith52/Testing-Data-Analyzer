@@ -1,3 +1,3 @@
-1939632, Customer would like to learn about excel and powerpoint through in-person workshops., 0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-1769963, Gloria is requesting on-site assistance with her laptop before she works off campus on Thursday and Friday. She got a new laptop and wants to verify that she has access to the files she'll need. She specifically did not want assistance over the phone. HDL2 escalating to DS with priority 2 based on G, 0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-1624183, Admin credentials needed for SPSS install, 0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0
+1939632,Customer would like to learn about excel and powerpoint through in-person workshops.,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+1769963,Gloria is requesting on-site assistance with her laptop before she works off campus on Thursday and Friday. She got a new laptop and wants to verify that she has access to the files she'll need. She specifically did not want assistance over the phone. HDL2 escalating to DS with priority 2 based on G,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+1624183,Admin credentials needed for SPSS install,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0

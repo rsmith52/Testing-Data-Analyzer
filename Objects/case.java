@@ -163,7 +163,7 @@ public class Case implements Serializable{
     occurences.put("day", 0);
     occurences.put("week", 0);
   }
-  Case(int caseNumber, String caseOwner,String caseRequestor,
+  public Case(int caseNumber, String caseOwner,String caseRequestor,
   int dateRequested, int dateCompleted, String description,
   String tokenizedDescription, String category){
     this.caseNumber = caseNumber;
