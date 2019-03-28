@@ -1,4 +1,7 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/josh
 public class case {
 
   boolean actualCategoriesKnown; // true if this is part of a training set we know the categorization of already, false otherwise
@@ -16,6 +19,7 @@ public class case {
     return null;
   }
 }
+<<<<<<< HEAD
 =======
 public class case{
 
@@ -35,3 +39,5 @@ public class case{
     }
   }
 >>>>>>> origin/dan
+=======
+>>>>>>> origin/josh

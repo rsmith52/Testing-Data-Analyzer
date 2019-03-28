@@ -1,6 +1,9 @@
 public class run_neural.java {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> origin/josh
   // Method runs a single case through the neural network and returns an array of outputs
   public static double[] runNetwork(Neural network, Case data) {
     // Get input to network from case
@@ -26,6 +29,7 @@ public class run_neural.java {
   }
 
 }
+<<<<<<< HEAD
 =======
     // Method runs a single case through the neural network and returns an array of outputs
     public static double[] runNetwork(Neural network, Case data) {
@@ -53,3 +57,5 @@ public class run_neural.java {
   
   }
 >>>>>>> origin/dan
+=======
+>>>>>>> origin/josh
