@@ -1,4 +1,4 @@
-public class cell {
+public class Cell {
 
   String functionType; // ReLU or Sigmoid
   final int bias = 1; // Bias term added to function each time

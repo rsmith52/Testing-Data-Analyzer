@@ -3,7 +3,7 @@ import java.util.Map;
 import java.util.Iterator;
 import java.util.Set;
 
-public class neural {
+public class Neural {
 
   Cell[] firstLayer;
   Cell[] secondLayer;
@@ -17,7 +17,7 @@ public class neural {
 
   //TODO: write code to save/load serialized data for the neural network
 
-  public neural () {
+  public Neural () {
     Cell[] firstLayer = new Cell[20];
 
     for(int i = 0; i < firstLayer.length(); i++){

@@ -141,7 +141,7 @@ Lightroom
 Bridge
 Audition
 Dreamweaver
-Licence
+License
 Suite
 Verizon
 Mifi

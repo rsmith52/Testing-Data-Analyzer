@@ -1,4 +1,4 @@
-public class train_neural {
+public class Train_Neural {
 
   final int STEP_SIZE = 0.1;
 
