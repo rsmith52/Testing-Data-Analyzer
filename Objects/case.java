@@ -33,7 +33,6 @@ public class Case implements Serializable{
     occurences.put("Outlook", 0);
     occurences.put("Power", 0);
     occurences.put("Monitor", 0);
-    occurences.put("Computer Name:", 0);
     occurences.put("Firewall", 0);
     occurences.put("Setup", 0);
     occurences.put("New", 0);
@@ -61,7 +60,7 @@ public class Case implements Serializable{
     occurences.put("Webchat", 0);
     occurences.put("Web Chat", 0);
     occurences.put("Voicemail", 0);
-    occurences.put("Google Hangouts", 0);
+    occurences.put("Google", 0);
     occurences.put("Camera", 0);
     occurences.put("Projector", 0);
     occurences.put("Repair", 0);
@@ -138,7 +137,7 @@ public class Case implements Serializable{
     occurences.put("Photoshop", 0);
     occurences.put("Indesign", 0);
     occurences.put("Illustrator", 0);
-    occurences.put("Premiere Pro", 0);
+    occurences.put("Premiere", 0);
     occurences.put("Premiere", 0);
     occurences.put("Acrobat", 0);
     occurences.put("PDF", 0);

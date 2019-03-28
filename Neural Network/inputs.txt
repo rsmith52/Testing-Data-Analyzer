@@ -14,7 +14,6 @@ Excel
 OneNote
 Outlook
 Monitor
-Computer Name:
 Firewall
 Setup
 New
@@ -42,7 +41,7 @@ HDMI
 Webchat
 Web Chat
 Voicemail
-Google Hangouts
+Google
 Camera
 Projector
 Repair
@@ -117,7 +116,7 @@ Requesting
 Access
 Office
 Classroom
-Room Number
+Room
 VPN
 Wifi
 Internet
@@ -131,7 +130,7 @@ Adobe
 Photoshop
 Indesign
 Illustrator
-Premiere Pro
+Premiere
 Premiere
 Acrobat
 PDF
