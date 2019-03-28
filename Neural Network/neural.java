@@ -5,6 +5,9 @@ import java.util.Set;
 
 public class neural {
 
+  Cell[] firstLayer;
+  Cell[] secondLayer;
+
   // Holds weights (double) (Done in Cell.java)
   // Holds cells and connections (need new class/type)
 
@@ -14,17 +17,20 @@ public class neural {
 
   //TODO: write code to save/load serialized data for the neural network
 
-  Cell[] firstLayer = new Cell[20];
+  public neural () {
+    Cell[] firstLayer = new Cell[20];
 
-  for(int i = 0; i < firstLayer.length(); i++){
-    Cell[i].functionType = "ReLU";
+    for(int i = 0; i < firstLayer.length(); i++){
+      Cell[i].functionType = "ReLU";
+    }
+
+    Cell[] secondLayer = new Cell[20];
+
+    for(int i = 0; i < firstLayer.length(); i++){
+      Cell[i].functionType = "Sigmoid";
+    }
   }
 
-  Cell[] secondLayer = new Cell[20];
-
-  for(int i = 0; i < firstLayer.length(); i++){
-    Cell[i].functionType = "Sigmoid";
-  }
 
   // Holds functions (math functions for RELU and Sigmoid) (done in Cell.java)
 
@@ -36,11 +42,11 @@ public class neural {
 
   // getters and setters for all the above
   //
-  public static void loadInputs{
+  public static void loadInputs() {
 
   }
 
-  public static void clearCounts{
+  public static void clearCounts() {
     for(Map.Entry<String, HashMap> entry : selects.entrySet()) {
       entry.setValue(0);
     }

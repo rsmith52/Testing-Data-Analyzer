@@ -1,7 +1,7 @@
-public class run_neural.java {
+public class run_neural {
 
   // Method runs a single case through the neural network and returns an array of outputs
-  public static double[] runNetwork(Neural network, Case data) {
+  public static double[] runNetwork (Neural network, Case data) {
     // Get input to network from case
     int[] inputs = data.getAsInput();
 

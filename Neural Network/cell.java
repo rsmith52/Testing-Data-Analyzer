@@ -16,6 +16,8 @@ public class cell {
       case "Sigmoid":
         return sigmoid(u);
     }
+
+    return null;
   }
 
   // returns the weighted sum of inputs and their weights
@@ -41,21 +43,21 @@ public class cell {
 
   // gets outputWeights
   public double[] getOutputWeights() {
-    return outputWeights;
+    return this.outputWeights;
   }
 
   // sets outputWeights
-  public setOutputWeights(double[] weights) {
+  public void setOutputWeights(double[] weights) {
     outputWeights = weights;
   }
 
   // gets inputWeights
   public double[] getInputWeights() {
-    return inputWeights;
+    return this.inputWeights;
   }
 
   // sets inputWeights
-  public setInputWeights(double[] weights) {
+  public void setInputWeights(double[] weights) {
     inputWeights = weights;
   }
 
