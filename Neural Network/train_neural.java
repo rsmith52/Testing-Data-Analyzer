@@ -111,7 +111,8 @@ public class Train_Neural {
     Cell[] firstLayer = network.getFirstLayer();
     // The error w.r.t. edge weights is the output of the first layer times the
     // error w.r.t the data of the first layer
-    double[] errors = new double[firstLayer.length];
+    numWeights = firstLayer.length * (firstLayer.length + 1) + firstLayer.length * network.numOuputs;
+    double[] errors = new double[numWeights];
     for (int i = 0; i < errors.length; i++) {
       errors[i] = firstLayer[i].function(network.getInputs()) * firstLayerDataErrors[i];
     }
