@@ -9,7 +9,7 @@ public class Neural {
 
   Cell[] firstLayer;
   Cell[] secondLayer;
-  final numOuputs = 20;
+  final int numOuputs = 20;
 
   // Holds weights (double) (Done in Cell.java)
   // Holds cells and connections (need new class/type)

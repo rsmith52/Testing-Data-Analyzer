@@ -18,14 +18,13 @@ public class Cell {
       case "Sigmoid":
         return sigmoid(u);
     }
-
-    return null;
+    return -1;
   }
 
   // returns the weighted sum of inputs and their weights
   public double getU(double[] inputs) {
     double u = bias * inputWeights[0];
-    for (int i = 0; i < inputs.size(); i++) {
+    for (int i = 0; i < inputs.length; i++) {
       u += inputs[i] * inputWeights[i+1];
     }
     return u;

@@ -1,5 +1,7 @@
 package Neural_Network;
 
+import Objects.*;
+
 public class Run_Neural {
 
   // Method runs a single case through the neural network and returns an array of outputs
