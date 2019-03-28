@@ -1,5 +1,7 @@
 public class train_neural {
 
+  final int STEP_SIZE = 0.1;
+
   // Run through an epoch with a training set - updating the weights of the network
   public static void trainNeural(Neural network, Case[] dataSet) {
     // Go through each case in the training set
@@ -8,9 +10,17 @@ public class train_neural {
       double[] networkOutput = run_neural.runNeural(network, data);
       // Get the correct output
       double[] correctOutput = data.getLabelsIfKnown();
+      // Get errors from weights
+      gradientDescent(network, networkOutput, correctOutput, STEP_SIZE);
     }
   }
 
+  // Run through multiple epochs with a training set - updating the weights of the network
+  public static void trainNeuralEpochs(Neural network, Case[] dataSet, int numEpochs) {
+    for (int i = 0; i < numEpochs; i++) {
+      trainNeural(network, dataSet);
+    }
+  }
 
   /*
 
