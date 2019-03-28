@@ -189,7 +189,7 @@ public class Case implements Serializable{
     occurences.put("outlook", 0);
     occurences.put("power", 0);
     occurences.put("monitor", 0);
-    occurences.put("computer name:", 0);
+    occurences.put("computer", 0);
     occurences.put("firewall", 0);
     occurences.put("setup", 0);
     occurences.put("new", 0);
@@ -217,7 +217,7 @@ public class Case implements Serializable{
     occurences.put("webchat", 0);
     occurences.put("web chat", 0);
     occurences.put("voicemail", 0);
-    occurences.put("google hangouts", 0);
+    occurences.put("google", 0);
     occurences.put("camera", 0);
     occurences.put("projector", 0);
     occurences.put("repair", 0);
@@ -294,7 +294,7 @@ public class Case implements Serializable{
     occurences.put("photoshop", 0);
     occurences.put("indesign", 0);
     occurences.put("illustrator", 0);
-    occurences.put("premiere pro", 0);
+    occurences.put("premiere", 0);
     occurences.put("premiere", 0);
     occurences.put("acrobat", 0);
     occurences.put("pdf", 0);
