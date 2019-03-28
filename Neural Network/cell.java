@@ -1,3 +1,5 @@
+package Neural_Network;
+
 public class Cell {
 
   String functionType; // ReLU or Sigmoid

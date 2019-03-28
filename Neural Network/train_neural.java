@@ -1,3 +1,5 @@
+package Neural_Network;
+
 public class Train_Neural {
 
   final int STEP_SIZE = 0.1;
