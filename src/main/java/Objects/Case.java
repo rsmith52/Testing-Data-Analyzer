@@ -13,11 +13,11 @@ public class Case implements Serializable{
   int dateRequested;
   int dateCompleted;
   String description;
-  String tokenizedDescription;
+  String[] tokenizedDescription;
   String category;
 
 
-  Case(){
+  public Case(){
     occurences.put("office", 0);
     occurences.put("365", 0);
     occurences.put("o365", 0);
@@ -165,7 +165,7 @@ public class Case implements Serializable{
   }
   public Case(int caseNumber, String caseOwner,String caseRequestor,
   int dateRequested, int dateCompleted, String description,
-  String tokenizedDescription, String category){
+  String[] tokenizedDescription, String category){
     this.caseNumber = caseNumber;
     this.caseOwner = caseOwner;
     this.caseRequestor = caseRequestor;
@@ -343,7 +343,7 @@ public class Case implements Serializable{
   public void setDescription(String description){
     this.description = description;
   }
-  public void setTokenizedDescription(String tokenizedDescription){
+  public void setTokenizedDescription(String[] tokenizedDescription){
     this.tokenizedDescription = tokenizedDescription;
   }
   public void setCategory(String category){
@@ -371,26 +371,96 @@ public class Case implements Serializable{
   public String getDescription(){
     return this.description;
   }
-  public String getTokenizedDescription(){
+  public String[] getTokenizedDescription(){
     return this.tokenizedDescription;
   }
   public String getCategory(){
     return this.category;
   }
 
-  public void findOccurences(String description){
-    for(int i = 0; i < description.length(); i++){
-
+  public void findOccurences(String[] tokenizedDescription){
+    for(int i = 0; i < tokenizedDescription.length; i++){
+      if(occurences.containsKey(tokenizedDescription[i])){
+        occurences.put(tokenizedDescription[i], occurences.get(tokenizedDescription[i]) + 1);
+      }
     }
   }
   // Function to return all of the data from the case as input to neural network
   public HashMap<String, Integer> getAsInput() {
-    return null;
+    findOccurences(tokenizedDescription);
+    return occurences;
   }
 
   // Function to return correct labels of the data from the case
   public double[] getLabelsIfKnown() {
+    double[] labelMatch = new double[20];
+    for(int i = 0; i < labelMatch.length; i++){
+      labelMatch[i] = 0;
+    }
     if (actualCategoriesKnown) {
+      switch(category){
+        case "Office 365 Email and Calendar":
+          labelMatch[0] = 1;
+          break;
+        case "Shared/Network Drive":
+          labelMatch[1] = 1;
+          break;
+        case "Microsoft Office":
+          labelMatch[2] = 1;
+          break;
+        case "Computer Support Settings":
+          labelMatch[3] = 1;
+          break;
+        case "Purchase Request":
+          labelMatch[4] = 1;
+          break;
+        case "Onsite Assistance":
+          labelMatch[5] = 1;
+          break;
+        case "Wisclists":
+          labelMatch[6] = 1;
+          break;
+        case "Audio/Visual Support":
+          labelMatch[7] = 1;
+          break;
+        case "Device Repair":
+          labelMatch[8] = 1;
+          break;
+        case "Service Account Creation (Email)":
+          labelMatch[9] = 1;
+          break;
+        case "Admin Account/Password":
+          labelMatch[10] = 1;
+          break;
+        case "Login Issues":
+          labelMatch[11] = 1;
+          break;
+        case "Virus/Maleware":
+          labelMatch[12] = 1;
+          break;
+        case "Printer Support":
+          labelMatch[13] = 1;
+          break;
+        case "Multi Factor Authentication":
+          labelMatch[14] = 1;
+          break;
+        case "Room Access":
+          labelMatch[15] = 1;
+          break;
+        case "Network Connectivity":
+          labelMatch[16] = 1;
+          break;
+        case "Adobe Suite":
+          labelMatch[17] = 1;
+          break;
+        case "Loaner Request (Computer/Mifi)":
+          labelMatch[18] = 1;
+          break;
+        case "General Question":
+          labelMatch[19] = 1;
+          break;
+      }
+      return labelMatch;
       // return categories as double array with a 1 if it matches and a 0 if it doesn't
     }
     return null;

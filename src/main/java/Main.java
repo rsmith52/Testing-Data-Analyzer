@@ -20,7 +20,8 @@ public class Main {
       while (scnr.hasNextLine()) {
         String line = scnr.nextLine();
         String[] parts = line.split(",");
-        Case thisCase = new Case(Integer.parseInt(parts[0]), "", "", 0, 0, parts[1], "", "");
+        System.out.println(parts[1]);
+        Case thisCase = new Case(Integer.parseInt(parts[0]), "", "", 0, 0, parts[1], new String[] {}, "");
         testData.add(thisCase);
 
       }
