@@ -16,8 +16,7 @@ public class Main {
     ArrayList<Case> testData = new ArrayList<Case>();
     // Fill List with Data from Test_Data.txt
     try {
-      FileAccess access = new FileAccess();
-      File testFile = access.getFile("Test_Data.txt");
+      File testFile = FileAccess.getFile("Test_Data.txt");
       Scanner scnr = new Scanner(testFile);
       while (scnr.hasNextLine()) {
         String line = scnr.nextLine();

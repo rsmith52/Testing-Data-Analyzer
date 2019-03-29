@@ -4,11 +4,16 @@ import java.io.File;
 
 public class FileAccess {
 	
-	public File getFile(String fileName) {
-		ClassLoader classLoader = getClass().getClassLoader();
-		File file = new File(classLoader.getResource(fileName).getFile());
+	public static File getFile(String fileName) {
+		try {
+			File file = new File(FileAccess.class.getResource( "/Test_Data.txt" ).toURI());
+			return file;
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 		
-		return file;
+		return null;
+		
 	}
 
 }
