@@ -103,6 +103,7 @@ public class Train_Neural {
 	        errors[i] = 0;
 	      }
 	    }
+	    return errors;
 	  }
 
 	  // Find error with respect to weights
@@ -128,7 +129,7 @@ public class Train_Neural {
 	    // j is used in the outer loop for consistency with edges going from i to j
 	    for (int j = 0; j < firstLayer.length; j++) {
 	      errors[j*(firstLayer.length+1)] = 1 * firstLayerDataErrors[j]; // handling the bias input
-	      for (int i = 0; i < firstLayer.length; i++)) {
+	      for (int i = 0; i < firstLayer.length; i++) {
 	        errors[j*(firstLayer.length+1)+i+1] = inputs[i] * firstLayerDataErrors[j];
 	      }
 	      firstLayerOutput[j] = firstLayer[j].function(inputs);
@@ -137,7 +138,7 @@ public class Train_Neural {
 	    int offset = firstLayer.length * (firstLayer.length + 1);
 	    for (int j = 0; j < secondLayer.length; j++) {
 	      errors[offset + j*(firstLayer.length+1)] = 1 * secondLayerDataErrors[j]; // handling the bias input
-	      for (int i = 0; i < firstLayer.length; i++)) {
+	      for (int i = 0; i < firstLayer.length; i++) {
 	        errors[offset + j*(firstLayer.length+1)+i+1] = firstLayerOutput[i] * secondLayerDataErrors[j];
 	      }
 	    }
@@ -156,7 +157,7 @@ public class Train_Neural {
 	    // updating weights for edges going into firstLayer
 	    for (int j = 0; j < firstLayer.length; j++) {
 	      double[] newWeights = firstLayer[j].getInputWeights().clone();
-	      for (int i = 0; i < newWeights.length; i++)) {
+	      for (int i = 0; i < newWeights.length; i++) {
 	        newWeights[i] -= n * weightErrors[j * newWeights.length + i];
 	      }
 	      firstLayer[j].setInputWeights(newWeights);

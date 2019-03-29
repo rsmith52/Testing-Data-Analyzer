@@ -45,15 +45,33 @@ public class Neural {
   // Holds outputs/labels (list of output labels)
 
 
-  // getters and setters for all the above
-  //
+  //getters and setters for all the above
+  public Cell[] getFirstLayer() {
+	  return this.firstLayer;
+  }
+  
+  public Cell[] getSecondLayer() {
+	  return this.secondLayer;
+  }
+  
   public static void loadInputs() {
 
   }
 
-  public static void clearCounts() {
-    for(Map.Entry<String, HashMap> entry : selects.entrySet()) {
+  public double[] getInputs() {
+	  double[] doubleInputs = new double[this.inputs.size()];
+	  int i = 0;
+	  
+	  for(Map.Entry<String, Integer> entry : this.inputs.entrySet()) {
+		  doubleInputs[i] = entry.getValue();
+	  }
+	  
+	  return doubleInputs;
+  }
+  
+  public void clearCounts() {
+    for(Map.Entry<String, Integer> entry : this.inputs.entrySet()) {
       entry.setValue(0);
     }
-  }
+}
 }

@@ -1,5 +1,6 @@
 import Objects.*;
 import Neural_Network.*;
+import File_IO.*;
 import java.util.*;
 import java.io.*;
 
@@ -15,7 +16,8 @@ public class Main {
     ArrayList<Case> testData = new ArrayList<Case>();
     // Fill List with Data from Test_Data.txt
     try {
-      File testFile = new File("./Database/Test_Data.txt");
+      FileAccess access = new FileAccess();
+      File testFile = access.getFile("Test_Data.txt");
       Scanner scnr = new Scanner(testFile);
       while (scnr.hasNextLine()) {
         String line = scnr.nextLine();
@@ -25,8 +27,10 @@ public class Main {
         testData.add(thisCase);
 
       }
+      scnr.close();
     } catch (Exception e) {
-      System.out.println("Error reading from test data.");
+      System.out.print("Error reading from test data: ");
+      System.out.println(e);
     }
     // Tokenize descriptions
     
@@ -50,5 +54,6 @@ public class Main {
 
 
   }
+  
 
 }
