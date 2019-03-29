@@ -1,4 +1,5 @@
 import Objects.*;
+import Neural_Network.*;
 import java.util.*;
 import java.io.*;
 
@@ -12,6 +13,7 @@ public class Main {
         Basic Running of Neural Network with Input Data to Show Network Produces Output and Training Can Be Done
     */
     ArrayList<Case> testData = new ArrayList<Case>();
+    // Fill List with Data from Test_Data.txt
     try {
       File testFile = new File("./Database/Test_Data.txt");
       Scanner scnr = new Scanner(testFile);
@@ -20,11 +22,16 @@ public class Main {
         String[] parts = line.split(",");
         Case thisCase = new Case(Integer.parseInt(parts[0]), "", "", 0, 0, parts[1], "", "");
         testData.add(thisCase);
-        
+
       }
     } catch (Exception e) {
-
+      System.out.println("Error reading from test data.");
     }
+    // Tokenize descriptions
+    // Get Input Values
+
+    // Create Neural Network
+
 
   }
 
