@@ -50,26 +50,83 @@ public class Main {
     	System.out.print(results[i] + " ");
     }
     System.out.println();
+    System.out.println();
+    
+    // Testing Network Error
+    System.out.println("Testing for network error against the test cases");
+    for (int i = 0; i < testData.size(); i++) {
+    	System.out.println("Case: " + testData.get(i).getDescription());
+    	
+    	// Get the output of the network
+	    double[] networkOutput = Run_Neural.runNetwork(network, testData.get(i));
+	    System.out.print("Network Output: ");
+	    for (int j = 0; j < networkOutput.length; j++) {
+	    	System.out.print(networkOutput[j] + " ");
+	    }
+	    System.out.println();
+	    
+	    // Get the correct output
+	    double[] correctOutput = testData.get(i).getLabelsIfKnown();
+	    System.out.print("Correct Output: ");
+	    for (int j = 0; j < correctOutput.length; j++) {
+	    	System.out.print(correctOutput[j] + " ");
+	    }
+	    System.out.println();
+	    
+	    // Get overall network error
+	    System.out.print("Network Error: ");
+	    double[] networkError = Train_Neural.networkError(networkOutput, correctOutput);
+	    for (int j = 0; j < networkError.length; j++) {
+	    	System.out.print(networkError[j] + " ");
+	    }
+	    System.out.println();
+	    
+	    // Get output error with respect to output layer
+	    System.out.print("Output Layer Error: ");
+	    double[] outputLayerError = Train_Neural.outputLayerError(networkOutput, correctOutput);
+	    for (int j = 0; j < outputLayerError.length; j++) {
+	    	System.out.print(outputLayerError[j] + " ");
+	    }
+	    System.out.println();
+	    
+	    // Get error from second layer data
+	    System.out.print("Second Layer Data Error: ");
+	    double[] outputLayerDataError = Train_Neural.secondLayerDataError(network, networkOutput, correctOutput);
+	    for (int j = 0; j < outputLayerDataError.length; j++) {
+	    	System.out.print(outputLayerDataError[j] + " ");
+	    }
+	    System.out.println();
+	    System.out.println();
+	    
+    }
+    System.out.println();
+    
 
     // Train network with 3 cases
-    //System.out.println("Training network with tiny training set 1000 times");
-    //Case[] testArray = (Case[])testData.toArray();
-    //Train_Neural.trainNeuralEpochs(network, testArray, 1000);
+    System.out.println("Training network with tiny training set 1000 times");
+    Case[] testArray = new Case[testData.size()];
+    for (int i = 0; i < testArray.length; i++) {
+    	testArray[i] = testData.get(i);
+    }
+    Train_Neural.trainNeuralEpochs(network, testArray, 1000);
 
-    // Run a case through trained network
-    //System.out.println("Running the cases through the trained network");
-    //Categorized categorized = new Categorized("Test List", 0);
-    //double[][] finalResults = new double[3][20];
-    //finalResults[0] = Run_Neural.runNetwork(network, testData.get(0));
-    //finalResults[1] = Run_Neural.runNetwork(network, testData.get(1));
-    //finalResults[2] = Run_Neural.runNetwork(network, testData.get(2));
+    // Run the cases through trained network
+    System.out.println("Running the cases through the trained network");
+    ArrayList<double[]> finalResults = new ArrayList<double[]>();
+    for (int j = 0; j < testArray.length; j++) {
+    	finalResults.add(Run_Neural.runNetwork(network, testArray[j]));
+    	for (int i = 0; i < results.length; i++) {
+        	System.out.print(finalResults.get(j)[i] + " ");
+        }
+        System.out.println();
+    }
 
 
     /*
         Basic Use of CSV_In to show we can read from .csv files
     */
     
-    System.out.println("CSV Reading Demo");
+    //System.out.println("CSV Reading Demo");
 
 
 
