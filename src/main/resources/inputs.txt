@@ -39,7 +39,7 @@ time
 audio
 hdmi
 webchat
-web chat
+chat
 voicemail
 google
 camera

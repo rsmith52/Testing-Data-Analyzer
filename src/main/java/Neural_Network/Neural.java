@@ -26,12 +26,14 @@ public class Neural {
     Cell[] firstLayer = new Cell[numInputs];
 
     for(int i = 0; i < firstLayer.length; i++){
+      firstLayer[i] = new Cell();
       firstLayer[i].functionType = "ReLU";
     }
 
     Cell[] secondLayer = new Cell[numOutputs];
 
-    for(int i = 0; i < firstLayer.length; i++){
+    for(int i = 0; i < secondLayer.length; i++){
+      secondLayer[i] = new Cell();
       secondLayer[i].functionType = "Sigmoid";
     }
   }
