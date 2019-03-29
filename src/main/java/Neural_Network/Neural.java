@@ -1,23 +1,29 @@
 package Neural_Network;
 
 import Neural_Network.*;
+import File_IO.*;
+import java.util.Scanner;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Iterator;
 import java.util.Set;
+import java.io.*;
 
 public class Neural {
 
   Cell[] firstLayer;
   Cell[] secondLayer;
   final int numOutputs = 20;
-  final int numInputs = 155;
+  final int numInputs = 145;
+  final String inputFile = "inputs.txt";
+  final String outputFile = "outputs.txt";
 
   // Holds weights (double) (Done in Cell.java)
   // Holds cells and connections (need new class/type)
 
   //Hashmap to store our inputs. Each key will be an input word and each output will be the number of instances
-  Map<String, Integer> inputs = new HashMap<String, Integer>();
+  Map<String, Integer> inputs;
+  Map<String, Integer> outputs;
 
 
   //TODO: write code to save/load serialized data for the neural network
@@ -36,6 +42,9 @@ public class Neural {
       secondLayer[i] = new Cell();
       secondLayer[i].functionType = "Sigmoid";
     }
+    
+    loadText(inputFile, inputs);
+    loadText(outputFile, outputs);
   }
 
 
@@ -56,8 +65,23 @@ public class Neural {
 	  return this.secondLayer;
   }
   
-  public static void loadInputs() {
-
+  //We will un-hardcode the inputs in iteration 2
+  public static void loadText(String fileName, Map<String, Integer> hm) {
+	  hm = new HashMap<String, Integer>();
+	  
+	  File file = FileAccess.getFile(fileName);
+	  
+	  try {
+		  Scanner scanner = new Scanner(file);
+		  
+		  while(scanner.hasNextLine()) {
+			  hm.put(scanner.nextLine(), 0);
+		  }
+		  
+		  scanner.close();
+	  } catch (FileNotFoundException e) {
+	  }
+	  
   }
 
   public double[] getInputs() {
@@ -66,6 +90,7 @@ public class Neural {
 	  
 	  for(Map.Entry<String, Integer> entry : this.inputs.entrySet()) {
 		  doubleInputs[i] = entry.getValue();
+		  i++;
 	  }
 	  
 	  return doubleInputs;
@@ -75,5 +100,5 @@ public class Neural {
     for(Map.Entry<String, Integer> entry : this.inputs.entrySet()) {
       entry.setValue(0);
     }
-}
+  }
 }
