@@ -50,6 +50,7 @@ public class Main {
     	System.out.print(results[i] + " ");
     }
     System.out.println();
+    System.out.println();
     
     // Testing Network Error
     System.out.println("Testing for network error against the 3 test cases");
@@ -70,20 +71,25 @@ public class Main {
 	    }
 	    System.out.println();
 	    System.out.print("Network Error: ");
+	    double[] networkError = Train_Neural.networkError(networkOutput, correctOutput);
+	    for (int j = 0; j < networkError.length; j++) {
+	    	System.out.print(networkError[j] + " ");
+	    }
 	    System.out.println();
     }
+    System.out.println();
     
 
     // Train network with 3 cases
-    //System.out.println("Training network with tiny training set 1000 times");
+    System.out.println("Training network with tiny training set 1000 times");
     Case[] testArray = new Case[testData.size()];
     for (int i = 0; i < testArray.length; i++) {
     	testArray[i] = testData.get(i);
     }
-    Train_Neural.trainNeuralEpochs(network, testArray, 1);
+    Train_Neural.trainNeuralEpochs(network, testArray, 1000);
 
     // Run a case through trained network
-    //System.out.println("Running the cases through the trained network");
+    System.out.println("Running the cases through the trained network");
     Categorized categorized = new Categorized("Test List", 0);
     double[][] finalResults = new double[3][20];
     finalResults[0] = Run_Neural.runNetwork(network, testData.get(0));
@@ -91,9 +97,9 @@ public class Main {
     finalResults[2] = Run_Neural.runNetwork(network, testData.get(2));
     for (int j = 0; j < finalResults.length; j++) {
     	for (int i = 0; i < results.length; i++) {
-        	//System.out.print(finalResults[j][i] + " ");
+        	System.out.print(finalResults[j][i] + " ");
         }
-        //System.out.println();
+        System.out.println();
     }
 
 

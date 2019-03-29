@@ -40,7 +40,7 @@ public class Train_Neural {
 	    double[] errors = new double[actual.length];
 	    for (int i = 0; i < errors.length; i++) {
 	      // Error of network for each label is 1/2 (output - expected output)^2
-	      errors[i] = (1/2) * Math.pow(actual[i] - expected[i], 2);
+	      errors[i] = Math.pow(actual[i] - expected[i], 2) / 2;
 	    }
 	    return errors;
 	  }
