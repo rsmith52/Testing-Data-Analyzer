@@ -15,7 +15,7 @@ public class Train_Neural {
 	      double[] networkOutput = Run_Neural.runNetwork(network, data);
 	      // Get the correct output
 	      double[] correctOutput = data.getLabelsIfKnown();
-	      // Get errors from weights
+	      // Train the network
 	      gradientDescent(data, network, networkOutput, correctOutput, STEP_SIZE);
 	    }
 	  }

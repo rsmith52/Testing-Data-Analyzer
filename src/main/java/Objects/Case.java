@@ -395,6 +395,10 @@ public class Case implements Serializable{
 	  
   }
 
+  /*
+   * (iterates through tokenized description to count occurences of keywords)
+   * @param (tokenizedDescription) Contains a tokenized description that is easily iterable)
+   */
   public void findOccurrences(String[] tokenizedDescription){
     for(int i = 0; i < tokenizedDescription.length; i++){
       if(occurrences.containsKey(tokenizedDescription[i])){
@@ -404,18 +408,22 @@ public class Case implements Serializable{
   }
   // Function to return all of the data from the case as input to neural network
   public double[] getAsInput() {
-	double[] inputs = new double[numKeywords];
-	int i = 0;
+	  double[] inputs = new double[numKeywords];
+	  for (Map.Entry<String, Integer> entry : occurrences.entrySet()) {
+          occurrences.put(entry.getKey(), 0);
+      }
+	  int i = 0;
     findOccurrences(tokenizedDescription);
     Iterator<Entry<String, Integer>> it = occurrences.entrySet().iterator();
     while(it.hasNext()) {
     	@SuppressWarnings("unchecked")
 		Map.Entry<String, Integer> pair = (Map.Entry<String, Integer>)it.next();
     	inputs[i] = (double) pair.getValue();
+    	//System.out.println(inputs[i]);
     	i++;
     }
     return inputs;
-  }
+}
 
   // Function to return correct labels of the data from the case
   public double[] getLabelsIfKnown() {
