@@ -14,7 +14,7 @@ public class Neural {
   Cell[] firstLayer;
   Cell[] secondLayer;
   final int numOutputs = 20;
-  final int numInputs = 145;
+  final int numInputs = 144;
   final String inputFile = "inputs.txt";
   final String outputFile = "outputs.txt";
 
@@ -32,19 +32,19 @@ public class Neural {
     Cell[] firstLayer = new Cell[numInputs];
 
     for(int i = 0; i < firstLayer.length; i++){
-      firstLayer[i] = new Cell();
+      firstLayer[i] = new Cell(numInputs, numOutputs);
       firstLayer[i].functionType = "ReLU";
     }
+    this.firstLayer = firstLayer;
 
     Cell[] secondLayer = new Cell[numOutputs];
 
     for(int i = 0; i < secondLayer.length; i++){
-      secondLayer[i] = new Cell();
+      secondLayer[i] = new Cell(numInputs, numOutputs);
       secondLayer[i].functionType = "Sigmoid";
     }
+    this.secondLayer = secondLayer;
     
-    loadText(inputFile, inputs);
-    loadText(outputFile, outputs);
   }
 
 
@@ -65,24 +65,6 @@ public class Neural {
 	  return this.secondLayer;
   }
   
-  //We will un-hardcode the inputs in iteration 2
-  public static void loadText(String fileName, Map<String, Integer> hm) {
-	  hm = new HashMap<String, Integer>();
-	  
-	  File file = FileAccess.getFile(fileName);
-	  
-	  try {
-		  Scanner scanner = new Scanner(file);
-		  
-		  while(scanner.hasNextLine()) {
-			  hm.put(scanner.nextLine(), 0);
-		  }
-		  
-		  scanner.close();
-	  } catch (FileNotFoundException e) {
-	  }
-	  
-  }
 
   public double[] getInputs() {
 	  double[] doubleInputs = new double[this.inputs.size()];

@@ -7,6 +7,17 @@ public class Cell {
   double[] inputWeights; // Weights for all inputs including bias term as index 0
   double[] outputWeights; // Weights for all outputs from cell
 
+  // Constructor for a Cell
+  public Cell (int numInputs, int numOutputs) {
+	  this.inputWeights = new double[numInputs + 1]; // +1 for bias weight
+	  for (int i = 0; i < inputWeights.length; i++) {
+		  inputWeights[i] = 1;
+	  }
+	  this.outputWeights = new double[numOutputs];
+	  for (int i = 0; i < outputWeights.length; i++) {
+		  outputWeights[i] = 1;
+	  }
+  }
 
   // function - runs RELU or Sigmoid based on functionType field
   public double function(double[] inputs) {

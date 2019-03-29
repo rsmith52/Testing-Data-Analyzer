@@ -46,19 +46,23 @@ public class Main {
     // Run a case through Network and get output
     System.out.println("Running a single case through untrained network");
     double[] results = Run_Neural.runNetwork(network, testData.get(0));
+    for (int i = 0; i < results.length; i++) {
+    	System.out.print(results[i] + " ");
+    }
+    System.out.println();
 
     // Train network with 3 cases
-    System.out.println("Training network with tiny training set 1000 times");
-    Case[] testArray = (Case[])testData.toArray();
-    Train_Neural.trainNeuralEpochs(network, testArray, 1000);
+    //System.out.println("Training network with tiny training set 1000 times");
+    //Case[] testArray = (Case[])testData.toArray();
+    //Train_Neural.trainNeuralEpochs(network, testArray, 1000);
 
     // Run a case through trained network
-    System.out.println("Running the cases through the trained network");
-    Categorized categorized = new Categorized("Test List", 0);
-    double[][] finalResults = new double[3][20];
-    finalResults[0] = Run_Neural.runNetwork(network, testData.get(0));
-    finalResults[1] = Run_Neural.runNetwork(network, testData.get(1));
-    finalResults[2] = Run_Neural.runNetwork(network, testData.get(2));
+    //System.out.println("Running the cases through the trained network");
+    //Categorized categorized = new Categorized("Test List", 0);
+    //double[][] finalResults = new double[3][20];
+    //finalResults[0] = Run_Neural.runNetwork(network, testData.get(0));
+    //finalResults[1] = Run_Neural.runNetwork(network, testData.get(1));
+    //finalResults[2] = Run_Neural.runNetwork(network, testData.get(2));
 
 
     /*
