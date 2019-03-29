@@ -18,6 +18,7 @@ public class Cell {
       case "Sigmoid":
         return sigmoid(u);
     }
+    // function should always return a nonnegative value, so -1 indicates a problem
     return -1;
   }
 
