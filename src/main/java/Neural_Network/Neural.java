@@ -40,7 +40,7 @@ public class Neural {
     Cell[] secondLayer = new Cell[numOutputs];
 
     for(int i = 0; i < secondLayer.length; i++){
-      secondLayer[i] = new Cell(numInputs, numOutputs);
+      secondLayer[i] = new Cell(numInputs, 0);
       secondLayer[i].functionType = "Sigmoid";
     }
     this.secondLayer = secondLayer;

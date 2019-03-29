@@ -53,9 +53,10 @@ public class Main {
     System.out.println();
     
     // Testing Network Error
-    System.out.println("Testing for network error against the 3 test cases");
+    System.out.println("Testing for network error against the test cases");
     for (int i = 0; i < testData.size(); i++) {
     	System.out.println("Case: " + testData.get(i).getDescription());
+    	
     	// Get the output of the network
 	    double[] networkOutput = Run_Neural.runNetwork(network, testData.get(i));
 	    System.out.print("Network Output: ");
@@ -63,6 +64,7 @@ public class Main {
 	    	System.out.print(networkOutput[j] + " ");
 	    }
 	    System.out.println();
+	    
 	    // Get the correct output
 	    double[] correctOutput = testData.get(i).getLabelsIfKnown();
 	    System.out.print("Correct Output: ");
@@ -70,12 +72,32 @@ public class Main {
 	    	System.out.print(correctOutput[j] + " ");
 	    }
 	    System.out.println();
+	    
+	    // Get overall network error
 	    System.out.print("Network Error: ");
 	    double[] networkError = Train_Neural.networkError(networkOutput, correctOutput);
 	    for (int j = 0; j < networkError.length; j++) {
 	    	System.out.print(networkError[j] + " ");
 	    }
 	    System.out.println();
+	    
+	    // Get output error with respect to output layer
+	    System.out.print("Output Layer Error: ");
+	    double[] outputLayerError = Train_Neural.outputLayerError(networkOutput, correctOutput);
+	    for (int j = 0; j < outputLayerError.length; j++) {
+	    	System.out.print(outputLayerError[j] + " ");
+	    }
+	    System.out.println();
+	    
+	    // Get error from second layer data
+	    System.out.print("Second Layer Data Error: ");
+	    double[] outputLayerDataError = Train_Neural.secondLayerDataError(network, networkOutput, correctOutput);
+	    for (int j = 0; j < outputLayerDataError.length; j++) {
+	    	System.out.print(outputLayerDataError[j] + " ");
+	    }
+	    System.out.println();
+	    System.out.println();
+	    
     }
     System.out.println();
     
@@ -88,16 +110,13 @@ public class Main {
     }
     Train_Neural.trainNeuralEpochs(network, testArray, 1000);
 
-    // Run a case through trained network
+    // Run the cases through trained network
     System.out.println("Running the cases through the trained network");
-    Categorized categorized = new Categorized("Test List", 0);
-    double[][] finalResults = new double[3][20];
-    finalResults[0] = Run_Neural.runNetwork(network, testData.get(0));
-    finalResults[1] = Run_Neural.runNetwork(network, testData.get(1));
-    finalResults[2] = Run_Neural.runNetwork(network, testData.get(2));
-    for (int j = 0; j < finalResults.length; j++) {
+    ArrayList<double[]> finalResults = new ArrayList<double[]>();
+    for (int j = 0; j < testArray.length; j++) {
+    	finalResults.add(Run_Neural.runNetwork(network, testArray[j]));
     	for (int i = 0; i < results.length; i++) {
-        	System.out.print(finalResults[j][i] + " ");
+        	System.out.print(finalResults.get(j)[i] + " ");
         }
         System.out.println();
     }
