@@ -23,7 +23,7 @@ public class Main {
         String line = scnr.nextLine();
         String[] parts = line.split(",");
         String[] tokenized = Tokenization.segmentation(parts[1]);
-        Case thisCase = new Case(Integer.parseInt(parts[0]), "", "", 0, parts[1], tokenized, "");
+        Case thisCase = new Case(Integer.parseInt(parts[0]), "", "", "", parts[1], tokenized, "");
         thisCase.setActualCategoriesKnown(true);
         thisCase.setCategory(parts[2]);
         testData.add(thisCase);
@@ -36,7 +36,7 @@ public class Main {
     }
     // Get Input Values
     for (Case thisCase: testData) {
-    	thisCase.findOccurences(thisCase.getTokenizedDescription());
+    	thisCase.findOccurrences(thisCase.getTokenizedDescription());
     }
 
     // Create Neural Network

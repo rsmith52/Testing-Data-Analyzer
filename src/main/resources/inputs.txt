@@ -12,7 +12,6 @@ word
 powerpoint
 excel
 onenote
-outlook
 monitor
 firewall
 setup
@@ -32,14 +31,13 @@ wisclist
 list
 lists
 mass
-email
 realtime
 real
 time
 audio
 hdmi
 webchat
-chat
+web chat
 voicemail
 google
 camera
@@ -56,10 +54,8 @@ format
 re-imaged
 fix
 fixed
-email
 role
 based
-new
 employee
 staff
 member
@@ -85,7 +81,6 @@ click
 link
 clicked
 phishing
-email
 infected
 virus
 malware
@@ -111,12 +106,9 @@ room
 floorplan
 floor
 plan
-request
 requesting
 access
-office
 classroom
-room
 vpn
 wifi
 internet
@@ -130,7 +122,6 @@ adobe
 photoshop
 indesign
 illustrator
-premiere
 premiere
 acrobat
 pdf
@@ -150,6 +141,5 @@ rent
 spare
 borrow
 borrowed
-request
 day
 week
