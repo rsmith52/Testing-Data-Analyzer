@@ -4,43 +4,34 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.ArrayList;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 
+import Objects.Case;
+
 public class CSV_In {
-
-	public String[] testRead(String path) throws IOException
-	{
-		
-		Reader in = new FileReader(path);
-		Iterable<CSVRecord> records = CSVFormat.EXCEL.parse(in);
-		int i = 0;
-		String description[] = new String[10000];
-		for (CSVRecord record : records) {
-		    description[i] = record.get("Description");
-		}
-
-	    System.out.println();
-		
-		return null;
-	}
 	
-	public String[] testRead(File file) throws IOException
+	public ArrayList<Case> csvRead(File file) throws IOException
 	{
-		
+		ArrayList<Case> cases = new ArrayList<Case>();
 		Reader in = new FileReader(file);
-		Iterable<CSVRecord> records = CSVFormat.EXCEL.parse(in);
-		int i = 0;
-		String description[] = new String[100000];
+		Iterable<CSVRecord> records = CSVFormat.EXCEL.withHeader().parse(in);
 		for (CSVRecord record : records) {
-		    description[i] = record.get(6);
-		    i++;
+			Case myCase = new Case();
+			myCase.setCaseNumber(Integer.parseInt(record.get("Incident ID")));
+			myCase.setActualCategoriesKnown(false);
+			myCase.setCaseOwner(record.get("Owned By"));
+			myCase.setCaseRequestor(record.get("Customer Display Name"));
+			myCase.setCategory(record.get("Category"));
+			myCase.setDateRequested(record.get("Created Date Time"));
+			myCase.setDescription(record.get("Description"));
+			cases.add(myCase);
 		}
 
-	    System.out.println(description[3]);
 		
-		return null;
+		return cases;
 	}
 	
 	public File getFile(String fileName) {

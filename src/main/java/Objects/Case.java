@@ -10,8 +10,7 @@ public class Case implements Serializable{
   int caseNumber;
   String caseOwner;
   String caseRequestor;
-  int dateRequested;
-  int dateCompleted;
+  String dateRequested;
   String description;
   String[] tokenizedDescription;
   String category;
@@ -164,13 +163,12 @@ public class Case implements Serializable{
     occurences.put("week", 0);
   }
   public Case(int caseNumber, String caseOwner,String caseRequestor,
-  int dateRequested, int dateCompleted, String description,
+  String dateRequested, String description,
   String[] tokenizedDescription, String category){
     this.caseNumber = caseNumber;
     this.caseOwner = caseOwner;
     this.caseRequestor = caseRequestor;
     this.dateRequested = dateRequested;
-    this.dateCompleted = dateCompleted;
     this.description = description;
     this.tokenizedDescription = tokenizedDescription;
     this.category = category;
@@ -334,11 +332,8 @@ public class Case implements Serializable{
   public void setCaseRequestor(String caseRequestor){
     this.caseRequestor = caseRequestor;
   }
-  public void setDateRequested(int dateRequested){
-    this.dateRequested = dateRequested;
-  }
-  public void setDateCompleted(int dateCompleted){
-    this.dateCompleted = dateCompleted;
+  public void setDateRequested(String string){
+    this.dateRequested = string;
   }
   public void setDescription(String description){
     this.description = description;
@@ -362,11 +357,8 @@ public class Case implements Serializable{
   public String getCaseRequestor(){
     return this.caseRequestor;
   }
-  public int getDateRequested(){
+  public String getDateRequested(){
     return this.dateRequested;
-  }
-  public int getDateCompleted(){
-    return this.dateCompleted;
   }
   public String getDescription(){
     return this.description;
