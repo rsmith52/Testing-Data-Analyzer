@@ -42,7 +42,7 @@ public class Neural {
       secondLayer[i] = new Cell();
       secondLayer[i].functionType = "Sigmoid";
     }
-    
+
     loadText(inputFile, inputs);
     loadText(outputFile, outputs);
   }
@@ -60,42 +60,42 @@ public class Neural {
   public Cell[] getFirstLayer() {
 	  return this.firstLayer;
   }
-  
+
   public Cell[] getSecondLayer() {
 	  return this.secondLayer;
   }
-  
+
   //We will un-hardcode the inputs in iteration 2
   public static void loadText(String fileName, Map<String, Integer> hm) {
 	  hm = new HashMap<String, Integer>();
-	  
+
 	  File file = FileAccess.getFile(fileName);
-	  
+
 	  try {
 		  Scanner scanner = new Scanner(file);
-		  
+
 		  while(scanner.hasNextLine()) {
 			  hm.put(scanner.nextLine(), 0);
 		  }
-		  
+
 		  scanner.close();
 	  } catch (FileNotFoundException e) {
 	  }
-	  
+
   }
 
   public double[] getInputs() {
 	  double[] doubleInputs = new double[this.inputs.size()];
 	  int i = 0;
-	  
+
 	  for(Map.Entry<String, Integer> entry : this.inputs.entrySet()) {
 		  doubleInputs[i] = entry.getValue();
 		  i++;
 	  }
-	  
+
 	  return doubleInputs;
   }
-  
+
   public void clearCounts() {
     for(Map.Entry<String, Integer> entry : this.inputs.entrySet()) {
       entry.setValue(0);

@@ -15,7 +15,7 @@ public class Train_Neural {
 	      // Get the correct output
 	      double[] correctOutput = data.getLabelsIfKnown();
 	      // Get errors from weights
-	      gradientDescent(network, networkOutput, correctOutput, STEP_SIZE);
+	      gradientDescent(data, network, networkOutput, correctOutput, STEP_SIZE);
 	    }
 	  }
 
@@ -86,14 +86,13 @@ public class Train_Neural {
 	  }
 
 	  // Find error with respect to data in first layer (ReLU function input "u")
-	  public static double[] firstLayerDataError(Neural network, double[] actual, double[] expected) {
+	  public static double[] firstLayerDataError(Case data, Neural network, double[] actual, double[] expected) {
 	    double[] firstLayerOutputErrors = firstLayerOutputError(network, actual, expected);
 	    Cell[] firstLayer = network.getFirstLayer();
 	    // One error term for each first layer cell/unit
 	    double[] errors = new double[firstLayer.length];
 	    for (int i = 0; i < errors.length; i++) {
-	      // TODO: make sure network.getInputs() gives an array, not a mapping
-	      double u = firstLayer[i].getU(network.getInputs());
+	      double u = firstLayer[i].getU(data.getAsInput());
 	      // Error w.r.t. data in first layer (u) is the error w.r.t. the output of
 	      // first layer (v) times the partial derivative of u with respect to v
 	      // The latter quantity is 1 if u >= 0, and 0 otherwise
@@ -107,12 +106,12 @@ public class Train_Neural {
 	  }
 
 	  // Find error with respect to weights
-	  public static double[] weightError(Neural network, double[] actual, double[] expected) {
+	  public static double[] weightError(Case data, Neural network, double[] actual, double[] expected) {
 	    Cell[] firstLayer = network.getFirstLayer();
 	    Cell[] secondLayer = network.getSecondLayer();
-	    double[] firstLayerDataErrors = firstLayerDataError(network, actual, expected);
+	    double[] firstLayerDataErrors = firstLayerDataError(data, network, actual, expected);
 	    double[] secondLayerDataErrors = secondLayerDataError(network, actual, expected);
-	    double[] inputs = network.getInputs();
+	    double[] inputs = data.getAsInput();
 	    // The error with respect to the weight of edge ij is the output of cell i
 	    // times the error w.r.t the data of cell j
 
@@ -149,11 +148,10 @@ public class Train_Neural {
 	   * In general, a weight is updated by subtracting n times the partial
 	   * derivative w.r.t. the edge weight
 	   */
-	  public static void gradientDescent(Neural network, double[] actual, double[] expected, double n) {
-	    // TODO: Make sure inputWeights and outputWeights are updated for each cell
+	  public static void gradientDescent(Case data, Neural network, double[] actual, double[] expected, double n) {
 	    Cell[] firstLayer = network.getFirstLayer();
 	    Cell[] secondLayer = network.getSecondLayer();
-	    double[] weightErrors = weightError(network, actual, expected);
+	    double[] weightErrors = weightError(data, network, actual, expected);
 	    // updating weights for edges going into firstLayer
 	    for (int j = 0; j < firstLayer.length; j++) {
 	      double[] newWeights = firstLayer[j].getInputWeights().clone();
