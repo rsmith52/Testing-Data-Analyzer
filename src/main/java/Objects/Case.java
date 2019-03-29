@@ -7,6 +7,7 @@ import java.util.Map.Entry;
 import java.io.*;
 
 public class Case implements Serializable{
+  static final long serialVersionUID = 10;
   HashMap<String, Integer> occurrences = new HashMap<String, Integer>();
   boolean actualCategoriesKnown; // true if this is part of a training set we know the categorization of already, false otherwise
   int caseNumber;
@@ -366,7 +367,7 @@ public class Case implements Serializable{
   public String getCaseRequestor(){
     return this.caseRequestor;
   }
-  public int getDateRequested(){
+  public String getDateRequested(){
     return this.dateRequested;
   }
   public String getDescription(){
