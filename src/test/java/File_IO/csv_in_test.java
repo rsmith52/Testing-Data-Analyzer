@@ -15,11 +15,8 @@ public class csv_in_test {
 
 	@Test
 	public void testTestRead() throws IOException {
-		CSV_In test = new CSV_In();
-		File file = test.getFile("Bascom_Pull.csv");
-		ArrayList<Case> cases = test.csvRead(file);
-		
-		
+		File file = FileAccess.getFile("Bascom_Pull.csv");
+		ArrayList<Case> cases = CSV_In.csvRead(file);
 		Assert.assertEquals(1000374, cases.get(2).getCaseNumber());
 	}
 

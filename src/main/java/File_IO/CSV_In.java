@@ -13,7 +13,7 @@ import Objects.Case;
 
 public class CSV_In {
 	
-	public ArrayList<Case> csvRead(File file) throws IOException
+	public static ArrayList<Case> csvRead(File file) throws IOException
 	{
 		ArrayList<Case> cases = new ArrayList<Case>();
 		Reader in = new FileReader(file);
