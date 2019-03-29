@@ -19,7 +19,9 @@ public class Case implements Serializable{
   String category;
   static int numKeywords = 144;
 
-
+  /*
+   * (Default constructor to create a case and initialize occurrences counts)
+   */
   public Case(){
     occurrences.put("office", 0);
     occurrences.put("365", 0);
@@ -169,6 +171,9 @@ public class Case implements Serializable{
     occurrences.put("day", 0);
     occurrences.put("week", 0);
   }
+  /*
+   * (Constructor when all variables are known)
+   */
   public Case(int caseNumber, String caseOwner,String caseRequestor,
   String dateRequested, int dateCompleted, String description,
   String[] tokenizedDescription, String category){
@@ -380,6 +385,10 @@ public class Case implements Serializable{
     return this.category;
   }
 
+  /*
+   * (iterates through tokenized description to count occurences of keywords)
+   * @param (tokenizedDescription) Contains a tokenized description that is easily iterable)
+   */
   public void findOccurrences(String[] tokenizedDescription){
     for(int i = 0; i < tokenizedDescription.length; i++){
       if(occurrences.containsKey(tokenizedDescription[i])){
@@ -389,7 +398,10 @@ public class Case implements Serializable{
   }
   // Function to return all of the data from the case as input to neural network
   public double[] getAsInput() {
-	  double[] inputs = new double[144];
+	  double[] inputs = new double[numKeywords];
+	  for (Map.Entry<String, Integer> entry : occurrences.entrySet()) {
+          occurrences.put(entry.getKey(), 0);
+      }
 	  int i = 0;
     findOccurrences(tokenizedDescription);
     Iterator<Entry<String, Integer>> it = occurrences.entrySet().iterator();
@@ -397,6 +409,7 @@ public class Case implements Serializable{
     	@SuppressWarnings("unchecked")
 		Map.Entry<String, Integer> pair = (Map.Entry<String, Integer>)it.next();
     	inputs[i] = (double) pair.getValue();
+    	System.out.println(inputs[i]);
     	i++;
     }
     return inputs;
