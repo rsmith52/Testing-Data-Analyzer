@@ -32,6 +32,20 @@ public class Main {
 
     // Create Neural Network
 
+    // Run a case through Network and get output
+
+    // Train network with 3 cases
+
+    // Run a case through trained network
+
+    // Form a "Categorized" object of the 3 labeled cases
+
+
+    /*
+        Basic Use of CSV_In to show we can read from .csv files
+    */
+
+
 
   }
 
