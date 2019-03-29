@@ -28,6 +28,7 @@ public class Main {
       System.out.println("Error reading from test data.");
     }
     // Tokenize descriptions
+    
     // Get Input Values
 
     // Create Neural Network

@@ -10,7 +10,8 @@ public class Neural {
 
   Cell[] firstLayer;
   Cell[] secondLayer;
-  final int numOuputs = 20;
+  final int numOutputs = 20;
+  final int numInputs = 155;
 
   // Holds weights (double) (Done in Cell.java)
   // Holds cells and connections (need new class/type)
@@ -22,13 +23,13 @@ public class Neural {
   //TODO: write code to save/load serialized data for the neural network
 
   public Neural () {
-    Cell[] firstLayer = new Cell[20];
+    Cell[] firstLayer = new Cell[numInputs];
 
     for(int i = 0; i < firstLayer.length; i++){
       firstLayer[i].functionType = "ReLU";
     }
 
-    Cell[] secondLayer = new Cell[20];
+    Cell[] secondLayer = new Cell[numOutputs];
 
     for(int i = 0; i < firstLayer.length; i++){
       secondLayer[i].functionType = "Sigmoid";
