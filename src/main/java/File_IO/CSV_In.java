@@ -52,8 +52,9 @@ public class CSV_In {
 			//stores into ArrayList
 			cases.add(myCase);
 		}
+		in.close();
 
 		return cases;
 	} //end csvRead
-	
+
 } //end CSV_In
