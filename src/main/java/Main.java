@@ -17,7 +17,7 @@ public class Main {
     ArrayList<Case> testData = new ArrayList<Case>();
     // Fill List with Data from Test_Data.txt
     try {
-      File testFile = FileAccess.getFile("Test_Data.txt");
+      File testFile = FileAccess.getFile("/Test_Data.txt");
       Scanner scnr = new Scanner(testFile);
       while (scnr.hasNextLine()) {
         String line = scnr.nextLine();
@@ -129,6 +129,22 @@ public class Main {
     */
     
     System.out.println("CSV Reading Demo");
+    ArrayList<Case> cases = new ArrayList<Case>();
+    File dataPull = FileAccess.getFile("/Bascom_Pull.csv");
+    try {
+    	System.out.println("Reading in data from Bascom Pull to an ArrayList of cases");
+    	cases = CSV_In.csvRead(dataPull);
+    	System.out.println("Reading a few random cases");
+    	int[] casesToDemo = new int[] {1, 20, 55, 245};
+    	for (int i = 0; i < casesToDemo.length; i++) {
+    		System.out.print("Case Number: " + cases.get(casesToDemo[i]).getCaseNumber() + " ");
+    		System.out.print("Description: " + cases.get(casesToDemo[i]).getDescription());
+    		System.out.println();
+    	}
+    } catch (Exception e) {
+    	System.out.println(e);
+    }
+    
 
     
 
