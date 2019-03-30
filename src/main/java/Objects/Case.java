@@ -469,7 +469,7 @@ public class Case implements Serializable{
         case "Login Issues":
           labelMatch[11] = 1;
           break;
-        case "Virus/Maleware":
+        case "Virus/Malware":
           labelMatch[12] = 1;
           break;
         case "Printer Support":
