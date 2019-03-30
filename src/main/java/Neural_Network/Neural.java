@@ -13,7 +13,7 @@ public class Neural {
 
   Cell[] firstLayer;
   Cell[] secondLayer;
-  final int numOutputs = 20;
+  final int numOutputs = 19;
   final int numInputs = 144;
   final String inputFile = "inputs.txt";
   final String outputFile = "outputs.txt";
