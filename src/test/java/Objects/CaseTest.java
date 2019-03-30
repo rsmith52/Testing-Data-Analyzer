@@ -62,5 +62,22 @@ public class CaseTest {
 			fail("caused an exception");
 		}
 	}
+	@Test
+	public void testGetLabelsIfKnown() {
+		double[] testLabel;
+		double[] testLabel2;
+		Case testCase = new Case();
+		testCase.actualCategoriesKnown = true;
+		testCase.category = "Microsoft Office";
+		Case testCase2 = new Case();
+		testCase2.actualCategoriesKnown = true;
+		testCase2.category = "Virus/Malware";
+		
+		testLabel = testCase.getLabelsIfKnown();
+		testLabel2 = testCase2.getLabelsIfKnown();
+		
+		assertEquals(1, (int)testLabel[2]);
+		assertEquals(1, (int)testLabel2[12]);
+	}
 
 }
