@@ -112,6 +112,7 @@ public class Main {
 
     // Run the cases through trained network
     System.out.println("Running the cases through the trained network");
+    System.out.println("Shows the chance a case fits a label, indexed by outputs.txt");
     ArrayList<double[]> finalResults = new ArrayList<double[]>();
     for (int j = 0; j < testArray.length; j++) {
     	finalResults.add(Run_Neural.runNetwork(network, testArray[j]));
@@ -120,13 +121,14 @@ public class Main {
         }
         System.out.println();
     }
+    System.out.println();
 
 
     /*
         Basic Use of CSV_In to show we can read from .csv files
     */
     
-    //System.out.println("CSV Reading Demo");
+    System.out.println("CSV Reading Demo");
 
 
 

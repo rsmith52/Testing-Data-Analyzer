@@ -427,7 +427,7 @@ public class Case implements Serializable{
 
   // Function to return correct labels of the data from the case
   public double[] getLabelsIfKnown() {
-    double[] labelMatch = new double[20];
+    double[] labelMatch = new double[19];
     for(int i = 0; i < labelMatch.length; i++){
       labelMatch[i] = 0;
     }
@@ -489,9 +489,6 @@ public class Case implements Serializable{
           break;
         case "Loaner Request (Computer/Mifi)":
           labelMatch[18] = 1;
-          break;
-        case "General Question":
-          labelMatch[19] = 1;
           break;
       }
       return labelMatch;

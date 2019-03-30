@@ -17,4 +17,3 @@ Room Access
 Network Connectivity
 Adobe Suite
 Loaner Request (Computer/Mifi)
-General Question
