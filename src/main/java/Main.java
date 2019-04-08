@@ -101,8 +101,50 @@ public class Main {
     }
     System.out.println();
     
+    // Train network with 4 cases, 20 epochs
+    System.out.println("Training network with tiny training set 20 times");
+    Case[] testArray1 = new Case[testData.size()];
+    for (int i = 0; i < testArray1.length; i++) {
+    	testArray1[i] = testData.get(i);
+    }
+    Train_Neural.trainNeuralEpochs(network, testArray1, 20);
 
-    // Train network with 3 cases
+    // Run the cases through trained network
+    System.out.println("Running the cases through the trained network");
+    System.out.println("Shows the chance a case fits a label, indexed by outputs.txt");
+    ArrayList<double[]> finalResults1 = new ArrayList<double[]>();
+    for (int j = 0; j < testArray1.length; j++) {
+    	finalResults1.add(Run_Neural.runNetwork(network, testArray1[j]));
+    	for (int i = 0; i < results.length; i++) {
+        	System.out.print(finalResults1.get(j)[i] + " ");
+        }
+        System.out.println();
+    }
+    System.out.println();
+    
+    // Train network with 4 cases, 50 epochs
+    System.out.println("Training network with tiny training set 50 times");
+    Case[] testArray2 = new Case[testData.size()];
+    for (int i = 0; i < testArray2.length; i++) {
+    	testArray2[i] = testData.get(i);
+    }
+    Train_Neural.trainNeuralEpochs(network, testArray2, 50);
+
+    // Run the cases through trained network
+    System.out.println("Running the cases through the trained network");
+    System.out.println("Shows the chance a case fits a label, indexed by outputs.txt");
+    ArrayList<double[]> finalResults2 = new ArrayList<double[]>();
+    for (int j = 0; j < testArray2.length; j++) {
+    	finalResults2.add(Run_Neural.runNetwork(network, testArray2[j]));
+    	for (int i = 0; i < results.length; i++) {
+        	System.out.print(finalResults2.get(j)[i] + " ");
+        }
+        System.out.println();
+    }
+    System.out.println();
+    
+
+    // Train network with 4 cases, 1000 epochs
     System.out.println("Training network with tiny training set 1000 times");
     Case[] testArray = new Case[testData.size()];
     for (int i = 0; i < testArray.length; i++) {
@@ -122,6 +164,7 @@ public class Main {
         System.out.println();
     }
     System.out.println();
+    System.out.println();
 
 
     /*
@@ -135,7 +178,7 @@ public class Main {
     	System.out.println("Reading in data from Bascom Pull to an ArrayList of cases");
     	cases = CSV_In.csvRead(dataPull);
     	System.out.println("Reading a few random cases");
-    	int[] casesToDemo = new int[] {1, 20, 55, 245};
+    	int[] casesToDemo = new int[] {1, 20, 56, 242};
     	for (int i = 0; i < casesToDemo.length; i++) {
     		System.out.print("Case Number: " + cases.get(casesToDemo[i]).getCaseNumber() + " ");
     		System.out.print("Description: " + cases.get(casesToDemo[i]).getDescription());
@@ -143,12 +186,8 @@ public class Main {
     	}
     } catch (Exception e) {
     	System.out.println(e);
-    }
-    
-
-    
+    }   
 
   }
-  
 
 }
