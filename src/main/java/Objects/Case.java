@@ -1,5 +1,8 @@
 package Objects;
 
+import Objects.*;
+import File_IO.*;
+import java.util.Scanner;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -21,7 +24,7 @@ public class Case implements Serializable{
 
 
   public Case(){
-    occurrences.put("365", 0);
+	occurrences.put("365", 0);
     occurrences.put("access", 0);
     occurrences.put("account", 0);
     occurrences.put("acrobat", 0);
@@ -164,7 +167,7 @@ public class Case implements Serializable{
     occurrences.put("wisclist", 0);
     occurrences.put("wlan", 0);
     occurrences.put("word", 0);
-    occurrences.put("wrong", 0);
+	occurrences.put("wrong", 0);
   }
   public Case(int caseNumber, String caseOwner,String caseRequestor,
   String dateRequested, String description,
@@ -373,7 +376,29 @@ public class Case implements Serializable{
   public String getCategory(){
     return this.category;
   }
+  
+  public static void loadText(String fileName, Map<String, Integer> hm) {
+	  hm = new HashMap<String, Integer>();
+	  
+	  File file = FileAccess.getFile(fileName);
+	  
+	  try {
+		  Scanner scanner = new Scanner(file);
+		  
+		  while(scanner.hasNextLine()) {
+			  hm.put(scanner.nextLine(), 0);
+		  }
+		  
+		  scanner.close();
+	  } catch (FileNotFoundException e) {
+	  }
+	  
+  }
 
+  /*
+   * (iterates through tokenized description to count occurences of keywords)
+   * @param (tokenizedDescription) Contains a tokenized description that is easily iterable)
+   */
   public void findOccurrences(String[] tokenizedDescription){
     for(int i = 0; i < tokenizedDescription.length; i++){
       if(occurrences.containsKey(tokenizedDescription[i])){
@@ -383,7 +408,10 @@ public class Case implements Serializable{
   }
   // Function to return all of the data from the case as input to neural network
   public double[] getAsInput() {
-	  double[] inputs = new double[144];
+	  double[] inputs = new double[numKeywords];
+	  for (Map.Entry<String, Integer> entry : occurrences.entrySet()) {
+          occurrences.put(entry.getKey(), 0);
+      }
 	  int i = 0;
     findOccurrences(tokenizedDescription);
     Iterator<Entry<String, Integer>> it = occurrences.entrySet().iterator();
@@ -391,14 +419,15 @@ public class Case implements Serializable{
     	@SuppressWarnings("unchecked")
 		Map.Entry<String, Integer> pair = (Map.Entry<String, Integer>)it.next();
     	inputs[i] = (double) pair.getValue();
+    	//System.out.println(inputs[i]);
     	i++;
     }
     return inputs;
-  }
+}
 
   // Function to return correct labels of the data from the case
   public double[] getLabelsIfKnown() {
-    double[] labelMatch = new double[20];
+    double[] labelMatch = new double[19];
     for(int i = 0; i < labelMatch.length; i++){
       labelMatch[i] = 0;
     }
@@ -440,7 +469,7 @@ public class Case implements Serializable{
         case "Login Issues":
           labelMatch[11] = 1;
           break;
-        case "Virus/Maleware":
+        case "Virus/Malware":
           labelMatch[12] = 1;
           break;
         case "Printer Support":
@@ -460,9 +489,6 @@ public class Case implements Serializable{
           break;
         case "Loaner Request (Computer/Mifi)":
           labelMatch[18] = 1;
-          break;
-        case "General Question":
-          labelMatch[19] = 1;
           break;
       }
       return labelMatch;

@@ -7,7 +7,7 @@ public class Run_Neural {
   // Method runs a single case through the neural network and returns an array of outputs
   public static double[] runNetwork (Neural network, Case data) {
     // Get input to network from case
-	double[] inputs = data.getAsInput();
+	double[] inputs = data.getAsInput();	
 
     // Run through first layer of network
     Cell[] firstLayer = network.getFirstLayer();

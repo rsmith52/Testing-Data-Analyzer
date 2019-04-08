@@ -1,12 +1,28 @@
 package Neural_Network;
 
+import java.util.Random;
+
 public class Cell {
 
   String functionType; // ReLU or Sigmoid
   final int bias = 1; // Bias term added to function each time
+  final Random rand = new Random();
   double[] inputWeights; // Weights for all inputs including bias term as index 0
   double[] outputWeights; // Weights for all outputs from cell
 
+  // Constructor for a Cell
+  public Cell (int numInputs, int numOutputs) {
+	  this.inputWeights = new double[numInputs + 1]; // +1 for bias weight
+	  for (int i = 0; i < inputWeights.length; i++) {
+		  if (rand.nextBoolean()) inputWeights[i] = 0.1;
+		  else inputWeights[i] = -0.1;
+	  }
+	  this.outputWeights = new double[numOutputs];
+	  for (int i = 0; i < outputWeights.length; i++) {
+		  if (rand.nextBoolean()) outputWeights[i] = 0.1;
+		  else outputWeights[i] = -0.1;
+	  }
+  }
 
   // function - runs RELU or Sigmoid based on functionType field
   public double function(double[] inputs) {

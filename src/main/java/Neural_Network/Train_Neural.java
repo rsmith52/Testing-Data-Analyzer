@@ -1,3 +1,4 @@
+	
 package Neural_Network;
 
 import Objects.*;
@@ -14,7 +15,7 @@ public class Train_Neural {
 	      double[] networkOutput = Run_Neural.runNetwork(network, data);
 	      // Get the correct output
 	      double[] correctOutput = data.getLabelsIfKnown();
-	      // Get errors from weights
+	      // Train the network
 	      gradientDescent(data, network, networkOutput, correctOutput, STEP_SIZE);
 	    }
 	  }
@@ -39,7 +40,7 @@ public class Train_Neural {
 	    double[] errors = new double[actual.length];
 	    for (int i = 0; i < errors.length; i++) {
 	      // Error of network for each label is 1/2 (output - expected output)^2
-	      errors[i] = (1/2) * Math.pow(actual[i] - expected[i], 2);
+	      errors[i] = Math.pow(actual[i] - expected[i], 2) / 2;
 	    }
 	    return errors;
 	  }
@@ -177,4 +178,4 @@ public class Train_Neural {
 	      firstLayer[i].setOutputWeights(outputWeights[i]);
 	    }
 	  }
-	}
+}
