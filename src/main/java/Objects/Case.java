@@ -24,7 +24,7 @@ public class Case implements Serializable{
 
 
   public Case(){
-	occurrences.put("365", 0);
+  	occurrences.put("365", 0);
     occurrences.put("access", 0);
     occurrences.put("account", 0);
     occurrences.put("acrobat", 0);
@@ -167,7 +167,7 @@ public class Case implements Serializable{
     occurrences.put("wisclist", 0);
     occurrences.put("wlan", 0);
     occurrences.put("word", 0);
-	occurrences.put("wrong", 0);
+	 occurrences.put("wrong", 0);
   }
   public Case(int caseNumber, String caseOwner,String caseRequestor,
   String dateRequested, String description,
