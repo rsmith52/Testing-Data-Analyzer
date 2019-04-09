@@ -40,9 +40,9 @@ public class Main {
     }
 
     // Create Neural Network
-    System.out.println("Creating network object");
+    System.out.println("Creating network object");    
     Neural network = new Neural();
-
+    
     // Run a case through Network and get output
     System.out.println("Running a single case through untrained network");
     double[] results = Run_Neural.runNetwork(network, testData.get(0));
