@@ -167,7 +167,7 @@ public class Case implements Serializable{
     occurrences.put("wisclist", 0);
     occurrences.put("wlan", 0);
     occurrences.put("word", 0);
-	 occurrences.put("wrong", 0);
+	occurrences.put("wrong", 0);
   }
   public Case(int caseNumber, String caseOwner,String caseRequestor,
   String dateRequested, String description,

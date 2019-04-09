@@ -1,6 +1,7 @@
 package Neural_Network;
 
 import Neural_Network.*;
+import Neural_Network.Cell;
 import File_IO.*;
 import java.util.Scanner;
 import java.util.HashMap;
