@@ -409,7 +409,6 @@ public class Case implements Serializable{
     	@SuppressWarnings("unchecked")
 		Map.Entry<String, Integer> pair = (Map.Entry<String, Integer>)it.next();
     	inputs[i] = (double) pair.getValue();
-    	System.out.println(inputs[i]);
     	i++;
     }
     return inputs;
@@ -459,7 +458,7 @@ public class Case implements Serializable{
         case "Login Issues":
           labelMatch[11] = 1;
           break;
-        case "Virus/Maleware":
+        case "Virus/Malware":
           labelMatch[12] = 1;
           break;
         case "Printer Support":
