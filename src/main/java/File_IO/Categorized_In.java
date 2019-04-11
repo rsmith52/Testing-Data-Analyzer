@@ -8,15 +8,15 @@ public class Categorized_In implements Serializable{
 	static final long serialVersionUID = 10;
 	
 	
-	public ArrayList<Case> readFromDatabase(File filename) {
+	public static Categorized readFromDatabase(File filename) {
 		try {
 			Categorized alreadyCategorized = new Categorized();
 			FileInputStream fin = new FileInputStream(filename);
 			ObjectInputStream in = new ObjectInputStream(fin);
-			alreadyCategorized.caseList = (ArrayList<Case>)in.readObject();
+			alreadyCategorized = (Categorized)in.readObject();
 			in.close();
 			fin.close();
-			return alreadyCategorized.caseList;
+			return alreadyCategorized;
 		}
 		catch(IOException e) {
 			System.err.print("Error reading from database: IO exception");

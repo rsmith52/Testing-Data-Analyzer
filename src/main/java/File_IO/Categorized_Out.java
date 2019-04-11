@@ -3,12 +3,11 @@ import java.io.*;
 import Objects.*;
 import java.util.*;
 
-import Objects.Case;
 
 public class Categorized_Out implements Serializable{
 	static final long serialVersionUID = 10;
 	
-	public void writeToDatabase(File filename, Categorized alreadyCategorized) {
+	public static void writeToDatabase(File filename, Categorized alreadyCategorized) {
 		try {
 			FileOutputStream fout = new FileOutputStream(filename);
 			ObjectOutputStream out = new ObjectOutputStream(fout);
