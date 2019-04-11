@@ -56,5 +56,33 @@ public class CSV_In {
 
 		return cases;
 	} //end csvRead
+	
+	public static ArrayList<Case> csvRead(File file, boolean isTestData) throws IOException
+	{
+		//Variable declarations
+		ArrayList<Case> cases = new ArrayList<Case>();
+		Reader in = new FileReader(file);
+		Iterable<CSVRecord> records = CSVFormat.EXCEL.withHeader().parse(in);
+		Case myCase;
+		
+		//For each loop, for every entry in csv, store into case
+		for (CSVRecord record : records) {
+			myCase = new Case();
+			//stores by column header
+			myCase.setCaseNumber(Integer.parseInt(record.get("Incident ID")));
+			myCase.setActualCategoriesKnown(true);
+			myCase.setCategory(record.get("Subcategory"));
+			myCase.setDescription(record.get("Description"));
+			String[] tokenized = Tokenization.segmentation(myCase.getDescription());
+			myCase.setTokenizedDescription(tokenized);
+
+			//stores into ArrayList
+			cases.add(myCase);
+		}
+		in.close();
+
+		return cases;
+	} //end csvRead
+
 
 } //end CSV_In

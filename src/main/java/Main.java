@@ -101,7 +101,7 @@ public class Main {
     }
     System.out.println();
     
-    // Train network with 4 cases, 20 epochs
+/*    // Train network with 4 cases, 20 epochs
     System.out.println("Training network with tiny training set 20 times");
     Case[] testArray1 = new Case[testData.size()];
     for (int i = 0; i < testArray1.length; i++) {
@@ -165,8 +165,9 @@ public class Main {
     }
     System.out.println();
     System.out.println();
+*/
 
-
+    
     /*
         Basic Use of CSV_In to show we can read from .csv files
     */
@@ -188,6 +189,38 @@ public class Main {
     	System.out.println(e);
     }   
 
+    System.out.println("Reading in Test Data");
+    ArrayList<Case> newCases = new ArrayList<Case>();
+    File newFile = FileAccess.getFile("/categorizedCases.csv");
+    try {
+    	newCases = CSV_In.csvRead(newFile, true);
+    } catch (Exception e) {
+    	System.out.println(e);
+    }   
+
+    // Train network with 4 cases, 1000 epochs
+    System.out.println("Training network with tiny training set 1000 times");
+    Case[] testArray7 = new Case[newCases.size()];
+    for (int i = 0; i < testArray7.length; i++) {
+    	testArray7[i] = newCases.get(i);
+    }
+    
+    
+    Train_Neural.trainNeuralEpochs(network, testArray7, 100);
+
+    // Run the cases through trained network
+    network = new Neural();
+    System.out.println("Running the cases through the trained network");
+    System.out.println("Shows the chance a case fits a label, indexed by outputs.txt");
+    ArrayList<double[]> finalResults = new ArrayList<double[]>();
+    for (int j = 0; j < testArray7.length; j++) {
+    	finalResults.add(Run_Neural.runNetwork(network, testArray7[j]));
+    	for (int i = 0; i < 10; i++) {
+        	System.out.print(finalResults.get(j)[i] + " ");
+        }
+        System.out.println();
+    }
+    
   }
 
 }
