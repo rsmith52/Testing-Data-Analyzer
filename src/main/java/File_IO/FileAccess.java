@@ -6,7 +6,7 @@ public class FileAccess {
 	
 	public static File getFile(String fileName) {
 		try {
-			File file = new File(FileAccess.class.getResource( "/Test_Data.txt" ).toURI());
+			File file = new File(FileAccess.class.getResource(fileName).toURI());
 			return file;
 		} catch (Exception e) {
 			System.out.println(e);

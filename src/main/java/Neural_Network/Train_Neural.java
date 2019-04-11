@@ -14,8 +14,8 @@ public class Train_Neural {
 	      double[] networkOutput = Run_Neural.runNetwork(network, data);
 	      // Get the correct output
 	      double[] correctOutput = data.getLabelsIfKnown();
-	      // Get errors from weights
-	      gradientDescent(network, networkOutput, correctOutput, STEP_SIZE);
+	      // Train the network
+	      gradientDescent(data, network, networkOutput, correctOutput, STEP_SIZE);
 	    }
 	  }
 
@@ -39,7 +39,7 @@ public class Train_Neural {
 	    double[] errors = new double[actual.length];
 	    for (int i = 0; i < errors.length; i++) {
 	      // Error of network for each label is 1/2 (output - expected output)^2
-	      errors[i] = (1/2) * Math.pow(actual[i] - expected[i], 2);
+	      errors[i] = Math.pow(actual[i] - expected[i], 2) / 2;
 	    }
 	    return errors;
 	  }
@@ -71,75 +71,67 @@ public class Train_Neural {
 	  public static double[] firstLayerOutputError(Neural network, double[] actual, double[] expected) {
 	    double[] secondLayerErrors = secondLayerDataError(network, actual, expected);
 	    Cell[] firstLayer = network.getFirstLayer();
+	    double[][] weights = network.getWeights();
 	    // One error term for each first layer cell/unit
 	    double[] errors = new double[firstLayer.length];
 	    // Error with respect to output of first layer is sum of (errors from data in second
 	    // layer times the corresponding weight between the layers)
 	    for (int i = 0; i < errors.length; i++) {
-	        double[] outputWeights = firstLayer[i].getOutputWeights();
 	        errors[i] = 0;
 	        for (int j = 0; j < secondLayerErrors.length; j++) {
-	          errors[i] += outputWeights[j] * secondLayerErrors[j];
+	          errors[i] += weights[j][i+1] * secondLayerErrors[j];
 	      }
 	    }
 	    return errors;
 	  }
 
 	  // Find error with respect to data in first layer (ReLU function input "u")
-	  public static double[] firstLayerDataError(Neural network, double[] actual, double[] expected) {
+	  public static double[] firstLayerDataError(Case data, Neural network, double[] actual, double[] expected) {
 	    double[] firstLayerOutputErrors = firstLayerOutputError(network, actual, expected);
 	    Cell[] firstLayer = network.getFirstLayer();
 	    // One error term for each first layer cell/unit
 	    double[] errors = new double[firstLayer.length];
 	    for (int i = 0; i < errors.length; i++) {
-	      // TODO: make sure network.getInputs() gives an array, not a mapping
-	      double u = firstLayer[i].getU(network.getInputs());
+	      double u = firstLayer[i].getU(data.getAsInput(),network.getWeights(i));
+	      
 	      // Error w.r.t. data in first layer (u) is the error w.r.t. the output of
 	      // first layer (v) times the partial derivative of u with respect to v
 	      // The latter quantity is 1 if u >= 0, and 0 otherwise
-	      if (u >= 0) {
-	        errors[i] = firstLayerOutputErrors[i];
-	      } else {
-	        errors[i] = 0;
-	      }
+	      if (u >= 0) errors[i] = firstLayerOutputErrors[i];
+	      else errors[i] = 0;
 	    }
 	    return errors;
 	  }
 
 	  // Find error with respect to weights
-	  public static double[] weightError(Neural network, double[] actual, double[] expected) {
+	  public static double[][] weightError(Case data, Neural network, double[] actual, double[] expected) {
 	    Cell[] firstLayer = network.getFirstLayer();
 	    Cell[] secondLayer = network.getSecondLayer();
-	    double[] firstLayerDataErrors = firstLayerDataError(network, actual, expected);
+	    double[] firstLayerDataErrors = firstLayerDataError(data, network, actual, expected);
 	    double[] secondLayerDataErrors = secondLayerDataError(network, actual, expected);
-	    double[] inputs = network.getInputs();
+	    double[] inputs = data.getAsInput();
+	    double[][] weights = network.getWeights();
+	    
 	    // The error with respect to the weight of edge ij is the output of cell i
 	    // times the error w.r.t the data of cell j
-
-	    /**
-	     * The errors will be ordered as follows: for each cell in firstLayer, all
-	     * errors will be entered (starting with the error associated with the bias),
-	     * then, for each cell in secondLayer, all errors will be entered (starting
-	     * with the error associated with bias)
-	     */
-	    int numWeights = (firstLayer.length + network.numOutputs) * (firstLayer.length + 1);
-	    double[] errors = new double[numWeights];
+	    double[][] errors = new double[weights.length][weights[0].length];
 	    double[] firstLayerOutput = new double[firstLayer.length];
+	    
 	    // handling weights of edges going into firstLayer
 	    // j is used in the outer loop for consistency with edges going from i to j
 	    for (int j = 0; j < firstLayer.length; j++) {
-	      errors[j*(firstLayer.length+1)] = 1 * firstLayerDataErrors[j]; // handling the bias input
+	      errors[firstLayer[j].getCellNum()][0] = 1 * firstLayerDataErrors[j]; // handling the bias input
 	      for (int i = 0; i < firstLayer.length; i++) {
-	        errors[j*(firstLayer.length+1)+i+1] = inputs[i] * firstLayerDataErrors[j];
+	    	  errors[firstLayer[j].getCellNum()][i+1] = inputs[i] * firstLayerDataErrors[j];
 	      }
-	      firstLayerOutput[j] = firstLayer[j].function(inputs);
+	      firstLayerOutput[j] = firstLayer[j].function(inputs, network.getWeights(j));
 	    }
+	    
 	    // handling weights of edges going into secondLayer
-	    int offset = firstLayer.length * (firstLayer.length + 1);
 	    for (int j = 0; j < secondLayer.length; j++) {
-	      errors[offset + j*(firstLayer.length+1)] = 1 * secondLayerDataErrors[j]; // handling the bias input
+	      errors[secondLayer[j].getCellNum()][0] = 1 * secondLayerDataErrors[j]; // handling the bias input
 	      for (int i = 0; i < firstLayer.length; i++) {
-	        errors[offset + j*(firstLayer.length+1)+i+1] = firstLayerOutput[i] * secondLayerDataErrors[j];
+	        errors[secondLayer[j].getCellNum()][i+1] = firstLayerOutput[i] * secondLayerDataErrors[j];
 	      }
 	    }
 	    return errors;
@@ -149,34 +141,14 @@ public class Train_Neural {
 	   * In general, a weight is updated by subtracting n times the partial
 	   * derivative w.r.t. the edge weight
 	   */
-	  public static void gradientDescent(Neural network, double[] actual, double[] expected, double n) {
-	    // TODO: Make sure inputWeights and outputWeights are updated for each cell
-	    Cell[] firstLayer = network.getFirstLayer();
-	    Cell[] secondLayer = network.getSecondLayer();
-	    double[] weightErrors = weightError(network, actual, expected);
-	    // updating weights for edges going into firstLayer
-	    for (int j = 0; j < firstLayer.length; j++) {
-	      double[] newWeights = firstLayer[j].getInputWeights().clone();
-	      for (int i = 0; i < newWeights.length; i++) {
-	        newWeights[i] -= n * weightErrors[j * newWeights.length + i];
+	  public static void gradientDescent(Case data, Neural network, double[] actual, double[] expected, double n) {
+	    double[][] weightErrors = weightError(data, network, actual, expected);
+	    double[][] newWeights = network.getWeights().clone();
+	    for (int j = 0; j < newWeights.length; j++) {
+	      for (int i = 0; i < newWeights[0].length; i++) {
+	        newWeights[j][i] -= n * weightErrors[j][i];
 	      }
-	      firstLayer[j].setInputWeights(newWeights);
 	    }
-	    double[][] outputWeights = new double[firstLayer.length][secondLayer.length];
-	    // updating inputWeights for edges going into secondLayer
-	    int offset = firstLayer.length * (firstLayer.length + 1);
-	    for (int j = 0; j < secondLayer.length; j++) {
-	      double[] newWeights = secondLayer[j].getInputWeights().clone();
-	      for (int i = 0; i < newWeights.length; i++) {
-	        newWeights[i] -= n * weightErrors[offset + j * newWeights.length + i];
-	        if (i > 0)
-	          outputWeights[i-1][j] = newWeights[i];
-	      }
-	      secondLayer[j].setInputWeights(newWeights);
-	    }
-	    // updating outputWeights for edges leaving firstLayer
-	    for (int i = 0; i < firstLayer.length; i++) {
-	      firstLayer[i].setOutputWeights(outputWeights[i]);
-	    }
+	    network.setWeights(newWeights);
 	  }
-	}
+}

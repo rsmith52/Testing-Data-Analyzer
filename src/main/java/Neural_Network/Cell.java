@@ -3,63 +3,48 @@ package Neural_Network;
 public class Cell {
 
   String functionType; // ReLU or Sigmoid
-  final int bias = 1; // Bias term added to function each time
-  double[] inputWeights; // Weights for all inputs including bias term as index 0
-  double[] outputWeights; // Weights for all outputs from cell
+  final int cellNum; // Just an index to help with calculating weights of input edges
 
+  // Constructor for a Cell
+  public Cell (int cellNum, String functionType) {
+	  this.cellNum = cellNum;
+	  this.functionType = functionType;
+  }
 
-  // function - runs RELU or Sigmoid based on functionType field
-  public double function(double[] inputs) {
-    double u = getU(inputs);
-
+  // function - runs ReLU or Sigmoid based on functionType field
+  public double function(double[] inputs, double[] weights) {
     switch(functionType) {
       case "ReLU":
-        return relu(u);
+        return relu(getU(inputs, weights));
       case "Sigmoid":
-        return sigmoid(u);
+        return sigmoid(getU(inputs, weights));
+      default:
+    	return -1;
     }
-    return -1;
   }
 
   // returns the weighted sum of inputs and their weights
-  public double getU(double[] inputs) {
-    double u = bias * inputWeights[0];
+  public double getU(double[] inputs, double[] weights) {
+	double u = 1 * weights[0]; // bias = 1
     for (int i = 0; i < inputs.length; i++) {
-      u += inputs[i] * inputWeights[i+1];
+      u += inputs[i] * weights[1+i];
     }
     return u;
   }
 
   // RELU function
   public double relu(double u) {
-    double output = Math.max(0,u);
-    return output;
+    return Math.max(0,u);
   }
 
-  // sigmoid function
+  // Sigmoid function
   public double sigmoid(double u) {
-    double output = 1 / (1 + Math.exp(-1 * u));
-    return output;
+    return 1 / (1 + Math.exp(-1 * u));
   }
 
-  // gets outputWeights
-  public double[] getOutputWeights() {
-    return this.outputWeights;
-  }
-
-  // sets outputWeights
-  public void setOutputWeights(double[] weights) {
-    outputWeights = weights;
-  }
-
-  // gets inputWeights
-  public double[] getInputWeights() {
-    return this.inputWeights;
-  }
-
-  // sets inputWeights
-  public void setInputWeights(double[] weights) {
-    inputWeights = weights;
+  // getter
+  public int getCellNum() {
+	  return this.cellNum;
   }
 
 }
