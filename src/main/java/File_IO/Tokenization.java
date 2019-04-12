@@ -1,7 +1,5 @@
 package File_IO;
 
-import java.io.*; 
-
 public class Tokenization {
 
   // I feel like toLowerCase() should just be called right when we have input...
