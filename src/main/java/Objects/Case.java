@@ -169,7 +169,7 @@ public class Case implements Serializable{
     occurrences.put("wisclist", 0);
     occurrences.put("wlan", 0);
     occurrences.put("word", 0);
-	 occurrences.put("wrong", 0);
+	occurrences.put("wrong", 0);
   }
   /*
    * (Constructor when all variables are known)
@@ -497,6 +497,8 @@ public class Case implements Serializable{
           break;
         case "Loaner Request (Computer/Mifi)":
           labelMatch[18] = 1;
+          break;
+        default:
           break;
       }
       return labelMatch;
