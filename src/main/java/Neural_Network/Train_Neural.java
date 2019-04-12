@@ -5,6 +5,7 @@ import Objects.*;
 public class Train_Neural {
 
 	  final static double STEP_SIZE = 0.1;
+	  final static String weightsFile = "weights.txt";
 
 	  // Run through an epoch with a training set - updating the weights of the network
 	  public static void trainNeural(Neural network, Case[] dataSet) {
@@ -152,15 +153,18 @@ public class Train_Neural {
 	    network.setWeights(newWeights);
 	  }
 	  
-	  /** take in a data set to make a training set and testing set randomly
-	   * 
-	   */
-	  
 	  /** save weights from network to file
 	   * 
 	   */
+	  public static void saveWeightsToFile(Neural network) {
+		  //natesMethod(network.getWeights(), weightsFile);
+	  }
 	  
 	  /** set weights for network from file
 	   * 
 	   */
+	  public static void readWeightsFromFile(Neural network) {
+		  //double[][] weights = natesmethod2(weightsFile);
+		  //network.setWeights(weights);
+	  }
 }
