@@ -29,13 +29,13 @@ public class Categorized_Out implements Serializable{
 			database = FileAccess.getFile(filename);
 			FileOutputStream fout = new FileOutputStream(database);
 			ObjectOutputStream out = new ObjectOutputStream(fout);
-			System.out.println("Writing");
 			out.writeObject(network);
 			out.close();
 			fout.close();
 		}
 		catch(IOException e) {
 			System.err.print("Error writing to database: IO exception");
+			System.err.print(e);
 		} 
 		
 	}

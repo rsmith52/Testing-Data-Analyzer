@@ -41,7 +41,7 @@ public class Categorized_In implements Serializable{
 			fin.close();
 			return network;
 		}
-		catch(IOException e) {
+		catch (IOException e) {
 			System.err.print("Error reading from database: IO exception");
 		} catch (ClassNotFoundException e) {
 			System.err.print("Error reading from database: class not found");
