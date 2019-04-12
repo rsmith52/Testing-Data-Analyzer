@@ -2,6 +2,7 @@ package File_IO;
 import java.io.*;
 import Objects.*;
 import java.util.*;
+import Neural_Network.*;
 
 
 public class Categorized_Out implements Serializable{
@@ -22,13 +23,14 @@ public class Categorized_Out implements Serializable{
 		} 
 		
 	}
-	public static void writeToFile(String filename, double[][] array) {
+	public static void writeToFile(String filename, Neural network) {
 		try {
 			File database;
 			database = FileAccess.getFile(filename);
 			FileOutputStream fout = new FileOutputStream(database);
 			ObjectOutputStream out = new ObjectOutputStream(fout);
-			out.writeObject(array);
+			System.out.println("Writing");
+			out.writeObject(network);
 			out.close();
 			fout.close();
 		}

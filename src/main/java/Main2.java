@@ -51,6 +51,7 @@ public class Main2 {
 	    
 	    // Print Results
 	    
+	    
 	    for (int i = 0; i < finalResults.get(0).length; i++) {
 	    	System.out.print(finalResults.get(0)[i] + " "); // 40% confident, but 0 on all else
 	    }
@@ -59,10 +60,12 @@ public class Main2 {
 	    	System.out.print(finalResults.get(284)[i] + " "); // 99% confident
 	    }
 	    
+	    
 	    /*
 	    System.out.println();
 	    System.out.println("Results of all Cases");
 	    for (int i = 0; i < finalResults.size(); i++) {
+	    	System.out.println("Case Number: " + testArray[i].getCaseNumber());
 	    	for (int j = 0; j < finalResults.get(i).length; j++) {
 	    		System.out.print(finalResults.get(i)[j] + " ");
 	    	}
