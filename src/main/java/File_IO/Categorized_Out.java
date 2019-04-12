@@ -7,9 +7,11 @@ import java.util.*;
 public class Categorized_Out implements Serializable{
 	static final long serialVersionUID = 10;
 	
-	public static void writeToDatabase(File filename, Categorized alreadyCategorized) {
+	public static void writeToDatabase(String filename, Categorized alreadyCategorized) {
 		try {
-			FileOutputStream fout = new FileOutputStream(filename);
+			File database;
+			database = FileAccess.createFile(filename);
+			FileOutputStream fout = new FileOutputStream(database);
 			ObjectOutputStream out = new ObjectOutputStream(fout);
 			out.writeObject(alreadyCategorized.caseList);
 			out.close();

@@ -38,7 +38,7 @@ public class FileAccess {
 			{
 				throw new IOException("Directory");
 			}
-		} catch(Exception e) {
+		} catch(IOException e) {
 			throw e;
 		}
 		
