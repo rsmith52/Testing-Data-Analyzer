@@ -23,8 +23,7 @@ public class Categorized_OutTest {
 		testCase2.setCaseNumber(2);
 		alreadyCategorized.addToList(testCase);
 		alreadyCategorized.addToList(testCase2);
-		File testFile = new File("Test_Data.txt");
-		Categorized_Out.writeToDatabase(testFile, alreadyCategorized);
+		Categorized_Out.writeToDatabase("Test_Data.txt", alreadyCategorized);
 		}
 		catch(Exception e) {
 			System.out.println("exception thrown");

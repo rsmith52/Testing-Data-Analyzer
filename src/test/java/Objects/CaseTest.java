@@ -79,9 +79,4 @@ public class CaseTest {
 		assertEquals(1, (int)testLabel[2]);
 		assertEquals(1, (int)testLabel2[12]);
 	}
-
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> master
