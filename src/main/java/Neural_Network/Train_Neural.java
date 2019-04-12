@@ -151,4 +151,16 @@ public class Train_Neural {
 	    }
 	    network.setWeights(newWeights);
 	  }
+	  
+	  /** take in a data set to make a training set and testing set randomly
+	   * 
+	   */
+	  
+	  /** save weights from network to file
+	   * 
+	   */
+	  
+	  /** set weights for network from file
+	   * 
+	   */
 }

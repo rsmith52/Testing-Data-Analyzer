@@ -490,6 +490,8 @@ public class Case implements Serializable{
         case "Loaner Request (Computer/Mifi)":
           labelMatch[18] = 1;
           break;
+        default:
+          break;
       }
       return labelMatch;
       // return categories as double array with a 1 if it matches and a 0 if it doesn't
