@@ -37,9 +37,11 @@ public class Main2 {
 	    
 	    
 	    // Train network with cases, 100 epochs
-	    System.out.println("Training network with training set 1000 times");
-	    Train_Neural.trainNeuralEpochs(network, testArray, 1000);
+	    System.out.println("Training network with training set 20 times");
+	    Train_Neural.trainNeuralEpochs(network, testArray, 20);
 	    System.out.println("Trained");
+	    System.out.println("Saving Weights to File");
+	    Train_Neural.saveWeightsToFile(network);
 	    
 	    // Run through trained network
 	    ArrayList<double[]> finalResults = new ArrayList<double[]>();
@@ -48,6 +50,7 @@ public class Main2 {
 	    }
 	    
 	    // Print Results
+	    
 	    for (int i = 0; i < finalResults.get(0).length; i++) {
 	    	System.out.print(finalResults.get(0)[i] + " "); // 40% confident, but 0 on all else
 	    }
@@ -56,6 +59,16 @@ public class Main2 {
 	    	System.out.print(finalResults.get(284)[i] + " "); // 99% confident
 	    }
 	    
+	    /*
+	    System.out.println();
+	    System.out.println("Results of all Cases");
+	    for (int i = 0; i < finalResults.size(); i++) {
+	    	for (int j = 0; j < finalResults.get(i).length; j++) {
+	    		System.out.print(finalResults.get(i)[j] + " ");
+	    	}
+	    	System.out.println();
+	    }
+	    */
 	    
   
   

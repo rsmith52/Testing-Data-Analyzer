@@ -38,3 +38,4 @@ public class Categorized_Out implements Serializable{
 		
 	}
 }
+
