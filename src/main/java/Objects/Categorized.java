@@ -27,6 +27,9 @@ public class Categorized implements Serializable{
   public void addToList(Case newCase){
     caseList.add(newCase);
   }
+  public ArrayList<Case> getCaseList () {
+	  return this.caseList;
+  }
   
   public void combineLists(ArrayList<Case> firstList,
     ArrayList<Case> secondList){

@@ -1,5 +1,10 @@
 package Neural_Network;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import File_IO.FileAccess;
 import Objects.*;
 
 public class Run_Neural {
@@ -29,6 +34,42 @@ public class Run_Neural {
     // Return outputs from second layer
     return outputs2;
 
+  }
+  
+  public static void assignCategories (Neural network, Case[] data) {
+	  // Get categories
+	  ArrayList<String> categories = new ArrayList<String>();
+	  try {
+		  File file = FileAccess.getFile("/outputs.txt");
+		  Scanner in = new Scanner(file);
+		  while (in.hasNextLine()) {
+			  categories.add(in.nextLine());
+		  }
+		  categories.add("General Question"); // Always at end of list
+	  } catch (Exception e) {
+		  System.out.println("Error reading in output labels: " + e);
+	  }
+	  
+	  // Go through all cases
+	  for (int i = 0; i < data.length; i++) {
+		  // Run case through network
+		  double[] outputs = runNetwork(network, data[i]);
+		  // Get highest rated label
+		  int bestIndex = 0;
+		  for (int j = 0; j < outputs.length; j++) {
+			  if (outputs[j] > outputs[bestIndex]) {
+				  bestIndex = j;
+			  }
+		  }
+		  // Check if strong label or weak
+		  if (outputs[bestIndex] < 0.1) {
+			  // Weak label - General Question
+			  data[i].setCategory(categories.get(categories.size() - 1));
+		  } else {
+			  data[i].setCategory((categories.get(bestIndex)));
+		  }
+		  
+	  }
   }
 
 }

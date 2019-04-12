@@ -190,7 +190,7 @@ public class Main {
     }   
 
     
-    
+    /*
     System.out.println("Reading in Test Data");
     ArrayList<Case> newCases = new ArrayList<Case>();
     File newFile = FileAccess.getFile("/categorizedCases.csv");
@@ -222,6 +222,7 @@ public class Main {
         }
         System.out.println();
     }
+    */
     
   }
 

@@ -1,40 +1,4 @@
 365
-<<<<<<< HEAD
-o365
-email
-calendar
-outlook
-drive
-shared
-network
-mount
-word
-powerpoint
-excel
-onenote
-monitor
-firewall
-setup
-new
-requested
-requesting
-request
-purchase
-alf
-person
-onsite
-site
-physical
-location
-come
-wisclist
-list
-lists
-mass
-realtime
-real
-time
-=======
 access
 account
 acrobat
@@ -43,7 +7,6 @@ administrative
 administrator
 adobe
 alf
->>>>>>> master
 audio
 audition
 authentication
@@ -60,31 +23,18 @@ clicked
 cloud
 come
 computer
-<<<<<<< HEAD
-wiped
-formatted
-format
-re-imaged
-fix
-fixed
-role
-based
-employee
-staff
-member
-service
-account
-=======
->>>>>>> master
+conference
 creation
 creative
 credentials
 day
+display
 dreamweaver
 drive
 duo
 duplex
 email
+emails
 employee
 ethernet
 excel
@@ -104,16 +54,7 @@ illustrator
 imaged
 in
 incorrect
-<<<<<<< HEAD
-wrong
-unable
-click
-link
-clicked
-phishing
-=======
 indesign
->>>>>>> master
 infected
 internet
 issues
@@ -131,6 +72,7 @@ malware
 mass
 member
 mfa
+microsoft
 mifi
 monitor
 mount
@@ -155,36 +97,9 @@ phishing
 photoshop
 physical
 plan
-<<<<<<< HEAD
-requesting
-access
-classroom
-vpn
-wifi
-internet
-ethernet
-lan
-wlan
-outage
-outages
-server
-adobe
-photoshop
-indesign
-illustrator
-premiere
-acrobat
-pdf
-creative
-cloud
-lightroom
-bridge
-audition
-dreamweaver
-license
-=======
 powerpoint
 premiere
+presentation
 print
 printer
 printers
@@ -211,27 +126,18 @@ service
 setup
 shared
 site
+skype
 spare
 staff
->>>>>>> master
 suite
+teams
 time
 time
 token
 unable
 username
 verizon
-<<<<<<< HEAD
-mifi
-rental
-loaner
-rent
-spare
-borrow
-borrowed
-day
-week
-=======
+video
 virus
 voicemail
 vpn
@@ -241,7 +147,7 @@ week
 wifi
 wiped
 wisclist
+wisclists
 wlan
 word
 wrong
->>>>>>> master
