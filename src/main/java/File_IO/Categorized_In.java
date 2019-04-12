@@ -33,7 +33,7 @@ public class Categorized_In implements Serializable{
 		try {
 			Neural network;
 			File database;
-			database = FileAccess.getFile(filename);
+			database = FileAccess.createFile(filename);
 			FileInputStream fin = new FileInputStream(database);
 			ObjectInputStream in = new ObjectInputStream(fin);
 			network = (Neural)in.readObject();

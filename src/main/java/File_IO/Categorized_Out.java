@@ -31,6 +31,7 @@ public class Categorized_Out implements Serializable{
 			FileOutputStream fout = new FileOutputStream(database);
 			ObjectOutputStream out = new ObjectOutputStream(fout);
 			out.writeObject(network);
+			System.out.println("Wrote to file");
 			out.close();
 			fout.close();
 		}
