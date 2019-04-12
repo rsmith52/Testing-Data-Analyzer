@@ -23,15 +23,18 @@ clicked
 cloud
 come
 computer
+conference
 creation
 creative
 credentials
 day
+display
 dreamweaver
 drive
 duo
 duplex
 email
+emails
 employee
 ethernet
 excel
@@ -96,6 +99,7 @@ physical
 plan
 powerpoint
 premiere
+presentation
 print
 printer
 printers
@@ -133,6 +137,7 @@ token
 unable
 username
 verizon
+video
 virus
 voicemail
 vpn
@@ -142,6 +147,7 @@ week
 wifi
 wiped
 wisclist
+wisclists
 wlan
 word
 wrong
