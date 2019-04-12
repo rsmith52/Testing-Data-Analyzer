@@ -101,7 +101,7 @@ public class Main {
     }
     System.out.println();
     
-/*    // Train network with 4 cases, 20 epochs
+    // Train network with 4 cases, 20 epochs
     System.out.println("Training network with tiny training set 20 times");
     Case[] testArray1 = new Case[testData.size()];
     for (int i = 0; i < testArray1.length; i++) {
@@ -165,7 +165,7 @@ public class Main {
     }
     System.out.println();
     System.out.println();
-*/
+
 
     
     /*
@@ -189,6 +189,8 @@ public class Main {
     	System.out.println(e);
     }   
 
+    
+    
     System.out.println("Reading in Test Data");
     ArrayList<Case> newCases = new ArrayList<Case>();
     File newFile = FileAccess.getFile("/categorizedCases.csv");
@@ -212,7 +214,7 @@ public class Main {
     network = new Neural();
     System.out.println("Running the cases through the trained network");
     System.out.println("Shows the chance a case fits a label, indexed by outputs.txt");
-    ArrayList<double[]> finalResults = new ArrayList<double[]>();
+    //ArrayList<double[]> finalResults = new ArrayList<double[]>();
     for (int j = 0; j < testArray7.length; j++) {
     	finalResults.add(Run_Neural.runNetwork(network, testArray7[j]));
     	for (int i = 0; i < 10; i++) {

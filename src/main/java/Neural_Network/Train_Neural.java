@@ -1,10 +1,12 @@
 package Neural_Network;
 
 import Objects.*;
+import File_IO.*;
 
 public class Train_Neural {
 
 	  final static double STEP_SIZE = 0.1;
+	  final static String weightsFile = "weights.txt";
 
 	  // Run through an epoch with a training set - updating the weights of the network
 	  public static void trainNeural(Neural network, Case[] dataSet) {
@@ -150,5 +152,20 @@ public class Train_Neural {
 	      }
 	    }
 	    network.setWeights(newWeights);
+	  }
+	  
+	  /** save weights from network to file
+	   * 
+	   */
+	  public static void saveWeightsToFile(Neural network) {
+		  Categorized_Out.writeToFile(weightsFile, network.getWeights());
+	  }
+	  
+	  /** set weights for network from file
+	   * 
+	   */
+	  public static void readWeightsFromFile(Neural network) {
+		  double[][] weights = Categorized_In.readFromFile(weightsFile);
+		  network.setWeights(weights);
 	  }
 }
