@@ -42,7 +42,6 @@ public class FileAccess {
 		} catch(Exception e) {
 			throw e;
 		}
-		
 		return file;
 		
 }
