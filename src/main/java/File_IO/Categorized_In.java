@@ -27,6 +27,7 @@ public class Categorized_In implements Serializable{
 		}
 		return null;
 	}
+	
 	public static double[][] readFromFile(String filename) {
 		try {
 			double[][] array;
