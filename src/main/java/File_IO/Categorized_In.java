@@ -11,7 +11,7 @@ public class Categorized_In implements Serializable{
 	public static Categorized readFromDatabase(String filename) {
 		try {
 			File database;
-			database = FileAccess.createFile(filename);
+			database = FileAccess.getFile(filename);
 			Categorized alreadyCategorized = new Categorized();
 			FileInputStream fin = new FileInputStream(database);
 			ObjectInputStream in = new ObjectInputStream(fin);
@@ -32,7 +32,7 @@ public class Categorized_In implements Serializable{
 		try {
 			double[][] array;
 			File database;
-			database = FileAccess.createFile(filename);
+			database = FileAccess.getFile(filename);
 			FileInputStream fin = new FileInputStream(database);
 			ObjectInputStream in = new ObjectInputStream(fin);
 			array = (double[][])in.readObject();
