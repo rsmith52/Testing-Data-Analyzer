@@ -1,6 +1,7 @@
 package Neural_Network;
 
 import Objects.*;
+import File_IO.*;
 
 public class Train_Neural {
 
@@ -157,14 +158,14 @@ public class Train_Neural {
 	   * 
 	   */
 	  public static void saveWeightsToFile(Neural network) {
-		  //natesMethod(network.getWeights(), weightsFile);
+		  Categorized_Out.writeToFile(weightsFile, network.getWeights());
 	  }
 	  
 	  /** set weights for network from file
 	   * 
 	   */
 	  public static void readWeightsFromFile(Neural network) {
-		  //double[][] weights = natesmethod2(weightsFile);
-		  //network.setWeights(weights);
+		  double[][] weights = Categorized_In.readFromFile(weightsFile);
+		  network.setWeights(weights);
 	  }
 }
