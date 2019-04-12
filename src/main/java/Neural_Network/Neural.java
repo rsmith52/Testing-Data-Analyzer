@@ -11,8 +11,9 @@ import java.util.Set;
 import java.io.*;
 import java.util.Random;
 
-public class Neural {
+public class Neural implements Serializable {
 
+  private static final long serialVersionUID = 1L;
   Cell[] firstLayer;
   Cell[] secondLayer;
   public double[][] weights;
