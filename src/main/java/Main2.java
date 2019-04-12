@@ -6,6 +6,7 @@ import java.io.*;
 
 public class Main2 {
 
+  // Demo Functionality for Iteration 1 Demo
   public static void main (String[] args) {
 	  
 	  
@@ -28,16 +29,15 @@ public class Main2 {
 	    }
 	    
 	    // Test to make sure data is right
-	    /*
 	    for (int i = 284; i < 285; i++) {
 	    	System.out.println("Case Number: " + testArray[i].getCaseNumber());
 	    	System.out.println("Case Description: " + testArray[i].getDescription());
 	    	System.out.println("Case Category: " + testArray[i].getCategory());
 	    }
-	    */
+	    
 	    
 	    // Train network with cases, 100 epochs
-	    System.out.println("Training network with training set 1000 times");
+	    System.out.println("Training network with training set 20 times");
 	    Train_Neural.trainNeuralEpochs(network, testArray, 1000);
 	    System.out.println("Trained");
 	    System.out.println("Saving Weights to File");

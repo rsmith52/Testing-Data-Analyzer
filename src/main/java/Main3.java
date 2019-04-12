@@ -23,11 +23,11 @@ public class Main3 {
 	    	System.out.println(e);
 	    }
 	    Case[] testArray = new Case[newCases.size()];
-	    ArrayList<String> originalCategories = new ArrayList<String>();
+//	    ArrayList<String> originalCategories = new ArrayList<String>();
 	    for (int i = 0; i < testArray.length; i++) {
 	    	testArray[i] = newCases.get(i);
 	    	// Save Original Categories
-	    	originalCategories.add(newCases.get(i).getCategory());
+//	    	originalCategories.add(newCases.get(i).getCategory());
 	    }
 	    
 	    // Get weights from file
@@ -55,12 +55,37 @@ public class Main3 {
 	    }
 	    */
 	    
-	    // Run all cases through network and assign labels
-	    Run_Neural.assignCategories(network, testArray);
-	    System.out.println("Case Number : Original Category - Network's Label");
-	    for (int i = 0; i < testArray.length; i++) {
-	    	System.out.println(testArray[i].getCaseNumber() + " : " + originalCategories.get(i) + " - " + testArray[i].getCategory());
+	    
+	    ArrayList<Case> cases = new ArrayList<Case>();
+	    File dataPull = FileAccess.getFile("/Bascom_Pull.csv");
+	    try {
+	    	cases = CSV_In.csvRead(dataPull);
+	    } catch (Exception e) {
+	    	System.out.println(e);
+	    }   
+	    
+	    Case[] uncategorizedArray = new Case[20];
+	    for (int i = 0; i < 20; i++) {
+	    	uncategorizedArray[i] = cases.get(i);
 	    }
+	
+	    Run_Neural.assignCategories(network, uncategorizedArray);
+	    Categorized twentyCategorized = new Categorized("classfied 10 cases", "20181204");
+	    System.out.println("Case Number : Original Category - Network's Label");
+	    for (int i = 0; i < uncategorizedArray.length; i++) {
+	    	twentyCategorized.addToList(uncategorizedArray[i]);
+	    	System.out.println(uncategorizedArray[i].getCaseNumber() + " : " + uncategorizedArray[i].getCategory());
+	    }
+	    Categorized_Out.writeToDatabase("/20_Categorized_Cases.txt", twentyCategorized);
+    
+	    
+//	    // Run all cases through network and assign labels
+//	    Run_Neural.assignCategories(network, testArray);
+//	    System.out.println("Case Number : Original Category - Network's Label");
+//	    for (int i = 0; i < testArray.length; i++) {
+//	    	System.out.println(testArray[i].getCaseNumber() + " : " + testArray[i].getOriginalCategory() + " - " + testArray[i].getCategory());
+//	    }
+
   }
   
 }

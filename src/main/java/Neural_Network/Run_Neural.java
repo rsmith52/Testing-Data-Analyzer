@@ -62,6 +62,7 @@ public class Run_Neural {
 			  }
 		  }
 		  // Check if strong label or weak
+		  // TODO: Make sure we don't ever have 2 strong labels
 		  if (outputs[bestIndex] < 0.1) {
 			  // Weak label - General Question
 			  data[i].setCategory(categories.get(categories.size() - 1));

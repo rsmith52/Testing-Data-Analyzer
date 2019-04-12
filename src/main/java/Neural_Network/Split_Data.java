@@ -8,13 +8,14 @@ import Objects.*;
 
 public class Split_Data {
 	
-	public static Case[][] splitData(ArrayList<Case> cases, int k) {
+	public static ArrayList<ArrayList<Case>> splitData(ArrayList<Case> cases, int k) {
 		int[] permutation = getPermutation(cases.size());
 		int groupSize = cases.size()/k; // largest size such that each of the k groups has same size
-		Case[][] splitCases = new Case[k][groupSize];
+		ArrayList<ArrayList<Case>> splitCases = new ArrayList<ArrayList<Case>>();
+//		Case[][] splitCases = new Case[k][groupSize];
 		for (int i = 0; i < k; i++) {
 			for (int j = 0; j < groupSize; j++) {
-				splitCases[i][j] = cases.get(permutation[i * groupSize + j]);
+				splitCases.get(i).add(cases.get(permutation[i * groupSize + j]));
 			}
 		}
 		return splitCases;
