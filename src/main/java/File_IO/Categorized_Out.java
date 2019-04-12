@@ -23,19 +23,20 @@ public class Categorized_Out implements Serializable{
 		} 
 		
 	}
+	
 	public static void writeToFile(String filename, Neural network) {
 		try {
 			File database;
-			database = FileAccess.getFile(filename);
+			database = FileAccess.createFile(filename);
 			FileOutputStream fout = new FileOutputStream(database);
 			ObjectOutputStream out = new ObjectOutputStream(fout);
-			System.out.println("Writing");
 			out.writeObject(network);
 			out.close();
 			fout.close();
 		}
-		catch(IOException e) {
+		catch (IOException e) {
 			System.err.print("Error writing to database: IO exception");
+			System.err.print(e);
 		} 
 		
 	}

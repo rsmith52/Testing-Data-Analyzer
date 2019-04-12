@@ -14,6 +14,7 @@ public class FileAccess {
 		}
 		
 		return null;
+		
 	}
 	
 	/*
@@ -38,13 +39,12 @@ public class FileAccess {
 			{
 				throw new IOException("Directory");
 			}
-		} catch(IOException e) {
+		} catch(Exception e) {
 			throw e;
 		}
 		
 		return file;
 		
-	}
-	
+}
 
 }
