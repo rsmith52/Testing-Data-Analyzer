@@ -20,7 +20,7 @@ public class Case implements Serializable{
   String description;
   String[] tokenizedDescription;
   String category;
-  static int numKeywords = 144;
+  static int numKeywords = 147; // MUST BE UPDATED IF INPUTS IS UPDATED
 
   /*
    * (Default constructor to create a case and initialize occurrences counts)

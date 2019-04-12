@@ -69,6 +69,7 @@ malware
 mass
 member
 mfa
+microsoft
 mifi
 monitor
 mount
@@ -121,9 +122,11 @@ service
 setup
 shared
 site
+skype
 spare
 staff
 suite
+teams
 time
 time
 token
