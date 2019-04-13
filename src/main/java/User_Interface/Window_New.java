@@ -8,12 +8,16 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import File_IO.CSV_In;
+import Objects.Case;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+
 import javax.swing.SwingConstants;
 
 public class Window_New extends JFrame {
@@ -65,7 +69,7 @@ public class Window_New extends JFrame {
 			    int returnVal = chooser.showOpenDialog(contentPane);
 			    if(returnVal == JFileChooser.APPROVE_OPTION) {
 			        try {
-			    	CSV_In.csvRead(chooser.getSelectedFile());
+			    	ArrayList<Case> test = CSV_In.csvRead(chooser.getSelectedFile());
 			    	//TODO: what needs to be done here? We need to categorize the data set with the AI and then save it.
 			    	Window_Main.createMainWindow();
 			    	dispose();

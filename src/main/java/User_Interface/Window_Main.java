@@ -20,6 +20,9 @@ import java.awt.Font;
 import java.awt.Color;
 import javax.swing.AbstractListModel;
 import javax.swing.border.MatteBorder;
+
+import Objects.Categorized;
+
 import java.awt.Cursor;
 import javax.swing.Box;
 import java.awt.Dimension;
@@ -73,15 +76,16 @@ public class Window_Main extends JFrame {
 		          int index = theList.locationToIndex(e.getPoint());
 		          if (index >= 0) {
 		            Object o = theList.getModel().getElementAt(index);
-		            System.out.println("Double-clicked on: " + o.toString());
+		            //System.out.println("Double-clicked on: " + o.toString());
 		            //TODO: have this open Window_Catergorized with the selected catagozired dataset
-		            //Window_Categorized();
+		            Categorized cat = new Categorized(o.toString(), o.toString());
+		            Window_Categorized.createCategorizedWindow(cat);
 		          }
 		        }
 			}
 		});
 		list.setModel(new AbstractListModel() {
-			String[] values = new String[] {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p"};
+			String[] values = new String[] {"2018-04-12", "2018-04-10", "2018-04-9", "2018-04-8", "2018-04-7"};
 			public int getSize() {
 				return values.length;
 			}

@@ -1,32 +1,43 @@
 package User_Interface;
 
 import java.awt.BorderLayout;
+import java.awt.Container;
 import java.awt.EventQueue;
-import Objects.Categorized;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+import File_IO.*;
+import Objects.*;
+
 import javax.swing.JLabel;
-import javax.swing.JButton;
+import javax.swing.SwingConstants;
+import javax.swing.JList;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
-import java.awt.GridLayout;
-import java.awt.FlowLayout;
-import java.awt.CardLayout;
+import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.util.ArrayList;
 
-public class Window_Catigorized extends JFrame {
-
-	private JPanel contentPane;
+public class Window_Categorized extends JFrame {
+	
+	private Container contentPane;
+	private Categorized cat;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void createCatigorizedWindow(final Categorized dataSet) {
+	public static void createCategorizedWindow(Categorized cat) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Window_Catigorized frame = new Window_Catigorized("Viewing Dataset");
+					Window_Categorized frame = new Window_Categorized(cat);
+					frame.setTitle("Categorized Dataset");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -34,42 +45,103 @@ public class Window_Catigorized extends JFrame {
 			}
 		});
 	}
-
-	/**
-	 * Create the frame.
-	 */
-	public Window_Catigorized() {
+	
+	public Categorized getCategorized() {
+		return this.cat;
+	}
+	
+	public Window_Categorized(Categorized cat) {
+		this.cat = cat;
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		setBounds(100, 100, 500, 500);
+		contentPane = getContentPane();
 		
-		JLabel lblYouAreViewing = new JLabel("You are viewing Dataset: ");
-		lblYouAreViewing.setBounds(76, 13, 147, 16);
-		contentPane.add(lblYouAreViewing);
+		//"Data Set: _____"
+		JPanel titlePane = new JPanel();
+		titlePane.setLayout(new BoxLayout(titlePane, BoxLayout.Y_AXIS));
+		//TODO center and make it look good
+		//EDIT HERE
+		JLabel lblDataSet = new JLabel("Data Set: " + cat.name);
+		//TODO add name of categorized data
 		
-		JButton btnNewButton = new JButton("Output .CSV");
-		btnNewButton.setBounds(12, 109, 116, 25);
-		contentPane.add(btnNewButton);
+		titlePane.add(lblDataSet);
 		
-		JButton btnNewButton_1 = new JButton("Output .PDF");
-		btnNewButton_1.setBounds(152, 109, 116, 25);
-		contentPane.add(btnNewButton_1);
+		//TODO add a label to tell whether a button click is successful or not
 		
-		JButton btnNewButton_2 = new JButton("Merge Datasets");
-		btnNewButton_2.addMouseListener(new MouseAdapter() {
+		//buttons
+		JPanel buttonPane = new JPanel();
+		buttonPane.setLayout(new BoxLayout(buttonPane, BoxLayout.LINE_AXIS));
+		
+		JButton btnOutputCsv = new JButton("Output .csv");
+		btnOutputCsv.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mouseClicked(MouseEvent m) {
+				try {
+					CSV_Out.writeCSV(getCategorized().caseList);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		
+		JButton btnOutputMetricsPdf = new JButton("Output Metrics .pdf");
+		btnOutputMetricsPdf.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent m) {
+				//TODO call PDF_Out
+			}
+		});
+		
+		JButton btnMergeDatasets = new JButton ("Merge Datasets");
+		btnMergeDatasets.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent m) {
+				//get other Categorized or case list somehow
+				JFileChooser chooser = new JFileChooser();
+				FileNameExtensionFilter filter = new FileNameExtensionFilter(
+						"CSV Files", "csv");
+				chooser.setFileFilter(filter);
+				int returnVal = chooser.showOpenDialog(contentPane);
+				if(returnVal == JFileChooser.APPROVE_OPTION) {
+					try {
+						ArrayList<Case> cases = CSV_In.csvRead(chooser.getSelectedFile());
+						//getCategorized().combineLists(cases);
+					} catch(IOException e){
+						e.printStackTrace();
+					}
+				}
 				
 			}
 		});
-		btnNewButton_2.setBounds(294, 109, 126, 25);
-		contentPane.add(btnNewButton_2);
 		
-		JButton btnNewButton_3 = new JButton("Back");
-		btnNewButton_3.setBounds(160, 183, 97, 25);
-		contentPane.add(btnNewButton_3);
+		JButton btnBack = new JButton ("Back");
+		btnBack.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent m) {
+				Window_Main.createMainWindow();
+				dispose();
+			}
+		});
+		
+		
+		buttonPane.add(btnOutputCsv);
+		buttonPane.add(Box.createHorizontalStrut(10));
+		buttonPane.add(btnOutputMetricsPdf);
+		buttonPane.add(Box.createHorizontalStrut(10));
+		buttonPane.add(btnMergeDatasets);
+		buttonPane.add(Box.createHorizontalStrut(10));
+		buttonPane.add(btnBack);
+		
+		JPanel topPane = new JPanel();
+		topPane.add(titlePane, BorderLayout.CENTER);
+		
+		JPanel bottomPane = new JPanel();
+		bottomPane.add(buttonPane, BorderLayout.CENTER);
+		
+		contentPane.add(topPane, BorderLayout.NORTH);
+		contentPane.add(bottomPane, BorderLayout.SOUTH);
+		
+		
 	}
 }
