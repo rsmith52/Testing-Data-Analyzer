@@ -24,9 +24,9 @@ public class Train_Neural {
 	  // Run through multiple epochs with a training set - updating the weights of the network
 	  public static void trainNeuralEpochs(Neural network, Case[] dataSet, int numEpochs) {
 	    for (int i = 0; i < numEpochs; i++) {
-	    	if (i % 100 == 0) {
-	    		System.out.println("Epoch: " + i);
-	    	}
+//	    	if (i % 100 == 0) {
+//	    		System.out.println("Epoch: " + i);
+//	    	}
 	    	trainNeural(network, dataSet);
 	    }
 	  }

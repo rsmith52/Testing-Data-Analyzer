@@ -22,28 +22,37 @@ public class Main4 {
 	    } catch (Exception e) {
 	    	System.out.println(e);
 	    }
-
-//	    int[] permutation = Split_Data.getPermutation(newCases.size());
+		
+		
+//		Case[][] splitCases = new Case[k][groupSize];
+//		for (int i = 0; i < k; i++) {
+//			for (int j = 0; j < groupSize; j++) {
+//				splitCases.get(i).add(cases.get(permutation[i * groupSize + j]));
+//			}
+//		}
 	    
-	    Case[][] testArray = Split_Data.splitData(newCases, 1);
-	    
-//	    for (int i = 0; i < testArray.length; i++) {
-//	    	testArray[i] = newCases.get(i);
-//	    }
-	    
-//	    /*
-	    // Train network with cases, 100 epochs
-	    System.out.println("Training network with training set 1000 times");
-	    Train_Neural.trainNeuralEpochs(network, testArray[0], 10);
-	    System.out.println("Trained");
-	    System.out.println("Saving Weights to File");
-	    Train_Neural.saveWeightsToFile(network);
-	    
-	    // Run through trained network
-	    ArrayList<double[]> finalResults = new ArrayList<double[]>();
-	    for (int i = 0; i < testArray.length; i++) {
-	    	finalResults.add(Run_Neural.runNetwork(network, testArray[0][i]));
+	    for (int i = 0; i < 5; i++) {
+	    	double error = k_Fold_Evaluation.kFoldAnalysis(newCases, 10, i);
+	    	System.out.println(error);	    	
 	    }
+//	    for (int i = 0; i < error.length; i++) {
+//	    	System.out.println(error[i]);
+//	    }
+//	    
+//	    
+////	    /*
+//	    // Train network with cases, 100 epochs
+//	    System.out.println("Training network with training set 1000 times");
+//	    Train_Neural.trainNeuralEpochs(network, testArray[0], 10);
+//	    System.out.println("Trained");
+//	    System.out.println("Saving Weights to File");
+//	    Train_Neural.saveWeightsToFile(network);
+//	    
+//	    // Run through trained network
+//	    ArrayList<double[]> finalResults = new ArrayList<double[]>();
+//	    for (int i = 0; i < testArray.length; i++) {
+//	    	finalResults.add(Run_Neural.runNetwork(network, testArray[0][i]));
+//	    }
 //	    	   */ 
 
   }

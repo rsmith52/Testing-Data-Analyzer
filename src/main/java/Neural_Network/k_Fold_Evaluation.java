@@ -1,11 +1,18 @@
 package Neural_Network;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.Scanner;
 
+import File_IO.FileAccess;
 import Objects.Case;
 
 public class k_Fold_Evaluation {
 
+	// TODO: We may want this to also return the weights that give the best score, but if the average is low enough,
+	// it shouldn't matter that much, as that means whatever train sample we use works fairly well
+	
+	// this will return approximately 0.125 without any training
 	public static double kFoldAnalysis(ArrayList<Case> cases, int k, int numEpochs) {
 		// this is just so we get getWeights to dynamically get the number of weights
 		Neural throwAwayNetwork = new Neural();
@@ -44,15 +51,38 @@ public class k_Fold_Evaluation {
 		    
 		}
 		double sum = 0;
-		for (int i = 0; i < k; i++) {
-			sum += overallErrors[i];
-		}
-		double average = sum / double(k);
-		return 0;
+		for (int i = 0; i < k; i++) sum += overallErrors[i];
+		
+		double average = sum / k;
+		// this is the percent of error that exists relative to the expected error of an untrained network
+		double scaledAverage = average / 0.125;
+		return scaledAverage;
 	}
 	
 	public static double testNetwork(Neural network, Case[] testCases) {
-		return 0;
+		double[] networkErrors = new double[testCases.length];
+	    
+	    for (int i = 0; i < testCases.length; i++) {
+		    // Get the output of the network
+		    double[] networkOutput = Run_Neural.runNetwork(network, testCases[i]);
+		    // Get the correct output
+		    double[] correctOutput = testCases[i].getLabelsIfKnown();
+		    // find the network errors for this case
+		    double[] errors = Train_Neural.networkError(networkOutput, correctOutput);
+		    double sum = 0;
+		    for (int j = 0; j < errors.length; j++) {
+		    	sum += errors[j];
+		    }
+		    double average = sum / errors.length;
+		    networkErrors[i] = average ;
+	    }
+	    
+	    double sum = 0;
+	    for (int j = 0; j < networkErrors.length; j++) {
+	    	sum += networkErrors[j];
+	    }
+	    double average = sum / networkErrors.length;
+	    return average;
 	}
 	
 }

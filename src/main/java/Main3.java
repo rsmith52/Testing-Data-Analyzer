@@ -54,7 +54,7 @@ public class Main3 {
 	    	System.out.print(finalResults.get(284)[i] + " "); // 99% confident
 	    }
 	    */
-	    
+
 	    
 	    ArrayList<Case> cases = new ArrayList<Case>();
 	    File dataPull = FileAccess.getFile("/Bascom_Pull.csv");
@@ -69,6 +69,7 @@ public class Main3 {
 	    	uncategorizedArray[i] = cases.get(i);
 	    }
 	
+	    
 	    Run_Neural.assignCategories(network, uncategorizedArray);
 	    Categorized twentyCategorized = new Categorized("classfied 10 cases", "20181204");
 	    System.out.println("Case Number : Original Category - Network's Label");

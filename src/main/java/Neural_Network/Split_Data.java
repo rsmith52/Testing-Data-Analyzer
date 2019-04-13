@@ -12,8 +12,8 @@ public class Split_Data {
 		int[] permutation = getPermutation(cases.size());
 		int groupSize = cases.size()/k; // largest size such that each of the k groups has same size
 		ArrayList<ArrayList<Case>> splitCases = new ArrayList<ArrayList<Case>>();
-//		Case[][] splitCases = new Case[k][groupSize];
 		for (int i = 0; i < k; i++) {
+			splitCases.add(new ArrayList<Case>());
 			for (int j = 0; j < groupSize; j++) {
 				splitCases.get(i).add(cases.get(permutation[i * groupSize + j]));
 			}
