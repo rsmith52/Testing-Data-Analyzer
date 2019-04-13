@@ -8,7 +8,7 @@ public class CategorizedTest {
 
 	@Test
 	public void testAddToList() {
-		fail("Not yet implemented");
+
 	}
 
 }
