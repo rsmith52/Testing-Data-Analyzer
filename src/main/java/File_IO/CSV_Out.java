@@ -19,6 +19,7 @@ public class CSV_Out {
 		File file;
 		BufferedWriter writer;
 		CSVPrinter csvprint;
+		
 		try {
 			file = FileAccess.createFile("dataOut.csv");
 			writer = new BufferedWriter(new FileWriter(file));
