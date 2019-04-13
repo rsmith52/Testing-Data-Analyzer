@@ -56,6 +56,8 @@ in
 incorrect
 indesign
 infected
+install
+installed
 internet
 issues
 lan
@@ -123,10 +125,13 @@ scam
 scan
 server
 service
+setting
+settings
 setup
 shared
 site
 skype
+software
 spare
 staff
 suite
@@ -135,6 +140,7 @@ time
 time
 token
 unable
+update
 username
 verizon
 video
@@ -145,6 +151,7 @@ web chat
 webchat
 week
 wifi
+windows
 wiped
 wisclist
 wisclists
