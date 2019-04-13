@@ -28,6 +28,7 @@ public class Window_Categorized extends JFrame {
 	
 	private Container contentPane;
 	private Categorized cat;
+	
 
 	/**
 	 * Launch the application.
@@ -39,6 +40,7 @@ public class Window_Categorized extends JFrame {
 					Window_Categorized frame = new Window_Categorized(cat);
 					frame.setTitle("Categorized Dataset");
 					frame.setVisible(true);
+					frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -60,14 +62,10 @@ public class Window_Categorized extends JFrame {
 		//"Data Set: _____"
 		JPanel titlePane = new JPanel();
 		titlePane.setLayout(new BoxLayout(titlePane, BoxLayout.Y_AXIS));
-		//TODO center and make it look good
-		//EDIT HERE
-		JLabel lblDataSet = new JLabel("Data Set: " + cat.name);
-		//TODO add name of categorized data
-		
+		JLabel lblDataSet = new JLabel("Data Set: " + getCategorized().name);
 		titlePane.add(lblDataSet);
 		
-		//TODO add a label to tell whether a button click is successful or not
+		final JLabel lblOutput = new JLabel("");
 		
 		//buttons
 		JPanel buttonPane = new JPanel();
@@ -79,7 +77,9 @@ public class Window_Categorized extends JFrame {
 			public void mouseClicked(MouseEvent m) {
 				try {
 					CSV_Out.writeCSV(getCategorized().caseList);
+					lblOutput.setText("CSV output successful");
 				} catch (IOException e) {
+					lblOutput.setText("CSV output failed");
 					e.printStackTrace();
 				}
 			}
@@ -90,6 +90,7 @@ public class Window_Categorized extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent m) {
 				//TODO call PDF_Out
+				lblOutput.setText("Output metrics failed");
 			}
 		});
 		
@@ -106,10 +107,14 @@ public class Window_Categorized extends JFrame {
 				if(returnVal == JFileChooser.APPROVE_OPTION) {
 					try {
 						ArrayList<Case> cases = CSV_In.csvRead(chooser.getSelectedFile());
-						//getCategorized().combineLists(cases);
+						getCategorized().combineLists(cases);
+						lblOutput.setText("Dataset merge successful");
 					} catch(IOException e){
+						lblOutput.setText("Dataset merge failed");
 						e.printStackTrace();
 					}
+				} else {
+					lblOutput.setText("Dataset merge failed");
 				}
 				
 			}
@@ -136,10 +141,14 @@ public class Window_Categorized extends JFrame {
 		JPanel topPane = new JPanel();
 		topPane.add(titlePane, BorderLayout.CENTER);
 		
+		JPanel centerPane = new JPanel();
+		centerPane.add(lblOutput, BorderLayout.CENTER);
+		
 		JPanel bottomPane = new JPanel();
 		bottomPane.add(buttonPane, BorderLayout.CENTER);
 		
 		contentPane.add(topPane, BorderLayout.NORTH);
+		contentPane.add(centerPane, BorderLayout.CENTER);
 		contentPane.add(bottomPane, BorderLayout.SOUTH);
 		
 		

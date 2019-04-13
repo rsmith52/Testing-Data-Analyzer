@@ -14,6 +14,8 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
+import java.io.File;
+
 import javax.swing.BoxLayout;
 import java.awt.Component;
 import java.awt.Font;
@@ -21,6 +23,8 @@ import java.awt.Color;
 import javax.swing.AbstractListModel;
 import javax.swing.border.MatteBorder;
 
+import File_IO.CSV_In;
+import File_IO.FileAccess;
 import Objects.Categorized;
 
 import java.awt.Cursor;
@@ -79,7 +83,15 @@ public class Window_Main extends JFrame {
 		            //System.out.println("Double-clicked on: " + o.toString());
 		            //TODO: have this open Window_Catergorized with the selected catagozired dataset
 		            Categorized cat = new Categorized(o.toString(), o.toString());
+		            File testFile = FileAccess.getFile("/Bascom_Pull.csv");
+		            try {
+		            	cat.caseList = CSV_In.csvRead(testFile);
+		            }
+		            catch(Exception err){
+		            	System.out.println(err.getMessage());
+		            }
 		            Window_Categorized.createCategorizedWindow(cat);
+		            dispose();
 		          }
 		        }
 			}
