@@ -12,8 +12,8 @@ public class Categorized_In implements Serializable{
 	public static Categorized readFromDatabase(String filename) {
 		try {
 			File database;
-			database = FileAccess.getFile(filename);
-			Categorized alreadyCategorized = new Categorized();
+			database = FileAccess.createFile(filename);
+			Categorized alreadyCategorized;
 			FileInputStream fin = new FileInputStream(database);
 			ObjectInputStream in = new ObjectInputStream(fin);
 			alreadyCategorized = (Categorized)in.readObject();

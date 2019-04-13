@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import File_IO.CSV_In;
+import File_IO.Categorized_In;
 import File_IO.Categorized_Out;
 import File_IO.FileAccess;
 import Objects.Categorized;
@@ -50,6 +51,7 @@ public class TestTrainedNetwork {
 	    // Make categorized object
 	    Categorized list = new Categorized("testNetwork", "Now", testArray);
 	    Categorized_Out.writeToDatabase("testNetwork.txt", list);
+	    Categorized list2 = Categorized_In.readFromDatabase("testNetwork.txt");
 	    
 	}
 
