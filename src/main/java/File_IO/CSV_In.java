@@ -78,7 +78,7 @@ public class CSV_In {
 			myCase.setDescription(record.get("Description"));
 			String[] tokenized = Tokenization.segmentation(myCase.getDescription());
 			myCase.setTokenizedDescription(tokenized);
-
+			myCase.findOccurrences(myCase.getTokenizedDescription());
 			//stores into ArrayList
 			cases.add(myCase);
 		}

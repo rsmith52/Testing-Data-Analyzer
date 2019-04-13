@@ -1,10 +1,7 @@
 package Neural_Network;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Scanner;
 
-import File_IO.FileAccess;
 import Objects.Case;
 
 public class k_Fold_Evaluation {
@@ -13,7 +10,7 @@ public class k_Fold_Evaluation {
 	// it shouldn't matter that much, as that means whatever train sample we use works fairly well
 	
 	// this will return approximately 0.125 without any training
-	public static double kFoldAnalysis(ArrayList<Case> cases, int k, int numEpochs) {
+	public static double[][] kFoldAnalysis(ArrayList<Case> cases, int k, int numEpochs) {
 		// this is just so we get getWeights to dynamically get the number of weights
 		Neural throwAwayNetwork = new Neural();
 		double[][] throwAwayWeights = throwAwayNetwork.getWeights();
@@ -52,9 +49,21 @@ public class k_Fold_Evaluation {
 		double sum = 0;
 		for (int i = 0; i < k; i++) sum += overallErrors[i];
 		
-		double average = sum / k;
 		// this will be the percent of error that exists relative to the expected error of an untrained network
-		return average;
+		double average = sum / k;
+		System.out.println("Average Indexed Error (as a percent of maximum error): " + average);
+		
+		// finding the best set of weights
+		int bestIndex = 0;
+		double bestError = 2; // should be no more than around 1, so this should always be replaced
+		for (int i = 0; i < k; i++) {
+			if (overallErrors[i] < bestError) {
+				bestIndex = i;
+				bestError = overallErrors[i];
+			}
+		}
+		System.out.println("Best Indexed Error: " + overallErrors[bestIndex]);
+		return weights[bestIndex];
 	}
 	
 	public static double testNetwork(Neural network, Case[] testCases) {
