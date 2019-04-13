@@ -8,6 +8,8 @@ import File_IO.FileAccess;
 import Objects.*;
 
 public class Run_Neural {
+	
+	final static double CATEGORY_THRESHOLD = 0.3;
 
   // Method runs a single case through the neural network and returns an array of outputs
   public static double[] runNetwork (Neural network, Case data) {
@@ -64,7 +66,7 @@ public class Run_Neural {
 		  }
 		  // Check if strong label or weak
 		  // TODO: Make sure we don't ever have 2 strong labels
-		  if (outputs[bestIndex] < 0.1) {
+		  if (outputs[bestIndex] < CATEGORY_THRESHOLD) {
 			  // Weak label - General Question
 			  data[i].setCategory(categories.get(categories.size() - 1));
 		  } else {

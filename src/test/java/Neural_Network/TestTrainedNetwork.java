@@ -42,7 +42,22 @@ public class TestTrainedNetwork {
 	    System.out.println("Reading Weights from File");
 	    Train_Neural.readWeightsFromFile(network);
 	    
+	    
+	    // Run Network
 	    Run_Neural.assignCategories(network, testArray);
+	    ArrayList<double[]> outputs = new ArrayList<double[]>();
+	    for (int i = 0; i < testArray.length; i++) {
+	    	outputs.add(Run_Neural.runNetwork(network, testArray[i]));
+	    }
+	    
+	    // Individual Examination
+	    final int caseToExamine = 5;
+	    for (int i = 0; i < outputs.get(caseToExamine).length; i++) {
+	    	System.out.print(outputs.get(caseToExamine)[i] + ", ");
+	    }
+	    System.out.println();
+	    
+	    // Print Results
 	    System.out.println("Case Number : Original Category - Network's Label");
 	    for (int i = 0; i < testArray.length; i++) {
 	    	System.out.println(testArray[i].getCaseNumber() + " : " + originalCategories.get(i) + " - " + testArray[i].getCategory());
