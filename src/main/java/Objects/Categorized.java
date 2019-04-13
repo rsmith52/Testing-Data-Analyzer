@@ -18,6 +18,16 @@ public class Categorized implements Serializable{
     this.name = name;
     this.dateCreated = dateCreated;
   }
+  
+  public Categorized (String name, String dateCreated, Case[] data) {
+	  caseList = new ArrayList<Case>();
+	  this.name = name;
+	  this.dateCreated = dateCreated;
+	  for (int i = 0; i < data.length; i++) {
+		  caseList.add(data[i]);
+	  }
+  }
+  
   public void setName(String name) {
 	  this.name = name;
   }
