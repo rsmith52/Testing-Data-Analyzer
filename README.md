@@ -1,1 +1,1 @@
-Run the main function.
+In the most current commit of the Master branch, run src/main/java/main.java.
