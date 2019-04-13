@@ -24,10 +24,10 @@ import Objects.Categorized;
 public class PDF_Out {
 	
 	//public Categorized cases;
-	public static void main(String[] args) {		
-		PDF_Out test = new PDF_Out();
-		test.outputPDF();
-	}
+//	public static void main(String[] args) {		
+//		PDF_Out test = new PDF_Out();
+//		test.outputPDF();
+//	}
 
 	
 	public void outputPDF() {	// ArrayList<Case>() caseList, String name, String dateCreated
