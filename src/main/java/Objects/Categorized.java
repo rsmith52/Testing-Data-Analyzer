@@ -18,8 +18,21 @@ public class Categorized implements Serializable{
     this.name = name;
     this.dateCreated = dateCreated;
   }
+  
+  public Categorized (String name, String dateCreated, Case[] data) {
+	  caseList = new ArrayList<Case>();
+	  this.name = name;
+	  this.dateCreated = dateCreated;
+	  for (int i = 0; i < data.length; i++) {
+		  caseList.add(data[i]);
+	  }
+  }
+  
   public void setName(String name) {
 	  this.name = name;
+  }
+  public String getName() {
+	  return this.name;
   }
   public void setDate(String dateCreated) {
 	  this.dateCreated = dateCreated;
@@ -27,12 +40,17 @@ public class Categorized implements Serializable{
   public void addToList(Case newCase){
     caseList.add(newCase);
   }
+  public ArrayList<Case> getCaseList () {
+	  return this.caseList;
+  }
   
-  public void combineLists(ArrayList<Case> firstList,
-    ArrayList<Case> secondList){
-    ArrayList<Case> combined = new ArrayList<Case>();
-    combined.addAll(firstList);
-    combined.addAll(secondList);
-    caseList = combined;
+  public static Categorized combineLists(Categorized list1, Categorized list2) {
+	Case[] listArray = (Case[])list1.getCaseList().toArray();
+    Categorized newList = new Categorized(list1.getName() + ", " + list2.getName(), "DATE ADD", listArray);
+    for (int i = 0; i < list2.getCaseList().size(); i++) {
+    	newList.getCaseList().add(list2.getCaseList().get(i));
+    }
+    return newList;
+    
   }
 }

@@ -15,12 +15,13 @@ public class Case implements Serializable{
   boolean actualCategoriesKnown; // true if this is part of a training set we know the categorization of already, false otherwise
   int caseNumber;
   String caseOwner;
+  String originalCategory;
   String caseRequestor;
   String dateRequested;
   String description;
   String[] tokenizedDescription;
   String category;
-  static int numKeywords = 144;
+  static int numKeywords = 160; // MUST BE UPDATED IF INPUTS IS UPDATED
 
   /*
    * (Default constructor to create a case and initialize occurrences counts)
@@ -43,6 +44,7 @@ public class Case implements Serializable{
     this.description = description;
     this.tokenizedDescription = tokenizedDescription;
     this.category = category;
+    this.originalCategory = category;
     getInputs();
   }
   
@@ -85,6 +87,10 @@ public class Case implements Serializable{
   public void setCategory(String category){
     this.category = category;
   }
+  
+  public void setOriginalCategory(String originalCategory){
+	  this.originalCategory = originalCategory;
+  }
 
   public boolean getActualCategoriesKnown(){
     return this.actualCategoriesKnown;
@@ -112,6 +118,10 @@ public class Case implements Serializable{
     return this.category;
   }
 
+  public String getOriginalCategory(){
+	    return this.originalCategory;
+  }
+  
   /*
    * (iterates through tokenized description to count occurences of keywords)
    * @param (tokenizedDescription) Contains a tokenized description that is easily iterable)
