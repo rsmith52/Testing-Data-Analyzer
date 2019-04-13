@@ -12,6 +12,8 @@ import File_IO.FileAccess;
 import Objects.Case;
 
 public class TrainNetwork {
+	
+	final static int NUM_EPOCHS = 2000;
 
 	@Test
 	public void test() {
@@ -44,8 +46,8 @@ public class TrainNetwork {
 	    
 	    
 	    // Train network with cases, 1000 epochs
-	    System.out.println("Training network with training set 10 times");
-	    Train_Neural.trainNeuralEpochs(network, testArray, 10);
+	    System.out.println("Training network with training set " + NUM_EPOCHS + " times");
+	    Train_Neural.trainNeuralEpochs(network, testArray, NUM_EPOCHS);
 	    System.out.println("Trained");
 	    System.out.println("Saving Weights to File");
 	    Train_Neural.saveWeightsToFile(network);
