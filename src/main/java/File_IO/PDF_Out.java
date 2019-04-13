@@ -32,7 +32,7 @@ public class PDF_Out {
 	
 	public void outputPDF() {	// ArrayList<Case>() caseList, String name, String dateCreated
 		Categorized categorized = new Categorized();
-		ArrayList<Case> cases = categorized.getCaseList();
+		ArrayList<Case> caseList = categorized.getCaseList();
 		
 		/* Info that Case contains: 
 		 * int caseNumber, 
@@ -54,6 +54,19 @@ public class PDF_Out {
         table.addCell(new Phrase("Description", tableFont));
         table.addCell(new Phrase("Tokenized Description", tableFont));
         table.addCell(new Phrase("Category", tableFont));
+        
+        // add info from cases
+        Case tempCase = new Case();
+        for (int i = 0; i < caseList.size(); i++) {
+        	tempCase = caseList.get(i);
+        	table.addCell(String.valueOf(tempCase.getCaseNumber()));
+        	table.addCell(new Phrase(tempCase.getCaseOwner(), tableFont));
+        	table.addCell(new Phrase(tempCase.getCaseRequestor(), tableFont));
+        	table.addCell(new Phrase(tempCase.getDateRequested(), tableFont));
+        	table.addCell(new Phrase(tempCase.getDescription(), tableFont));
+        	// TODO: addCell for tokenizedDescription
+        	table.addCell(new Phrase(tempCase.getCategory(), tableFont));
+        }
         
 		
 		try {
