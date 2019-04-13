@@ -29,10 +29,6 @@ public class Main {
     	testArray[i] = newCases.get(i);
     }
     
-//    // Create Neural Network
-//    System.out.println("Creating network object");    
-////    Neural network = new Neural();
-
     System.out.println("Running k-Fold-Cross-Validation:");
     System.out.println();
     for (int i = 0; i < 5; i++) {
@@ -40,7 +36,5 @@ public class Main {
     	double[][] weights = k_Fold_Evaluation.kFoldAnalysis(newCases, 10, i);
 //        System.out.println();
     }
-    
+   }
   }
-
-}
