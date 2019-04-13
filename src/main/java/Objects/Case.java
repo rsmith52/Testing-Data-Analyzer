@@ -22,7 +22,9 @@ public class Case implements Serializable{
   String category;
   static int numKeywords = 144;
 
-
+  /*
+   * (Default constructor to create a case and initialize occurrences counts)
+   */
   public Case(){
   	occurrences.put("365", 0);
     occurrences.put("access", 0);
@@ -167,10 +169,15 @@ public class Case implements Serializable{
     occurrences.put("wisclist", 0);
     occurrences.put("wlan", 0);
     occurrences.put("word", 0);
-	 occurrences.put("wrong", 0);
+	occurrences.put("wrong", 0);
   }
+  /*
+   * (Constructor when all variables are known)
+   */
   public Case(int caseNumber, String caseOwner,String caseRequestor,
+
   String dateRequested, String description,
+
   String[] tokenizedDescription, String category){
     this.caseNumber = caseNumber;
     this.caseOwner = caseOwner;
@@ -323,6 +330,7 @@ public class Case implements Serializable{
     occurrences.put("wlan", 0);
     occurrences.put("word", 0);
     occurrences.put("wrong", 0);
+
   }
 
   //setters for case variables
@@ -419,11 +427,11 @@ public class Case implements Serializable{
     	@SuppressWarnings("unchecked")
 		Map.Entry<String, Integer> pair = (Map.Entry<String, Integer>)it.next();
     	inputs[i] = (double) pair.getValue();
-    	//System.out.println(inputs[i]);
     	i++;
     }
     return inputs;
-}
+  }
+
 
   // Function to return correct labels of the data from the case
   public double[] getLabelsIfKnown() {
@@ -489,6 +497,8 @@ public class Case implements Serializable{
           break;
         case "Loaner Request (Computer/Mifi)":
           labelMatch[18] = 1;
+          break;
+        default:
           break;
       }
       return labelMatch;

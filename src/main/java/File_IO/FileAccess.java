@@ -14,6 +14,7 @@ public class FileAccess {
 		}
 		
 		return null;
+		
 	}
 	
 	/*
@@ -41,10 +42,8 @@ public class FileAccess {
 		} catch(IOException e) {
 			throw e;
 		}
-		
 		return file;
 		
-	}
-	
+}
 
 }
