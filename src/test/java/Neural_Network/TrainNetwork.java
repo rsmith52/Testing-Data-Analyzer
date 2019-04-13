@@ -13,7 +13,7 @@ import Objects.Case;
 
 public class TrainNetwork {
 	
-	final static int NUM_EPOCHS = 2000;
+	final static int NUM_EPOCHS = 20;
 
 	@Test
 	public void test() {
@@ -33,17 +33,7 @@ public class TrainNetwork {
 	    Case[] testArray = new Case[newCases.size()];
 	    for (int i = 0; i < testArray.length; i++) {
 	    	testArray[i] = newCases.get(i);
-	    }
-	    
-	    // Test to make sure data is right
-	    /*
-	    for (int i = 284; i < 285; i++) {
-	    	System.out.println("Case Number: " + testArray[i].getCaseNumber());
-	    	System.out.println("Case Description: " + testArray[i].getDescription());
-	    	System.out.println("Case Category: " + testArray[i].getCategory());
-	    }
-	    */
-	    
+	    }	    
 	    
 	    // Train network with cases, 1000 epochs
 	    System.out.println("Training network with training set " + NUM_EPOCHS + " times");

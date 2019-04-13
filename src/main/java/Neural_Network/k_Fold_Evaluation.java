@@ -51,7 +51,7 @@ public class k_Fold_Evaluation {
 		
 		// this will be the percent of error that exists relative to the expected error of an untrained network
 		double average = sum / k;
-		System.out.println("Average Indexed Error (as a percent of maximum error): " + average);
+		System.out.println("    Average Indexed Error : " + average);
 		
 		// finding the best set of weights
 		int bestIndex = 0;
@@ -62,7 +62,7 @@ public class k_Fold_Evaluation {
 				bestError = overallErrors[i];
 			}
 		}
-		System.out.println("Best Indexed Error: " + overallErrors[bestIndex]);
+		System.out.println("    Best Indexed Error: " + overallErrors[bestIndex]);
 		return weights[bestIndex];
 	}
 	

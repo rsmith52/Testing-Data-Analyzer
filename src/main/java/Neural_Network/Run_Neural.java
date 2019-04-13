@@ -46,6 +46,7 @@ public class Run_Neural {
 			  categories.add(in.nextLine());
 		  }
 		  categories.add("General Question"); // Always at end of list
+		  in.close();
 	  } catch (Exception e) {
 		  System.out.println("Error reading in output labels: " + e);
 	  }

@@ -23,7 +23,7 @@ public class k_Fold_EvaluationTest {
 	    	System.out.println(e);
 	    }
 		double[][] error = k_Fold_Evaluation.kFoldAnalysis(newCases, 5, 0);
-		assertEquals(1,1);
+		assertEquals(error.length,500,1000000);
 	}
 
 	@Test
