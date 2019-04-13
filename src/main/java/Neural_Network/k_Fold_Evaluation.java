@@ -17,7 +17,6 @@ public class k_Fold_Evaluation {
 		// this is just so we get getWeights to dynamically get the number of weights
 		Neural throwAwayNetwork = new Neural();
 		double[][] throwAwayWeights = throwAwayNetwork.getWeights();
-		// we may not need these, but
 		double[][][] weights = new double[k][throwAwayWeights.length][throwAwayWeights[0].length];
 		double[] overallErrors = new double[k];
 		ArrayList<ArrayList<Case>> caseGroups = Split_Data.splitData(cases, k);
@@ -54,9 +53,8 @@ public class k_Fold_Evaluation {
 		for (int i = 0; i < k; i++) sum += overallErrors[i];
 		
 		double average = sum / k;
-		// this is the percent of error that exists relative to the expected error of an untrained network
-		double scaledAverage = average / 0.125;
-		return scaledAverage;
+		// this will be the percent of error that exists relative to the expected error of an untrained network
+		return average;
 	}
 	
 	public static double testNetwork(Neural network, Case[] testCases) {
@@ -82,7 +80,9 @@ public class k_Fold_Evaluation {
 	    	sum += networkErrors[j];
 	    }
 	    double average = sum / networkErrors.length;
-	    return average;
+		double scaledAverage = average / 0.125;
+		// this should be the percent of error that exists relative to the expected error of an untrained network
+		return scaledAverage;
 	}
 	
 }
