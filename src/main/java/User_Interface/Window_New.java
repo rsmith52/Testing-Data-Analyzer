@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.SwingConstants;
 
 public class Window_New extends JFrame {
 
@@ -29,6 +30,7 @@ public class Window_New extends JFrame {
 					Window_New frame = new Window_New();
 					frame.setTitle("New Dataset");
 					frame.setVisible(true);
+					frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -43,7 +45,7 @@ public class Window_New extends JFrame {
 		setResizable(false);
 		setAlwaysOnTop(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 540, 100);
+		setBounds(100, 100, 540, 106);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
@@ -64,15 +66,31 @@ public class Window_New extends JFrame {
 			    if(returnVal == JFileChooser.APPROVE_OPTION) {
 			        try {
 			    	CSV_In.csvRead(chooser.getSelectedFile());
+			    	//TODO: what needs to be done here? We need to categorize the data set with the AI and then save it.
+			    	Window_Main.createMainWindow();
+			    	dispose();
 			        }
 			        catch(Exception err) {
-			        	JOptionPane.showMessageDialog(contentPane, err, "Error",
+			        	JOptionPane.showMessageDialog(contentPane, err.getMessage(), "Error",
 			        	        JOptionPane.WARNING_MESSAGE);
 			        }
 			    }
 			}
 		});
-		contentPane.add(btnOpencsv, BorderLayout.CENTER);
+		contentPane.add(btnOpencsv, BorderLayout.EAST);
+		
+		JButton btnNewButton = new JButton("Go Back");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Window_Main.createMainWindow();
+				dispose();
+			}
+		});
+		contentPane.add(btnNewButton, BorderLayout.WEST);
+		//Watch for close of appication
+
+
 	}
 
 }
