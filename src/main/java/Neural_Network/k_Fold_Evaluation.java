@@ -1,6 +1,7 @@
 package Neural_Network;
 
 import java.util.ArrayList;
+import Neural_Network.*;
 
 import Objects.Case;
 
@@ -43,7 +44,7 @@ public class k_Fold_Evaluation {
 		    
 		    Train_Neural.trainNeuralEpochs(network, trainCasesArray, numEpochs);
 		    weights[i] = network.getWeights();
-		    overallErrors[i] = testNetwork(network, testCasesArray);
+		    overallErrors[i] = Test_Network.testNetwork(network, testCasesArray);
 		    
 		}
 		double sum = 0;
