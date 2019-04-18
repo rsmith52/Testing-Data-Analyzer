@@ -23,13 +23,13 @@ public class Case implements Serializable{
   String category;
   static int numKeywords = 160; // MUST BE UPDATED IF INPUTS IS UPDATED
 
-  /*
+  /**
    * (Default constructor to create a case and initialize occurrences counts)
    */
   public Case(){
   	getInputs();
   }
-  /*
+  /**
    * (Constructor when all variables are known)
    */
   public Case(int caseNumber, String caseOwner,String caseRequestor,
@@ -122,8 +122,8 @@ public class Case implements Serializable{
 	    return this.originalCategory;
   }
   
-  /*
-   * (iterates through tokenized description to count occurences of keywords)
+  /**
+   * (iterates through tokenized description to count occurrences of keywords)
    * @param (tokenizedDescription) Contains a tokenized description that is easily iterable)
    */
   public void findOccurrences(String[] tokenizedDescription){
@@ -133,7 +133,11 @@ public class Case implements Serializable{
       }
     }
   }
-  // Function to return all of the data from the case as input to neural network
+  
+  /**
+   * Function to return all of the data from the case as input to neural network
+   * @return
+   */
   public double[] getAsInput() {
 	  double[] inputs = new double[numKeywords];
 	  for (Map.Entry<String, Integer> entry : occurrences.entrySet()) {
