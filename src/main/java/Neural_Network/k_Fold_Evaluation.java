@@ -1,14 +1,11 @@
 package Neural_Network;
 
 import java.util.ArrayList;
-import Neural_Network.*;
+//import Neural_Network.*;
 
 import Objects.Case;
 
 public class k_Fold_Evaluation {
-
-	// TODO: We may want this to also return the weights that give the best score, but if the average is low enough,
-	// it shouldn't matter that much, as that means whatever train sample we use works fairly well
 	
 	// this will return approximately 0.125 without any training
 	public static double[][] kFoldAnalysis(ArrayList<Case> cases, int k, int numEpochs) {
@@ -21,6 +18,7 @@ public class k_Fold_Evaluation {
 	
 		for (int i = 0; i < k; i++) {
 			// creating arraylists to be used to hold the test and train data
+//			System.out.println("Testing the network with group " + i + " as the testing data.");
 			ArrayList<Case> testCases = new ArrayList<Case>();
 			ArrayList<Case> trainCases = new ArrayList<Case>();
 			
@@ -56,13 +54,20 @@ public class k_Fold_Evaluation {
 		
 		// finding the best set of weights
 		int bestIndex = 0;
+		int worstIndex = 0;
 		double bestError = 2; // should be no more than around 1, so this should always be replaced
+		double worstError = 0; // should be greater than 0 unless perfect, so this will be replaced
 		for (int i = 0; i < k; i++) {
 			if (overallErrors[i] < bestError) {
 				bestIndex = i;
 				bestError = overallErrors[i];
 			}
+			if (overallErrors[i] > worstError) {
+				worstIndex = i;
+				worstError = overallErrors[i];
+			}
 		}
+		System.out.println("    Worst Indexed Error: " + overallErrors[worstIndex]);
 		System.out.println("    Best Indexed Error: " + overallErrors[bestIndex]);
 		return weights[bestIndex];
 	}

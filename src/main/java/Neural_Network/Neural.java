@@ -1,19 +1,13 @@
 package Neural_Network;
 
-import Neural_Network.*;
 import Neural_Network.Cell;
-import File_IO.*;
-import java.util.Scanner;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.Iterator;
-import java.util.Set;
 import java.io.*;
 import java.util.Random;
 
 public class Neural implements Serializable {
 
-  private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 12;
   Cell[] firstLayer;
   Cell[] secondLayer;
   public double[][] weights;

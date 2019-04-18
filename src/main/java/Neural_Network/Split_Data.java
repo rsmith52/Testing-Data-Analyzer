@@ -2,7 +2,6 @@ package Neural_Network;
 
 import java.util.ArrayList;
 import java.util.List;
-import Neural_Network.*;
 import Objects.*;
 
 

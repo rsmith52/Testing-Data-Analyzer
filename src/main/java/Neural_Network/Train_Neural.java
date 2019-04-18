@@ -6,7 +6,7 @@ import File_IO.*;
 public class Train_Neural {
 
 	  final static double STEP_SIZE = 0.1;
-	  final static String weightsFile = "weights.txt";
+	  final static String weightsFile = "weights_for_demo_2.txt";
 
 	  // Run through an epoch with a training set - updating the weights of the network
 	  public static void trainNeural(Neural network, Case[] dataSet) {
@@ -164,11 +164,20 @@ public class Train_Neural {
 		  Categorized_Out.writeToFile(weightsFile, network);
 	  }
 	  
+	  public static void saveWeightsToFile(Neural network, String filename) {
+		  Categorized_Out.writeToFile(filename, network);
+	  }
+	  
 	  /** set weights for network from file
 	   * 
 	   */
 	  public static void readWeightsFromFile(Neural network) {
 		  double[][] weights = Categorized_In.readFromFile(weightsFile).getWeights();
+		  network.setWeights(weights);
+	  }
+	  
+	  public static void readWeightsFromFile(Neural network, String filename) {
+		  double[][] weights = Categorized_In.readFromFile(filename).getWeights();
 		  network.setWeights(weights);
 	  }
 }

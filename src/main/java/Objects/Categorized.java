@@ -3,8 +3,8 @@ package Objects;
 import java.io.*;
 import java.util.ArrayList;
 
-public class Categorized implements Serializable{
-  static final long serialVersionUID = 10;
+public class Categorized implements Serializable {
+  static final long serialVersionUID = 11;
   public String name;
   public String dateCreated;
   public ArrayList<Case> caseList;
@@ -13,7 +13,7 @@ public class Categorized implements Serializable{
 	  caseList = new ArrayList<Case>();
   }
 
-  public Categorized(String name, String dateCreated){
+  public Categorized(String name, String dateCreated) {
     caseList = new ArrayList<Case>();
     this.name = name;
     this.dateCreated = dateCreated;
