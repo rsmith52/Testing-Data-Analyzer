@@ -2,3 +2,5 @@
 *.class
 weights.txt
 testNetwork.txt
+.settings
+
