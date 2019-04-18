@@ -13,7 +13,7 @@ import Objects.Case;
 
 public class TrainNetwork {
 	
-	final static int NUM_EPOCHS = 2000;
+	final static int NUM_EPOCHS = 20;
 
 	@Test
 	public void test() {
