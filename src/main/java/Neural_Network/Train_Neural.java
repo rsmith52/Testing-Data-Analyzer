@@ -6,7 +6,8 @@ import File_IO.*;
 public class Train_Neural {
 
 	  final static double STEP_SIZE = 0.1;
-	  final static String weightsFile = "weights_for_demo_2.txt";
+	  final static String weightsFile = "weights_ray.txt";
+
 
 	  // Run through an epoch with a training set - updating the weights of the network
 	  public static void trainNeural(Neural network, Case[] dataSet) {
