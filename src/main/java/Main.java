@@ -1,6 +1,7 @@
 import Objects.*;
-import Neural_Network.*;
 import File_IO.*;
+import Neural_Network.*;
+
 import java.util.*;
 import java.io.*;
 
@@ -29,12 +30,14 @@ public class Main {
     	testArray[i] = newCases.get(i);
     }
     
+    Neural network = new Neural();
+    double[][] weights = k_Fold_Evaluation.kFoldAnalysis(newCases, 10, 800);
+    network.setWeights(weights);
+    Train_Neural.saveWeightsToFile(network);
+    
     System.out.println("Running k-Fold-Cross-Validation:");
     System.out.println();
     
-
-    	System.out.println("10-Fold-Cross-Validation with " + 50 + " epoch(s):");
-    	k_Fold_Evaluation.kFoldAnalysis(newCases, 10, 50);    
-   }
+  }
   
 }
