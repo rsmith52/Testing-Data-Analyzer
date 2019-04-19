@@ -5,9 +5,7 @@ import java.util.*;
 import Objects.*;
 import Neural_Network.*;
 
-public class Categorized_In implements Serializable{
-	static final long serialVersionUID = 10;
-	
+public class Categorized_In {
 	
 	public static Categorized readFromDatabase(String filename) {
 		try {

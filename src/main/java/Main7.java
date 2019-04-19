@@ -1,9 +1,6 @@
-import Objects.*;
-import Neural_Network.*;
-import File_IO.*;
+
 import User_Interface.*;
-import java.util.*;
-import java.io.*;
+
 
 public class Main7 {
 
@@ -11,5 +8,5 @@ public class Main7 {
   public static void main (String[] args) {
 	  Window_Main.createMainWindow();
   }
- 
+
 }

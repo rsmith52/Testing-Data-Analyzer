@@ -1,3 +1,7 @@
-The most recent working version of our code is on the most recent commit to the demo2 branch.
-
-The file to run to see some functionality is src/main/java/Main.java. The project can be opened in eclipse as a maven project to see the full test suite and run them as well. It is recommended to set a low number of epochs in the TrainNetwork test, or training will take several minutes.
+# Data-Analyzer
+## Description
+IT Case Data Analyzer is a program built for DoIT to assign categories to IT cases for the service desk and departmental support branches. The ticketing software they use called WiscIT can export a list of cases worked on, but often times these cases are not properly assigned categories. Our program is a neural network that we trained to assign categories based on a string description, and then allow the user to export the categorized dataset as a .csv file, and print out a PDF with some metrics on the data. The program reads in .csv files in the format WiscIT outputs.
+## How to Run
+Our code is in the form of a maven java project, and can be imported to most java IDE's such as Eclipse and then run from Main.java.
+Alternatively, we have compiled an .exe that can be run as a standalone.
+In the folder called "Test Datasets" there are 3 .csv data files you can use that contain cases to be run through the program. When selecting a .csv file, select one of these.

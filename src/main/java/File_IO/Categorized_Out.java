@@ -5,8 +5,7 @@ import java.util.*;
 import Neural_Network.*;
 
 
-public class Categorized_Out implements Serializable{
-	static final long serialVersionUID = 10;
+public class Categorized_Out {
 	
 	public static void writeToDatabase(String filename, Categorized alreadyCategorized) {
 		try {

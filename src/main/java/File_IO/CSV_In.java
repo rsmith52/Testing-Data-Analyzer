@@ -55,7 +55,6 @@ public class CSV_In {
 			cases.add(myCase);
 		}
 		in.close();
-
 		return cases;
 	} //end csvRead
 	
