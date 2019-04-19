@@ -1,5 +1,6 @@
 package File_IO;
 
+//import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -14,9 +15,7 @@ import org.jfree.data.general.DefaultPieDataset;
 
 import java.util.ArrayList;
 
-//import com.itextpdf.awt.DefaultFontMapper;
 import com.itextpdf.awt.PdfGraphics2D;
-//import com.itextpdf.awt.geom.Rectangle2D;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Font;
@@ -24,12 +23,11 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
-//import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
-//import com.itextpdf.layout.element;
 import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
 
 import Objects.Case;
 import Objects.Categorized;
@@ -225,34 +223,42 @@ public class PDF_Out {
         testPieData.setValue("Malware", 47);
         testPieData.setValue("Adobe", 20);
         
+        
         /* Specify chart title, dataset, legend, tooltip and URLs in this method as input */
         JFreeChart pieChart = ChartFactory.createPieChart("Test Pie Chart", testPieData, true, true, false);
-        int w = 640;	// Width of chart 
-        int h = 480;	// Height of chart 
+//        CategoryPlot plot = pieChart.getCategoryPlot();
+//        LegendTitle legend = new LegendTitle(plot.getRenderer());
+//        legend.setItemFont(new Font("Courier", Font.NORMAL, 8f));
+        int w = 500;	// Width of chart 
+        int h = 400;	// Height of chart 
         
 		
 		try {	// create the pdf 
-			OutputStream file = new FileOutputStream(new File("PDFTest.pdf"));
-
+			String dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+			OutputStream file = new FileOutputStream(new File(dateTime + ".pdf"));
 			Document document = new Document();
 			PdfWriter write = PdfWriter.getInstance(document, file);
 
-			document.open();
-			String dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date());
+			document.open(); 
 			document.add(new Paragraph(dateTime));
 			document.add(Chunk.NEWLINE);
 			document.add(paragraph1);
 			document.add(Chunk.NEWLINE);
 			document.add(paragraph2);
+			document.add(Chunk.NEWLINE);
+			document.add(Chunk.NEWLINE);
 			
+			// adds pie chart
 			PdfContentByte writePieChart = write.getDirectContent();
 			PdfTemplate tempChartHolder = writePieChart.createTemplate(w, h); 
 			Graphics2D chartGraphics = new PdfGraphics2D(tempChartHolder, w, h);
             Rectangle2D chartRegion = new Rectangle2D.Double(0, 0, w, h);
-            pieChart.draw(chartGraphics, chartRegion);           
-            chartGraphics.dispose();
-            writePieChart.addTemplate(tempChartHolder, 0, 0);
-			
+            pieChart.draw(chartGraphics, chartRegion); 
+            chartGraphics.dispose();      
+            Image pieImage = Image.getInstance(tempChartHolder);
+            pieImage.setAlignment(Image.MIDDLE);
+            document.add(pieImage); 
+            
 			document.close();
 			file.close();
 		}
