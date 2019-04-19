@@ -13,6 +13,6 @@ running from an IDE like eclipse where you won't experience crashes.
 In the folder called "Test Datasets" there are 3 .csv data files you can use that contain cases to be run through the program. When selecting a .csv file, select one of these.
 All output files are output to the main project folder as of now.
 
-##Known Issues
+## Known Issues
 * UI has some sizing issues on some displays, where text may appear very small
 * When opening a .csv file, you need to name it first in the text box, and then hit enter before clicking the open button
