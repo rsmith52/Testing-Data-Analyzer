@@ -235,7 +235,8 @@ public class PDF_Out {
 		
 		try {	// create the pdf 
 			String dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-			OutputStream file = new FileOutputStream(new File(dateTime + ".pdf"));
+			String dt = new SimpleDateFormat("yyy-MM-dd HH.mm.ss").format(new Date());
+			OutputStream file = new FileOutputStream(new File(dt + ".pdf"));
 			Document document = new Document();
 			PdfWriter write = PdfWriter.getInstance(document, file);
 
