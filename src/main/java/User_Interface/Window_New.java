@@ -85,13 +85,9 @@ public class Window_New extends JFrame {
 					    	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 					    	LocalDate dateCreated = LocalDate.now();
 					    	String dateString = dateCreated.format(dtf);
-					    	System.out.println("dateCreated");
 					    	Categorized cat = new Categorized(text, dateString, cases);
-					    	System.out.println("cat");
 					    	Window_Main.catList.add(cat);
-					    	System.out.println("catList");
 					    	Window_Main.createMainWindow();
-					    	System.out.println("dispose");
 					    	dispose();
 				        }
 				        catch(Exception err) {
@@ -101,7 +97,6 @@ public class Window_New extends JFrame {
 				    }
 				} else {
 					//TODO print "must add a name" warning
-					System.out.println("Failed: " + text);
 				}
 			}
 		});
