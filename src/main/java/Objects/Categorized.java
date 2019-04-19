@@ -53,4 +53,9 @@ public class Categorized implements Serializable{
     return newList;
     
   }
+  
+  @Override
+  public String toString() {
+	  return this.getName();
+  }
 }

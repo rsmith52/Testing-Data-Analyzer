@@ -75,6 +75,9 @@ public class Window_Main extends JFrame {
 		
 		JScrollPane scrollPane = new JScrollPane();
 		JList list = new JList();
+		Categorized[] catListArr = new Categorized[catList.size()];
+		catListArr = catList.toArray(catListArr);
+		list.setListData(catListArr);
 		list.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
