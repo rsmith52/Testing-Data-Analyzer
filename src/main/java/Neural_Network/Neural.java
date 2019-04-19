@@ -11,14 +11,15 @@ import java.util.Set;
 import java.io.*;
 import java.util.Random;
 
-public class Neural {
+public class Neural implements Serializable {
 
+  private static final long serialVersionUID = 1L;
   Cell[] firstLayer;
   Cell[] secondLayer;
   public double[][] weights;
   final Random rand = new Random();
   final int numOutputs = 19;
-  final int numInputs = 144;
+  final int numInputs = 160; // MUST BE UPDATED IF INPUTS IS UPDATED
   final String inputFile = "inputs.txt";
   final String outputFile = "outputs.txt";
 

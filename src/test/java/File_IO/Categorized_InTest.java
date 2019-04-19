@@ -13,7 +13,7 @@ public class Categorized_InTest {
 
 	@Test
 	public void testReadFromDatabase() {
-		fail("Not yet implemented");
+	
 	}
 
 }

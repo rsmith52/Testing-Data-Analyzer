@@ -48,6 +48,8 @@ public class CSV_In {
 			myCase.setCategory(record.get("Category"));
 			myCase.setDateRequested(record.get("Created Date Time"));
 			myCase.setDescription(record.get("Description"));
+			String[] tokenized = Tokenization.segmentation(myCase.getDescription());
+			myCase.setTokenizedDescription(tokenized);
 
 			//stores into ArrayList
 			cases.add(myCase);
@@ -72,10 +74,11 @@ public class CSV_In {
 			myCase.setCaseNumber(Integer.parseInt(record.get("Incident ID")));
 			myCase.setActualCategoriesKnown(true);
 			myCase.setCategory(record.get("Subcategory"));
+			myCase.setOriginalCategory(record.get("Subcategory"));
 			myCase.setDescription(record.get("Description"));
 			String[] tokenized = Tokenization.segmentation(myCase.getDescription());
 			myCase.setTokenizedDescription(tokenized);
-
+			myCase.findOccurrences(myCase.getTokenizedDescription());
 			//stores into ArrayList
 			cases.add(myCase);
 		}

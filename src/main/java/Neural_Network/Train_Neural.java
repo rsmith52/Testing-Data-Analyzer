@@ -1,10 +1,12 @@
 package Neural_Network;
 
 import Objects.*;
+import File_IO.*;
 
 public class Train_Neural {
 
 	  final static double STEP_SIZE = 0.1;
+	  final static String weightsFile = "weights.txt";
 
 	  // Run through an epoch with a training set - updating the weights of the network
 	  public static void trainNeural(Neural network, Case[] dataSet) {
@@ -22,7 +24,10 @@ public class Train_Neural {
 	  // Run through multiple epochs with a training set - updating the weights of the network
 	  public static void trainNeuralEpochs(Neural network, Case[] dataSet, int numEpochs) {
 	    for (int i = 0; i < numEpochs; i++) {
-	      trainNeural(network, dataSet);
+//	    	if (i % 100 == 0) {
+//	    		System.out.println("Epoch: " + i);
+//	    	}
+	    	trainNeural(network, dataSet);
 	    }
 	  }
 
@@ -152,15 +157,18 @@ public class Train_Neural {
 	    network.setWeights(newWeights);
 	  }
 	  
-	  /** take in a data set to make a training set and testing set randomly
-	   * 
-	   */
-	  
 	  /** save weights from network to file
 	   * 
 	   */
+	  public static void saveWeightsToFile(Neural network) {
+		  Categorized_Out.writeToFile(weightsFile, network);
+	  }
 	  
 	  /** set weights for network from file
 	   * 
 	   */
+	  public static void readWeightsFromFile(Neural network) {
+		  double[][] weights = Categorized_In.readFromFile(weightsFile).getWeights();
+		  network.setWeights(weights);
+	  }
 }

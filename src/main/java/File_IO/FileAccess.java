@@ -14,6 +14,7 @@ public class FileAccess {
 		}
 		
 		return null;
+		
 	}
 	
 	/*
@@ -34,6 +35,7 @@ public class FileAccess {
 		}
 		try {
 			file = new File(pathname);
+			file.createNewFile();
 			if (!file.isFile())
 			{
 				throw new IOException("Directory");
@@ -41,10 +43,8 @@ public class FileAccess {
 		} catch(IOException e) {
 			throw e;
 		}
-		
 		return file;
 		
-	}
-	
+}
 
 }

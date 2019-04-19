@@ -1,6 +1,8 @@
 package Neural_Network;
 
-public class Cell {
+import java.io.Serializable;
+
+public class Cell implements Serializable {
 
   String functionType; // ReLU or Sigmoid
   final int cellNum; // Just an index to help with calculating weights of input edges

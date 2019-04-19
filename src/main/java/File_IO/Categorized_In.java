@@ -3,6 +3,7 @@ package File_IO;
 import java.io.*;
 import java.util.*;
 import Objects.*;
+import Neural_Network.*;
 
 public class Categorized_In implements Serializable{
 	static final long serialVersionUID = 10;
@@ -11,8 +12,27 @@ public class Categorized_In implements Serializable{
 	public static Categorized readFromDatabase(String filename) {
 		try {
 			File database;
-			database = FileAccess.getFile(filename);
-			Categorized alreadyCategorized = new Categorized();
+			database = FileAccess.createFile(filename);
+			Categorized alreadyCategorized;
+			FileInputStream fin = new FileInputStream(database);
+			ObjectInputStream in = new ObjectInputStream(fin);
+			alreadyCategorized = (Categorized)in.readObject();
+			in.close();
+			fin.close();
+			return alreadyCategorized;
+		}
+		catch(IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.err.print("Error reading from database: class not found");
+		}
+		return null;
+	}
+	
+	public static Categorized readFromDatabase(File file) {
+		try {
+			File database = file;
+			Categorized alreadyCategorized;
 			FileInputStream fin = new FileInputStream(database);
 			ObjectInputStream in = new ObjectInputStream(fin);
 			alreadyCategorized = (Categorized)in.readObject();
@@ -28,19 +48,19 @@ public class Categorized_In implements Serializable{
 		return null;
 	}
 	
-	public static double[][] readFromFile(String filename) {
+	public static Neural readFromFile(String filename) {
 		try {
-			double[][] array;
+			Neural network;
 			File database;
-			database = FileAccess.getFile(filename);
+			database = FileAccess.createFile(filename);
 			FileInputStream fin = new FileInputStream(database);
 			ObjectInputStream in = new ObjectInputStream(fin);
-			array = (double[][])in.readObject();
+			network = (Neural)in.readObject();
 			in.close();
 			fin.close();
-			return array;
+			return network;
 		}
-		catch(IOException e) {
+		catch (IOException e) {
 			System.err.print("Error reading from database: IO exception");
 		} catch (ClassNotFoundException e) {
 			System.err.print("Error reading from database: class not found");
