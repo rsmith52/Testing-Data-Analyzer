@@ -28,6 +28,7 @@ public class TestTrainedNetwork {
 	    //File testFile = FileAccess.getFile("/Test_Data_1.csv");
 	    //File testFile = FileAccess.getFile("/Test_Data_2.csv");
 	    //File testFile = FileAccess.getFile("/Test_Data_3.csv");
+	    //File testFile = FileAccess.getFile("/Bascom_Pull.csv");
 	    
 	    try {
 	    	newCases = CSV_In.csvRead(testFile, true);
@@ -73,11 +74,11 @@ public class TestTrainedNetwork {
 	    System.out.println("Percentage Correct: " + correctness);
 	    
 	    // Make categorized object - Test reading and writing to file
-	    /*
+	    
 	    Categorized list = new Categorized("testNetwork", "Now", testArray);
 	    Categorized_Out.writeToDatabase("testNetwork.txt", list);
 	    Categorized list2 = Categorized_In.readFromDatabase("testNetwork.txt");
-	    */
+	    
 	}
 
 }
