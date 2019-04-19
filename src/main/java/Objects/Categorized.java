@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 import File_IO.FileAccess;
 
-public class Categorized implements Serializable {
+public class Categorized implements Serializable{
   static final long serialVersionUID = 11;
   public String name;
   public String dateCreated;
@@ -16,7 +16,7 @@ public class Categorized implements Serializable {
 	  caseList = new ArrayList<Case>();
   }
 
-  public Categorized(String name, String dateCreated) {
+  public Categorized(String name, String dateCreated){
     caseList = new ArrayList<Case>();
     this.name = name;
     this.dateCreated = dateCreated;
@@ -45,6 +45,10 @@ public class Categorized implements Serializable {
   }
   public ArrayList<Case> getCaseList () {
 	  return this.caseList;
+  }
+  @Override
+  public String toString() {
+	  return this.getName();
   }
   
   public static Categorized combineLists(Categorized list1, Categorized list2) {

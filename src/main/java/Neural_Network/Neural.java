@@ -13,7 +13,7 @@ public class Neural implements Serializable {
   public double[][] weights;
   final Random rand = new Random();
   final int numOutputs = 19;
-  final int numInputs = 160; // MUST BE UPDATED IF INPUTS IS UPDATED
+  final int numInputs = 169; // MUST BE UPDATED IF INPUTS IS UPDATED
   final String inputFile = "inputs.txt";
   final String outputFile = "outputs.txt";
 
