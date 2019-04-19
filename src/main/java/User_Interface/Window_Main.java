@@ -37,7 +37,7 @@ import java.awt.ScrollPane;
 public class Window_Main extends JFrame {
 
 	private JPanel contentPane;
-	public static ArrayList<Categorized> catList;
+	public static ArrayList<Categorized> catList = new ArrayList<Categorized>();
 
 	/**
 	 * Launch the application.
@@ -60,7 +60,7 @@ public class Window_Main extends JFrame {
 	 * Create the frame.
 	 */
 	public Window_Main() {
-		catList = new ArrayList<Categorized>();
+		//catList = new ArrayList<Categorized>();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 623, 643);
 		contentPane = new JPanel();
@@ -74,9 +74,10 @@ public class Window_Main extends JFrame {
 		contentPane.add(lblTets);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		JList list = new JList();
-		Categorized[] catListArr = new Categorized[catList.size()];
-		catListArr = catList.toArray(catListArr);
+		JList<Categorized> list = new JList<Categorized>();
+		Categorized[] catListArr = new Categorized[Window_Main.catList.size()];
+		catListArr = Window_Main.catList.toArray(catListArr);
+		System.out.println(Window_Main.catList);
 		list.setListData(catListArr);
 		list.addMouseListener(new MouseAdapter() {
 			@Override
@@ -87,7 +88,7 @@ public class Window_Main extends JFrame {
 		          if (index >= 0) {
 		            Object o = theList.getModel().getElementAt(index);
 		            //System.out.println("Double-clicked on: " + o.toString());
-		            //TODO: have this open Window_Catergorized with the selected catagozired dataset
+		            //TODO: have this open Window_Catergorized with the selected categorized dataset
 		            
 		            Categorized cat = new Categorized(o.toString(), o.toString());
 		            File testFile = FileAccess.getFile("/Bascom_Pull.csv");
@@ -103,15 +104,15 @@ public class Window_Main extends JFrame {
 		        }
 			}
 		});
-		list.setModel(new AbstractListModel() {
-			String[] values = new String[0];
-			public int getSize() {
-				return values.length;
-			}
-			public String getElementAt(int index) {
-				return values[index];
-			}
-		});
+//		list.setModel(new AbstractListModel() {
+//			String[] values = new String[0];
+//			public int getSize() {
+//				return values.length;
+//			}
+//			public String getElementAt(int index) {
+//				return values[index];
+//			}
+//		});
 		scrollPane.setViewportView(list);
 		contentPane.add(scrollPane);
 		
