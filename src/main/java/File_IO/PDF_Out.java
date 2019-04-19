@@ -1,20 +1,32 @@
 package File_IO;
 
+import java.awt.Graphics2D;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.awt.geom.Rectangle2D;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.general.DefaultPieDataset;
+
 import java.util.ArrayList;
 
+//import com.itextpdf.awt.DefaultFontMapper;
+import com.itextpdf.awt.PdfGraphics2D;
+//import com.itextpdf.awt.geom.Rectangle2D;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 //import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
 //import com.itextpdf.layout.element;
 import com.itextpdf.text.FontFactory;
@@ -44,11 +56,6 @@ public class PDF_Out {
 		 * String[] tokenizedDescription, 
 		 * String category
 		 */
-		
-		// test caseList
-//		for (int i = 0; i < 10; i++) {
-//			caseList.
-//		}
            
         Font titleFont = FontFactory.getFont(FontFactory.COURIER, 11f);	// font for table titles
         Font catFont = FontFactory.getFont(FontFactory.COURIER, 10f);	// categories font
@@ -209,12 +216,26 @@ public class PDF_Out {
         borderTable2.addCell(borderC2);
         paragraph2.add(borderTable2);
         
+        
+        // TESTING PIE CHARTS!
+        DefaultPieDataset testPieData = new DefaultPieDataset();
+        testPieData.setValue("Phishing", 45);
+        testPieData.setValue("O365", 37);
+        testPieData.setValue("Printer", 10);
+        testPieData.setValue("Malware", 47);
+        testPieData.setValue("Adobe", 20);
+        
+        /* Specify chart title, dataset, legend, tooltip and URLs in this method as input */
+        JFreeChart pieChart = ChartFactory.createPieChart("Test Pie Chart", testPieData, true, true, false);
+        int w = 640;	// Width of chart 
+        int h = 480;	// Height of chart 
+        
 		
 		try {	// create the pdf 
 			OutputStream file = new FileOutputStream(new File("PDFTest.pdf"));
 
 			Document document = new Document();
-			PdfWriter.getInstance(document, file);
+			PdfWriter write = PdfWriter.getInstance(document, file);
 
 			document.open();
 			String dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date());
@@ -223,7 +244,15 @@ public class PDF_Out {
 			document.add(paragraph1);
 			document.add(Chunk.NEWLINE);
 			document.add(paragraph2);
-
+			
+			PdfContentByte writePieChart = write.getDirectContent();
+			PdfTemplate tempChartHolder = writePieChart.createTemplate(w, h); 
+			Graphics2D chartGraphics = new PdfGraphics2D(tempChartHolder, w, h);
+            Rectangle2D chartRegion = new Rectangle2D.Double(0, 0, w, h);
+            pieChart.draw(chartGraphics, chartRegion);           
+            chartGraphics.dispose();
+            writePieChart.addTemplate(tempChartHolder, 0, 0);
+			
 			document.close();
 			file.close();
 		}
