@@ -88,7 +88,6 @@ public class Window_New extends JFrame {
 					    	Neural network = new Neural();
 					    	Train_Neural.readWeightsFromFile(network);
 					    	Run_Neural.assignCategoriesAndCheckCorrectness(network, cases);
-					    	//TODO get the date from some date library
 					    	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 					    	LocalDate dateCreated = LocalDate.now();
 					    	String dateString = dateCreated.format(dtf);

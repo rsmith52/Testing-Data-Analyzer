@@ -77,7 +77,6 @@ public class Window_Main extends JFrame {
 		JList<Categorized> list = new JList<Categorized>();
 		Categorized[] catListArr = new Categorized[Window_Main.catList.size()];
 		catListArr = Window_Main.catList.toArray(catListArr);
-		System.out.println(Window_Main.catList);
 		list.setListData(catListArr);
 		list.addMouseListener(new MouseAdapter() {
 			@Override

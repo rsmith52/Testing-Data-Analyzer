@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 import File_IO.*;
 import Objects.*;
@@ -108,8 +110,10 @@ public class Window_Categorized extends JFrame {
 			public void mouseClicked(MouseEvent m) {
 				//get other Categorized or case list somehow
 				JFileChooser chooser = new JFileChooser();
+				File currentDir = new File(System.getProperty("user.dir") + "/cats");
+				chooser.setCurrentDirectory(currentDir);
 				FileNameExtensionFilter filter = new FileNameExtensionFilter(
-						"TXT Files", "TXT");
+						"CAT Files", "CAT");
 				chooser.setFileFilter(filter);
 				int returnVal = chooser.showOpenDialog(contentPane);
 				if(returnVal == JFileChooser.APPROVE_OPTION) {
