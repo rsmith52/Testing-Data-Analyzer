@@ -6,6 +6,6 @@ Use Branch: FInalTesting
 
 Our code is in the form of a maven java project, and can be imported to most java IDE's such as Eclipse and then run from Main.java. 
 
-Alternatively, we have compiled an .exe that can be run as a standalone.
+Alternatively, we have compiled a .jar that can be run as a standalone on any device running java: Data Analyzer
 In the folder called "Test Datasets" there are 3 .csv data files you can use that contain cases to be run through the program. When selecting a .csv file, select one of these.
 All output files are output to the main project folder as of now.
