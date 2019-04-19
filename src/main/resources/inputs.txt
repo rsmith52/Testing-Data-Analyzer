@@ -134,6 +134,7 @@ setting
 settings
 setup
 shared
+shareddrive
 site
 skype
 software

@@ -24,9 +24,14 @@ public class TestTrainedNetwork {
 	    
 	    System.out.println("Reading in Test Data");
 	    ArrayList<Case> newCases = new ArrayList<Case>();
-	    File newFile = FileAccess.getFile("/categorizedCases.csv");
+	    File testFile = FileAccess.getFile("/categorizedCases.csv");
+	    //File testFile = FileAccess.getFile("/Test_Data_1.csv");
+	    //File testFile = FileAccess.getFile("/Test_Data_2.csv");
+	    //File testFile = FileAccess.getFile("/Test_Data_3.csv");
+	    
 	    try {
-	    	newCases = CSV_In.csvRead(newFile, true);
+	    	newCases = CSV_In.csvRead(testFile, true);
+	    	//newCases = CSV_In.csvRead(testFile);
 	    } catch (Exception e) {
 	    	System.out.println(e);
 	    }
@@ -68,10 +73,11 @@ public class TestTrainedNetwork {
 	    System.out.println("Percentage Correct: " + correctness);
 	    
 	    // Make categorized object - Test reading and writing to file
+	    /*
 	    Categorized list = new Categorized("testNetwork", "Now", testArray);
 	    Categorized_Out.writeToDatabase("testNetwork.txt", list);
 	    Categorized list2 = Categorized_In.readFromDatabase("testNetwork.txt");
-	    
+	    */
 	}
 
 }
