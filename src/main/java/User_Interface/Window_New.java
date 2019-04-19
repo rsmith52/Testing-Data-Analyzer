@@ -8,21 +8,31 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import File_IO.CSV_In;
-import Objects.Case;
+import Neural_Network.Neural;
+import Neural_Network.Run_Neural;
+import Neural_Network.Train_Neural;
+import Objects.*;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.SwingConstants;
 
 public class Window_New extends JFrame {
 
 	private JPanel contentPane;
+	String text;
 
 	/**
 	 * Launch the application.
@@ -46,6 +56,7 @@ public class Window_New extends JFrame {
 	 * Create the frame.
 	 */
 	public Window_New() {
+		text = "";
 		setResizable(false);
 		setAlwaysOnTop(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -55,33 +66,58 @@ public class Window_New extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		
-		JLabel lblPleaseEnterIn = new JLabel("Please click the Open .CSV button and choose the .CSV file with the data to be catigorized");
+		JLabel lblPleaseEnterIn = new JLabel("Please click the Open .CSV button and choose the .CSV file with the data to be categorized");
 		contentPane.add(lblPleaseEnterIn, BorderLayout.NORTH);
 		
 		JButton btnOpencsv = new JButton("Open .CSV");
 		btnOpencsv.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				JFileChooser chooser = new JFileChooser();
-			    FileNameExtensionFilter filter = new FileNameExtensionFilter(
-			        "CSV Files", "csv");
-			    chooser.setFileFilter(filter);
-			    int returnVal = chooser.showOpenDialog(contentPane);
-			    if(returnVal == JFileChooser.APPROVE_OPTION) {
-			        try {
-			    	ArrayList<Case> cases = CSV_In.csvRead(chooser.getSelectedFile());
-			    	//TODO: what needs to be done here? We need to categorize the data set with the AI and then save it.
-			    	Window_Main.createMainWindow();
-			    	dispose();
-			        }
-			        catch(Exception err) {
-			        	JOptionPane.showMessageDialog(contentPane, err.getMessage(), "Error",
-			        	        JOptionPane.WARNING_MESSAGE);
-			        }
-			    }
+				if(!text.equals("")){
+					JFileChooser chooser = new JFileChooser();
+				    FileNameExtensionFilter filter = new FileNameExtensionFilter(
+				        "CSV Files", "csv");
+				    chooser.setFileFilter(filter);
+				    int returnVal = chooser.showOpenDialog(contentPane);
+				    if(returnVal == JFileChooser.APPROVE_OPTION) {
+				        try {
+					    	ArrayList<Case> casesAL = CSV_In.csvRead(chooser.getSelectedFile());
+					    	Case[] cases = new Case[casesAL.size()];
+					    	cases = casesAL.toArray(cases);
+					    	// Setup Network and Run Cases Through It
+					    	Neural network = new Neural();
+					    	Train_Neural.readWeightsFromFile(network);
+					    	Run_Neural.assignCategoriesAndCheckCorrectness(network, cases);
+					    	//TODO get the date from some date library
+					    	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+					    	LocalDate dateCreated = LocalDate.now();
+					    	String dateString = dateCreated.format(dtf);
+					    	Categorized cat = new Categorized(text, dateString, cases);
+					    	Window_Main.catList.add(cat);
+					    	Window_Main.createMainWindow();
+					    	dispose();
+				        }
+				        catch(Exception err) {
+				        	JOptionPane.showMessageDialog(contentPane, err.getMessage(), "Error",
+				        	        JOptionPane.WARNING_MESSAGE);
+				        }
+				    }
+				} else {
+					//TODO print "must add a name" warning
+				}
 			}
 		});
 		contentPane.add(btnOpencsv, BorderLayout.EAST);
+		
+		//Text field to enter the categorized data set name
+		final JTextField textField = new JTextField();
+		textField.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent a){
+				text = textField.getText();
+			}
+		});
+		contentPane.add(textField, BorderLayout.CENTER);
 		
 		JButton btnNewButton = new JButton("Go Back");
 		btnNewButton.addMouseListener(new MouseAdapter() {
@@ -92,7 +128,7 @@ public class Window_New extends JFrame {
 			}
 		});
 		contentPane.add(btnNewButton, BorderLayout.WEST);
-		//Watch for close of appication
+		//Watch for close of application
 
 
 	}
