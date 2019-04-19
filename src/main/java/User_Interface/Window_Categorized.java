@@ -31,7 +31,6 @@ public class Window_Categorized extends JFrame {
 	private Container contentPane;
 	private Categorized cat;
 
-
 	/**
 	 * Launch the application.
 	 */
@@ -118,11 +117,16 @@ public class Window_Categorized extends JFrame {
 				int returnVal = chooser.showOpenDialog(contentPane);
 				if(returnVal == JFileChooser.APPROVE_OPTION) {
 					try {
-						Categorized cat2 = Categorized_In.readFromDatabase(chooser.getSelectedFile());
-						Categorized.combineLists(getCategorized(), cat2);
-						lblOutput.setText("Dataset merge successful");
+						File file = chooser.getSelectedFile();
+						if(file.getName().equals(cat.getName() + ".cat")) {
+							lblOutput.setText("Merge failed, identical datasets detected");
+						} else {
+							Categorized cat2 = Categorized_In.readFromDatabase(file);
+							Categorized.combineLists(getCategorized(), cat2);
+							lblOutput.setText("Dataset merge successful");
+						}
 					} catch(Exception e){
-						lblOutput.setText("Dataset merge failed");
+						lblOutput.setText("Dataset merge failed; an exception occurred");
 						e.printStackTrace();
 					}
 				} else {

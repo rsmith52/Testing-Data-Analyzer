@@ -86,9 +86,6 @@ public class Window_Main extends JFrame {
 		          int index = theList.locationToIndex(e.getPoint());
 		          if (index >= 0) {
 		            Object o = theList.getModel().getElementAt(index);
-		            //System.out.println("Double-clicked on: " + o.toString());
-		            //TODO: have this open Window_Catergorized with the selected categorized dataset
-
 		            Categorized cat = new Categorized(o.toString(), o.toString());
 		            File testFile = FileAccess.getFile("/Bascom_Pull.csv");
 		            try {
