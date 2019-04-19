@@ -44,6 +44,11 @@
 			        </descriptorRefs>
 			    </configuration>
 			</plugin>
+			<plugin>
+				<artifactId>maven-shade-plugin</artifactId>
+				<version>2.3</version>
+				<groupId>org.apache.maven.plugins</groupId>
+			</plugin>
 		</plugins>
 	</build>
 
