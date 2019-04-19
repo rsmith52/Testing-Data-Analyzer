@@ -4,7 +4,7 @@ Microsoft Office
 Computer Support Settings
 Purchase Request
 Onsite Assistance
-Wisclists
+WiscLists
 Audio/Visual Support
 Device Repair
 Service Account Creation (Email)
