@@ -25,6 +25,7 @@ import javax.swing.AbstractListModel;
 import javax.swing.border.MatteBorder;
 
 import File_IO.CSV_In;
+import File_IO.Categorized_In;
 import File_IO.FileAccess;
 import Objects.Categorized;
 
@@ -72,12 +73,23 @@ public class Window_Main extends JFrame {
 		lblTets.setFont(new Font("Arial Black", Font.PLAIN, 17));
 		lblTets.setAlignmentX(Component.CENTER_ALIGNMENT);
 		contentPane.add(lblTets);
+		//Load all of the .cat files into the catList
 
+		File folder = new File(System.getProperty("user.dir") + "/cats"); //check this
+		File[] listOfFiles = folder.listFiles();
+		ArrayList<String> files = new ArrayList<String>();
+		for (File file : listOfFiles) {
+		    if (file.getName().contains(".cat")) {
+		    	String name = file.getName();
+		    	name = name.substring(0, name.length() - 4);
+		    	files.add(name);
+		    }
+		}
+		String[] values = files.toArray(new String[files.size()]);
 		JScrollPane scrollPane = new JScrollPane();
-		JList<Categorized> list = new JList<Categorized>();
-		Categorized[] catListArr = new Categorized[Window_Main.catList.size()];
-		catListArr = Window_Main.catList.toArray(catListArr);
-		list.setListData(catListArr);
+		JList list = new JList();
+		revalidate();
+		repaint();
 		list.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -85,30 +97,25 @@ public class Window_Main extends JFrame {
 		        if (e.getClickCount() == 2) {
 		          int index = theList.locationToIndex(e.getPoint());
 		          if (index >= 0) {
-		            Object o = theList.getModel().getElementAt(index);
-		            Categorized cat = new Categorized(o.toString(), o.toString());
-		            File testFile = FileAccess.getFile("/Bascom_Pull.csv");
-		            try {
-		            	cat.caseList = CSV_In.csvRead(testFile);
-		            }
-		            catch(Exception err){
-		            	System.out.println(err.getMessage());
-		            }
+		            String o = (String) theList.getModel().getElementAt(index);
+		            //System.out.println("Double-clicked on: " + o.toString());
+		            //TODO: have this open Window_Catergorized with the selected catagozired dataset
+
+		            Categorized cat = Categorized_In.readFromDatabase(o + ".cat");
 		            Window_Categorized.createCategorizedWindow(cat);
 		            dispose();
 		          }
 		        }
 			}
 		});
-//		list.setModel(new AbstractListModel() {
-//			String[] values = new String[0];
-//			public int getSize() {
-//				return values.length;
-//			}
-//			public String getElementAt(int index) {
-//				return values[index];
-//			}
-//		});
+		list.setModel(new AbstractListModel() {
+			public int getSize() {
+				return values.length;
+			}
+			public Object getElementAt(int index) {
+				return values[index];
+			}
+		});
 		scrollPane.setViewportView(list);
 		contentPane.add(scrollPane);
 

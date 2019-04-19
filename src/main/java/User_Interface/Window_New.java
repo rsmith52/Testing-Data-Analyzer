@@ -2,12 +2,15 @@ package User_Interface;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.TextField;
+
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import File_IO.CSV_In;
+import File_IO.Categorized_Out;
 import Neural_Network.Neural;
 import Neural_Network.Run_Neural;
 import Neural_Network.Train_Neural;
@@ -69,10 +72,21 @@ public class Window_New extends JFrame {
 		JLabel lblPleaseEnterIn = new JLabel("Please click the Open .CSV button and choose the .CSV file with the data to be categorized");
 		contentPane.add(lblPleaseEnterIn, BorderLayout.NORTH);
 
+		//Text field to enter the categorized data set name
+		final JTextField textField = new JTextField();
+		textField.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent a){
+				text = textField.getText();
+			}
+		});
+		contentPane.add(textField, BorderLayout.CENTER);
+
 		JButton btnOpencsv = new JButton("Open .CSV");
 		btnOpencsv.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				text = textField.getText();
 				if(!text.equals("")){
 					JFileChooser chooser = new JFileChooser();
 				    FileNameExtensionFilter filter = new FileNameExtensionFilter(
@@ -94,6 +108,8 @@ public class Window_New extends JFrame {
 					    	Categorized cat = new Categorized(text, dateString, cases);
 					    	Window_Main.catList.add(cat);
 					    	Window_Main.createMainWindow();
+					    	//EDIT HERE
+					    	Categorized_Out.writeToDatabase(cat.getName() + ".cat", cat);
 					    	dispose();
 				        }
 				        catch(Exception err) {
@@ -107,16 +123,6 @@ public class Window_New extends JFrame {
 			}
 		});
 		contentPane.add(btnOpencsv, BorderLayout.EAST);
-
-		//Text field to enter the categorized data set name
-		final JTextField textField = new JTextField();
-		textField.addActionListener(new ActionListener(){
-			@Override
-			public void actionPerformed(ActionEvent a){
-				text = textField.getText();
-			}
-		});
-		contentPane.add(textField, BorderLayout.CENTER);
 
 		JButton btnNewButton = new JButton("Go Back");
 		btnNewButton.addMouseListener(new MouseAdapter() {

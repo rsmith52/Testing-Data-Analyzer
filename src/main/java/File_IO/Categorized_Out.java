@@ -10,7 +10,7 @@ public class Categorized_Out {
 	public static void writeToDatabase(String filename, Categorized alreadyCategorized) {
 		try {
 			File database;
-			database = FileAccess.createFile(filename);
+			database = FileAccess.createFile("cats/" + filename);
 			FileOutputStream fout = new FileOutputStream(database);
 			ObjectOutputStream out = new ObjectOutputStream(fout);
 			out.writeObject(alreadyCategorized);
