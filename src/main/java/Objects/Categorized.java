@@ -46,6 +46,10 @@ public class Categorized implements Serializable{
   public ArrayList<Case> getCaseList () {
 	  return this.caseList;
   }
+  @Override
+  public String toString() {
+	  return this.getName();
+  }
 
   public static Categorized combineLists(Categorized list1, Categorized list2) {
 	Case[] listArray = (Case[])list1.getCaseList().toArray();
