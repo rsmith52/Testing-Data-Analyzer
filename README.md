@@ -5,3 +5,4 @@ IT Case Data Analyzer is a program built for DoIT to assign categories to IT cas
 Our code is in the form of a maven java project, and can be imported to most java IDE's such as Eclipse and then run from Main.java.
 Alternatively, we have compiled an .exe that can be run as a standalone.
 In the folder called "Test Datasets" there are 3 .csv data files you can use that contain cases to be run through the program. When selecting a .csv file, select one of these.
+All output files are output to the main project folder as of now.
