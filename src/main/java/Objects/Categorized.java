@@ -169,4 +169,32 @@ public class Categorized implements Serializable{
   }
   
   
+  public static ArrayList<Case> allRequestorCases(ArrayList<Case> cases, String requestor)
+  {
+	  ArrayList<Case> sortedCases = new ArrayList<Case>();
+	  for(Case data : cases)
+	  {
+		  if(data.getCaseRequestor().equals(requestor))
+		  {
+			  sortedCases.add(data);
+		  }
+	  }
+	  return sortedCases;
+	  
+  }
+  
+  public static ArrayList<Case> allCategoryCases(ArrayList<Case> cases, String category)
+  {
+	  ArrayList<Case> sortedCases = new ArrayList<Case>();
+	  for(Case data : cases)
+	  {
+		  if(data.getCategory().equals(category))
+		  {
+			  sortedCases.add(data);
+		  }
+	  }
+	  return sortedCases;
+	  
+  }
+  
 }
