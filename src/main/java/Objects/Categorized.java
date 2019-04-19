@@ -53,4 +53,120 @@ public class Categorized implements Serializable{
     return newList;
     
   }
+  
+  public static ArrayList<String> findTopRequestors(ArrayList<Case> cases){
+	  ArrayList<String> requestors = new ArrayList<String>();
+	  ArrayList<Integer> requestorTotals = new ArrayList<Integer>();
+	  boolean found = false;
+	  int index = 0;
+	  
+	  for(Case data : cases) {
+		  found = false;
+		  index = 0;
+		  for(int i = 0; i < requestors.size(); i++) {
+			  if(requestors.get(i).equals(data.getCaseRequestor())) {
+				  found = true;
+				  index = i;
+				  break;
+			  }
+		  }
+		  
+		  if(found)
+		  {
+			  Integer value = requestorTotals.get(index); // get value
+			  value = value + 1; // increment value
+			  requestorTotals.set(index, value); // replace value
+		  } else {
+			  requestors.add(data.getCaseRequestor());
+			  requestorTotals.add(new Integer(1));
+		  }
+		  
+	  }
+	  
+
+	  int[] topArray = new int[5];
+	  int[] topArrayInd = new int[5];
+	  
+	  for(int i = 0; i < 5; i++)
+	  {
+		  topArray[i] = requestorTotals.get(i);
+		  topArrayInd[i] = i;
+	  }
+	  
+	  for(int i = 6; i < requestors.size(); i++)
+	  {
+		  int value = requestorTotals.get(i);
+		  int ind = i;
+		  
+		  for(int k = 0; k < 5; k++)
+		  {
+			  if(topArray[k] < value)
+			  {
+				  int tempInt = topArray[k];
+				  int tempInd = topArrayInd[k];
+				  topArray[k] = value;
+				  topArrayInd[k] = ind;
+				  value = tempInt;
+				  ind = tempInd;
+			  }
+		  }
+		  
+	  }
+	  
+	  ArrayList<String> returnStrings = new ArrayList<String>();
+	  for(int i = 0; i < 5; i++)
+	  {
+		  returnStrings.add(requestors.get(topArrayInd[i]));
+	  }
+	  
+	  
+	  return returnStrings;
+  }
+  
+  public static String findTopRequestor(ArrayList<Case> cases){
+	  ArrayList<String> requestors = new ArrayList<String>();
+	  ArrayList<Integer> requestorTotals = new ArrayList<Integer>();
+	  boolean found = false;
+	  int index = 0;
+	  
+	  for(Case data : cases) {
+		  found = false;
+		  index = 0;
+		  for(int i = 0; i < requestors.size(); i++) {
+			  if(requestors.get(i).equals(data.getCaseRequestor())) {
+				  found = true;
+				  index = i;
+				  break;
+			  }
+		  }
+		  
+		  if(found)
+		  {
+			  Integer value = requestorTotals.get(index);// get value
+			  value = value + 1; // increment value
+			  requestorTotals.set(index, value); // replace value
+		  } else {
+			  requestors.add(data.getCaseRequestor());
+			  requestorTotals.add(new Integer(1));
+		  }
+		  
+	  }
+	  
+	  int top = requestorTotals.get(0);
+	  int topInd = 0;
+	  
+	  for(int i = 1; i < requestors.size(); i++)
+	  {
+		  if(requestorTotals.get(i) > top) {
+			  top = requestorTotals.get(i);
+			  topInd = i;
+		  }
+	  }
+	  
+	  
+	  
+	  return requestors.get(topInd);
+  }
+  
+  
 }
