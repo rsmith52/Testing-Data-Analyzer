@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Scanner;
 import java.awt.geom.Rectangle2D;
 
 import org.jfree.chart.ChartFactory;
@@ -37,13 +38,13 @@ public class PDF_Out {
 	public Categorized cases;
 	public static void main(String[] args) {		
 		PDF_Out test = new PDF_Out();
-		test.outputPDF();
+//		test.outputPDF();
 	}
 
 	
-	public void outputPDF() {	// ArrayList<Case>() caseList, String name, String dateCreated
-		Categorized categorized = new Categorized();
-		ArrayList<Case> caseList = categorized.getCaseList();
+	public void outputPDF(Categorized categorized) {	// ArrayList<Case>() caseList, String name, String dateCreated
+//		Categorized categorized = new Categorized();
+//		ArrayList<Case> caseList = categorized.getCaseList();
 		
 		/* Info that Case contains: 
 		 * int caseNumber, 
@@ -217,11 +218,23 @@ public class PDF_Out {
         
         // TESTING PIE CHARTS!
         DefaultPieDataset testPieData = new DefaultPieDataset();
-        testPieData.setValue("Phishing", 45);
-        testPieData.setValue("O365", 37);
-        testPieData.setValue("Printer", 10);
-        testPieData.setValue("Malware", 47);
-        testPieData.setValue("Adobe", 20);
+        double[] percents = Categorized.getPercents(categorized.getCaseList());
+	    ArrayList<String> categories = new ArrayList<String>();
+	    try {
+	  	  File file = FileAccess.getFile("/outputs.txt");
+		  Scanner in = new Scanner(file);
+		  while (in.hasNextLine()) {
+			  categories.add(in.nextLine());
+		  }
+		  in.close();
+		  categories.add("General Question"); // Always at end of list
+	    } catch (Exception e) {
+		  System.out.println("Error reading in output labels: " + e);
+	    }
+	    for (int i = 0; i < percents.length-1; i++) {
+	      testPieData.setValue(categories.get(i), percents[i]);
+	    }
+
         
         
         /* Specify chart title, dataset, legend, tooltip and URLs in this method as input */
@@ -235,8 +248,8 @@ public class PDF_Out {
 		
 		try {	// create the pdf 
 			String dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
-			String dt = new SimpleDateFormat("yyy-MM-dd HH.mm.ss").format(new Date());
-			OutputStream file = new FileOutputStream(new File(dt + ".pdf"));
+			String dt = new SimpleDateFormat("yyyy-MM-dd HH.mm.ss").format(new Date()); 
+			OutputStream file = new FileOutputStream(new File("pdfs/" + dt + ".pdf"));
 			Document document = new Document();
 			PdfWriter write = PdfWriter.getInstance(document, file);
 
