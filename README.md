@@ -7,12 +7,15 @@ Use Branch: FInalTesting
 
 Our code is in the form of a maven java project, and can be imported to most java IDE's such as Eclipse and then run from Main.java. 
 
+**This is broken after recent changes, need to run from IDE for testing for now**
 Alternatively, we have compiled a .jar that can be run as a standalone on any device running java: Data Analyzer, which can be found in the target folder. However this is currently not finding dependencies correctly, so we recommend
 running from an IDE like eclipse where you won't experience crashes.
+**This is broken after recent changes, need to run from IDE for testing for now**
 
 In the folder called "Test Datasets" there are 3 .csv data files you can use that contain cases to be run through the program. When selecting a .csv file, select one of these.
 All output files are output to the main project folder as of now.
 
 ## Known Issues
 * UI has some sizing issues on some displays, where text may appear very small
-* When opening a .csv file, you need to name it first in the text box, and then hit enter before clicking the open button
+* Cannot close application from the dataset view screen, need to go back to main screen before you can close it
+* When running program from standalone jar it crashes when dependencies are used - cannot start to run by opening a .csv

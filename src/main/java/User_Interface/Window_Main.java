@@ -10,6 +10,7 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 import javax.swing.JList;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
@@ -25,6 +26,7 @@ import javax.swing.AbstractListModel;
 import javax.swing.border.MatteBorder;
 
 import File_IO.CSV_In;
+import File_IO.Categorized_In;
 import File_IO.FileAccess;
 import Objects.Categorized;
 
@@ -47,13 +49,24 @@ public class Window_Main extends JFrame {
 			public void run() {
 				try {
 					Window_Main frame = new Window_Main();
-					frame.setTitle("Data Analyer");
+					frame.setTitle("Data Analyzer");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
+		/*
+		SwingUtilities.invokeLater(new Runnable() {
+	        @Override
+	        public void run() {
+	            final Window_Main app = new Window_Main();
+	            app.setTitle("Data Analyzer");
+	            app.setVisible(true);
+	        }
+		});
+		*/
+        
 	}
 
 	/**
@@ -67,18 +80,28 @@ public class Window_Main extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
-		
+
 		JLabel lblTets = new JLabel("IT Case Data Analyzer");
 		lblTets.setFont(new Font("Arial Black", Font.PLAIN, 17));
 		lblTets.setAlignmentX(Component.CENTER_ALIGNMENT);
 		contentPane.add(lblTets);
-		
+		//Load all of the .cat files into the catList
+
+		File folder = new File(System.getProperty("user.dir") + "/cats"); //check this
+		File[] listOfFiles = folder.listFiles();
+		ArrayList<String> files = new ArrayList<String>();
+		for (File file : listOfFiles) {
+		    if (file.getName().contains(".cat")) {
+		    	String name = file.getName();
+		    	name = name.substring(0, name.length() - 4);
+		    	files.add(name);
+		    }
+		}
+		String[] values = files.toArray(new String[files.size()]);
 		JScrollPane scrollPane = new JScrollPane();
-		JList<Categorized> list = new JList<Categorized>();
-		Categorized[] catListArr = new Categorized[Window_Main.catList.size()];
-		catListArr = Window_Main.catList.toArray(catListArr);
-		System.out.println(Window_Main.catList);
-		list.setListData(catListArr);
+		JList list = new JList();
+		revalidate();
+		repaint();
 		list.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -86,39 +109,31 @@ public class Window_Main extends JFrame {
 		        if (e.getClickCount() == 2) {
 		          int index = theList.locationToIndex(e.getPoint());
 		          if (index >= 0) {
-		            Object o = theList.getModel().getElementAt(index);
+		            String o = (String) theList.getModel().getElementAt(index);
 		            //System.out.println("Double-clicked on: " + o.toString());
-		            //TODO: have this open Window_Catergorized with the selected categorized dataset
-		            
-		            Categorized cat = new Categorized(o.toString(), o.toString());
-		            File testFile = FileAccess.getFile("/Bascom_Pull.csv");
-		            try {
-		            	cat.caseList = CSV_In.csvRead(testFile);
-		            }
-		            catch(Exception err){
-		            	System.out.println(err.getMessage());
-		            }
+		            //TODO: have this open Window_Catergorized with the selected catagozired dataset
+		            System.out.println(o);
+		            Categorized cat = Categorized_In.readFromDatabase(o + ".cat");
 		            Window_Categorized.createCategorizedWindow(cat);
 		            dispose();
 		          }
 		        }
 			}
 		});
-//		list.setModel(new AbstractListModel() {
-//			String[] values = new String[0];
-//			public int getSize() {
-//				return values.length;
-//			}
-//			public String getElementAt(int index) {
-//				return values[index];
-//			}
-//		});
+		list.setModel(new AbstractListModel() {
+			public int getSize() {
+				return values.length;
+			}
+			public Object getElementAt(int index) {
+				return values[index];
+			}
+		});
 		scrollPane.setViewportView(list);
 		contentPane.add(scrollPane);
-		
+
 		Component verticalStrut = Box.createVerticalStrut(20);
 		contentPane.add(verticalStrut);
-		
+
 		JButton btnNewButton = new JButton("Create new Categorization");
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -130,9 +145,8 @@ public class Window_Main extends JFrame {
 		btnNewButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnNewButton.setAlignmentY(0.0f);
 		contentPane.add(btnNewButton);
-		
+
 		Component verticalStrut_1 = Box.createVerticalStrut(20);
 		contentPane.add(verticalStrut_1);
 	}
-
 }

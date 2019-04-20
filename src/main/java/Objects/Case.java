@@ -152,79 +152,79 @@ public class Case implements Serializable{
   }
 
 
-  // Function to return correct labels of the data from the case
-  public double[] getLabelsIfKnown() {
-    double[] labelMatch = new double[19];
-    for(int i = 0; i < labelMatch.length; i++){
-      labelMatch[i] = 0;
-    }
-    if (actualCategoriesKnown) {
-      switch(category){
-        case "Office 365 Email and Calendar":
-          labelMatch[0] = 1;
-          break;
-        case "Shared/Network Drive":
-          labelMatch[1] = 1;
-          break;
-        case "Microsoft Office":
-          labelMatch[2] = 1;
-          break;
-        case "Computer Support Settings":
-          labelMatch[3] = 1;
-          break;
-        case "Purchase Request":
-          labelMatch[4] = 1;
-          break;
-        case "Onsite Assistance":
-          labelMatch[5] = 1;
-          break;
-        case "Wisclists":
-          labelMatch[6] = 1;
-          break;
-        case "Audio/Visual Support":
-          labelMatch[7] = 1;
-          break;
-        case "Device Repair":
-          labelMatch[8] = 1;
-          break;
-        case "Service Account Creation (Email)":
-          labelMatch[9] = 1;
-          break;
-        case "Admin Account/Password":
-          labelMatch[10] = 1;
-          break;
-        case "Login Issues":
-          labelMatch[11] = 1;
-          break;
-        case "Virus/Malware":
-          labelMatch[12] = 1;
-          break;
-        case "Printer Support":
-          labelMatch[13] = 1;
-          break;
-        case "Multi Factor Authentication":
-          labelMatch[14] = 1;
-          break;
-        case "Room Access":
-          labelMatch[15] = 1;
-          break;
-        case "Network Connectivity":
-          labelMatch[16] = 1;
-          break;
-        case "Adobe Suite":
-          labelMatch[17] = 1;
-          break;
-        case "Loaner Request (Computer/Mifi)":
-          labelMatch[18] = 1;
-          break;
-        default:
-          break;
-      }
-      return labelMatch;
-      // return categories as double array with a 1 if it matches and a 0 if it doesn't
-    }
-    return null;
-  }
+//Function to return correct labels of the data from the case
+ public double[] getLabelsIfKnown() {
+   double[] labelMatch = new double[19];
+   for(int i = 0; i < labelMatch.length; i++){
+     labelMatch[i] = 0;
+   }
+   if (actualCategoriesKnown) {
+     switch(category){
+       case "Office 365 Email and Calendar":
+         labelMatch[0] = 1;
+         break;
+       case "Shared/Network Drive":
+         labelMatch[1] = 1;
+         break;
+       case "Microsoft Office":
+         labelMatch[2] = 1;
+         break;
+       case "Computer Support Settings":
+         labelMatch[3] = 1;
+         break;
+       case "Purchase Request":
+         labelMatch[4] = 1;
+         break;
+       case "Onsite Assistance":
+         labelMatch[5] = 1;
+         break;
+       case "Wisclists":
+         labelMatch[6] = 1;
+         break;
+       case "Audio/Visual Support":
+         labelMatch[7] = 1;
+         break;
+       case "Device Repair":
+         labelMatch[8] = 1;
+         break;
+       case "Service Account Creation (Email)":
+         labelMatch[9] = 1;
+         break;
+       case "Admin Account/Password":
+         labelMatch[10] = 1;
+         break;
+       case "Login Issues":
+         labelMatch[11] = 1;
+         break;
+       case "Virus/Malware":
+         labelMatch[12] = 1;
+         break;
+       case "Printer Support":
+         labelMatch[13] = 1;
+         break;
+       case "Multi Factor Authentication":
+         labelMatch[14] = 1;
+         break;
+       case "Room Access":
+         labelMatch[15] = 1;
+         break;
+       case "Network Connectivity":
+         labelMatch[16] = 1;
+         break;
+       case "Adobe Suite":
+         labelMatch[17] = 1;
+         break;
+       case "Loaner Request (Computer/Mifi)":
+         labelMatch[18] = 1;
+         break;
+       default:
+         break;
+     }
+     return labelMatch;
+     // return categories as double array with a 1 if it matches and a 0 if it doesn't
+   }
+   return null;
+ }
 }
 
 

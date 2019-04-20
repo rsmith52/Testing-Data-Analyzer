@@ -75,9 +75,9 @@ public class TestTrainedNetwork {
 	    
 	    // Make categorized object - Test reading and writing to file
 	    
-	    //Categorized list = new Categorized("testNetwork", "Now", testArray);
-	    //Categorized_Out.writeToDatabase("data3.cat", list);
-	    //Categorized list2 = Categorized_In.readFromDatabase("testNetwork.txt");
+	    Categorized list = new Categorized("testNetwork", "Now", testArray);
+	    Categorized_Out.writeToDatabase("data3.txt", list);
+	    Categorized list2 = Categorized_In.readFromDatabase("data3.txt");
 	    
 	}
 

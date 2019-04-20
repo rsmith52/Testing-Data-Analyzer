@@ -8,6 +8,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import java.io.File;
+import java.io.FileNotFoundException;
 
 import File_IO.*;
 import Objects.*;
@@ -27,17 +29,16 @@ import java.util.ArrayList;
 public class Window_Categorized extends JFrame {
 
 	private Container contentPane;
-	private Categorized cat;
-
+	private static Categorized cat;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void createCategorizedWindow(Categorized cat) {
+	public static void createCategorizedWindow(final Categorized inputCat) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Window_Categorized frame = new Window_Categorized(cat);
+					Window_Categorized frame = new Window_Categorized(inputCat);
 					frame.setTitle("Categorized Dataset");
 					frame.setVisible(true);
 					frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -48,12 +49,12 @@ public class Window_Categorized extends JFrame {
 		});
 	}
 
-	public Categorized getCategorized() {
-		return this.cat;
+	public static Categorized getCategorized() {
+		return cat;
 	}
 
-	public Window_Categorized(Categorized cat) {
-		this.cat = cat;
+	public Window_Categorized(final Categorized inputCat) {
+		cat = inputCat;
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 500, 500);
@@ -91,8 +92,8 @@ public class Window_Categorized extends JFrame {
 			public void mouseClicked(MouseEvent m) {
 				//TODO call PDF_Out
 				try {
-//					outputPDF(getCategorized().caseList, getCategorized().name,
-//							getCategorized.dateCreated);
+					PDF_Out pdfMaker = new PDF_Out();
+					pdfMaker.outputPDF();
 					lblOutput.setText("Output metrics successful");
 				} catch(Exception e) {
 					lblOutput.setText("Output metrics failed");
@@ -108,17 +109,26 @@ public class Window_Categorized extends JFrame {
 			public void mouseClicked(MouseEvent m) {
 				//get other Categorized or case list somehow
 				JFileChooser chooser = new JFileChooser();
+				File currentDir = new File(System.getProperty("user.dir") + "/cats");
+				chooser.setCurrentDirectory(currentDir);
 				FileNameExtensionFilter filter = new FileNameExtensionFilter(
-						"TXT Files", "TXT");
+						"CAT Files", "CAT");
 				chooser.setFileFilter(filter);
 				int returnVal = chooser.showOpenDialog(contentPane);
 				if(returnVal == JFileChooser.APPROVE_OPTION) {
 					try {
-						Categorized cat2 = Categorized_In.readFromDatabase(chooser.getSelectedFile());
-						Categorized.combineLists(getCategorized(), cat2);
-						lblOutput.setText("Dataset merge successful");
+						File file = chooser.getSelectedFile();
+						if(file.getName().equals(inputCat.getName() + ".cat")) {
+							lblOutput.setText("Merge failed, identical datasets detected");
+						} else {
+							Categorized cat2 = Categorized_In.readFromDatabase(file);
+							Categorized mergedCat = Categorized.combineLists(getCategorized(), cat2);
+							Window_Main.catList.add(mergedCat);
+							Categorized_Out.writeToDatabase(mergedCat.getName() + ".cat", mergedCat);
+							lblOutput.setText("Dataset merge successful");
+						}
 					} catch(Exception e){
-						lblOutput.setText("Dataset merge failed");
+						lblOutput.setText("Dataset merge failed; an exception occurred");
 						e.printStackTrace();
 					}
 				} else {
