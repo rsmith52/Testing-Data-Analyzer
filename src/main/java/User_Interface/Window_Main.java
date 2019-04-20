@@ -74,6 +74,9 @@ public class Window_Main extends JFrame {
 		contentPane.add(lblTets);
 
 		File folder = new File(System.getProperty("user.dir") + "/cats"); //check this
+		if(!folder.exists()) {
+			folder.mkdir();
+		}
 		File[] listOfFiles = folder.listFiles();
 		ArrayList<String> files = new ArrayList<String>();
 		for (File file : listOfFiles) {
