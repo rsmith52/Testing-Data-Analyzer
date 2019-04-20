@@ -9,9 +9,7 @@ Use Branch: FInalTesting
 
 Our code is in the form of a Maven java project, and can be imported to most java IDE's such as Eclipse as a Maven project and then run from Main.java. 
 
-**This is broken after recent changes, need to run from IDE for testing for now**
-
-Alternatively, we have compiled a .jar that can be run as a standalone on any device running java: Data Analyzer, which can be found in the target folder. However this is currently not finding dependencies correctly, so we recommend
+**This is broken after recent changes, need to run from IDE for testing for now:** Alternatively, we have compiled a .jar that can be run as a standalone on any device running java: Data Analyzer, which can be found in the target folder. However this is currently not finding dependencies correctly, so we recommend
 running from an IDE like eclipse where you won't experience crashes.
 
 **^ ^ ^ This is broken after recent changes, need to run from IDE for testing for now ^ ^ ^**
