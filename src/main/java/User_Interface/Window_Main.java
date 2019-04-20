@@ -97,10 +97,7 @@ public class Window_Main extends JFrame {
 		        if (e.getClickCount() == 2) {
 		          int index = theList.locationToIndex(e.getPoint());
 		          if (index >= 0) {
-		            String o = (String) theList.getModel().getElementAt(index);
-		            //System.out.println("Double-clicked on: " + o.toString());
-		            //TODO: have this open Window_Catergorized with the selected catagozired dataset
-		            
+		            String o = (String) theList.getModel().getElementAt(index);           
 		            Categorized cat = Categorized_In.readFromDatabase(o + ".cat");
 		            Window_Categorized.createCategorizedWindow(cat);
 		            dispose();
