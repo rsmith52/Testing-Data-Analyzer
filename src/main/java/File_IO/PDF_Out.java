@@ -269,7 +269,7 @@ public class PDF_Out {
 			PdfWriter write = PdfWriter.getInstance(document, file);
 
 			document.open(); 
-//			document.add(new Paragraph("Title"));
+			document.add(new Paragraph("Data Analyzer"));
 			document.add(new Paragraph(dateTime));
 			document.add(Chunk.NEWLINE);
 			document.add(paragraph1);
