@@ -87,21 +87,20 @@ public class Window_New extends JFrame {
 		btnOpencsv.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				text = textField.getText();
-				if(!text.equals("")){
-					JFileChooser chooser = new JFileChooser();
-					chooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
-				    FileNameExtensionFilter filter = new FileNameExtensionFilter(
-				        "CSV Files", "csv");
-				    chooser.setFileFilter(filter);
-				    int returnVal = chooser.showOpenDialog(contentPane);
-				    if(returnVal == JFileChooser.APPROVE_OPTION) {
-				        try {
-				        	File tempFile = new File(System.getProperty("user.dir") + "/cats/" + text + ".cat");
-				        	if(tempFile.exists()) {
-				        		throw new Exception("File already exists");
-				        	}
-				        	boolean exists = tempFile.exists();
+				try {
+					text = textField.getText();
+					if(!text.equals("")){
+						File tempFile = new File(System.getProperty("user.dir") + "/cats/" + text + ".cat");
+			        	if(tempFile.exists()) {
+			        		throw new Exception("File already exists");
+			        	}
+						JFileChooser chooser = new JFileChooser();
+						chooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
+					    FileNameExtensionFilter filter = new FileNameExtensionFilter(
+					        "CSV Files", "csv");
+					    chooser.setFileFilter(filter);
+					    int returnVal = chooser.showOpenDialog(contentPane);
+					    if(returnVal == JFileChooser.APPROVE_OPTION) {
 					    	ArrayList<Case> casesAL = CSV_In.csvRead(chooser.getSelectedFile());
 					    	Case[] cases = new Case[casesAL.size()];
 					    	cases = casesAL.toArray(cases);
@@ -115,17 +114,12 @@ public class Window_New extends JFrame {
 					    	Categorized cat = new Categorized(text, dateString, cases);
 					    	Window_Main.catList.add(cat);
 					    	Window_Main.createMainWindow();
-					    	//EDIT HERE
 					    	Categorized_Out.writeToDatabase(cat.getName() + ".cat", cat);
 					    	dispose();
-				        }
-				        catch(Exception err) {
-				        	JOptionPane.showMessageDialog(contentPane, err.getMessage(), "Error",
-				        	        JOptionPane.WARNING_MESSAGE);
-				        }
-				    }
-				} else {
-					//TODO print "must add a name" warning
+					    }
+					} 
+				} catch(Exception err) {
+					JOptionPane.showMessageDialog(contentPane, err.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
 				}
 			}
 		});
