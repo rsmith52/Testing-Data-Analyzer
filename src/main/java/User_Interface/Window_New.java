@@ -25,6 +25,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.ArrayList;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -89,12 +90,18 @@ public class Window_New extends JFrame {
 				text = textField.getText();
 				if(!text.equals("")){
 					JFileChooser chooser = new JFileChooser();
+					chooser.setCurrentDirectory(new File(System.getProperty("user.dir")));
 				    FileNameExtensionFilter filter = new FileNameExtensionFilter(
 				        "CSV Files", "csv");
 				    chooser.setFileFilter(filter);
 				    int returnVal = chooser.showOpenDialog(contentPane);
 				    if(returnVal == JFileChooser.APPROVE_OPTION) {
 				        try {
+				        	File tempFile = new File(System.getProperty("user.dir") + "/cats/" + text + ".cat");
+				        	if(tempFile.exists()) {
+				        		throw new Exception("File already exists");
+				        	}
+				        	boolean exists = tempFile.exists();
 					    	ArrayList<Case> casesAL = CSV_In.csvRead(chooser.getSelectedFile());
 					    	Case[] cases = new Case[casesAL.size()];
 					    	cases = casesAL.toArray(cases);

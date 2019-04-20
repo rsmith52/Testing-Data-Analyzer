@@ -21,6 +21,7 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -108,6 +109,7 @@ public class Window_Categorized extends JFrame {
 			public void mouseClicked(MouseEvent m) {
 				//get other Categorized or case list somehow
 				JFileChooser chooser = new JFileChooser();
+				chooser.setCurrentDirectory(new File(System.getProperty("user.dir") + "/cats"));
 				FileNameExtensionFilter filter = new FileNameExtensionFilter(
 						"TXT Files", "TXT");
 				chooser.setFileFilter(filter);
