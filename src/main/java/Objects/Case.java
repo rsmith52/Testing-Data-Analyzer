@@ -181,7 +181,7 @@ public class Case implements Serializable{
         case "Onsite Assistance":
           labelMatch[5] = 1;
           break;
-        case "Wisclists":
+        case "WiscLists":
           labelMatch[6] = 1;
           break;
         case "Audio/Visual Support":

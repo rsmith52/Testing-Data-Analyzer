@@ -356,5 +356,37 @@ public class Categorized implements Serializable{
 	  
 	  return percents;
   }
-  
+
+    public static double[] getCounts(ArrayList<Case> caseList) {
+  	  
+	  ArrayList<String> categories = new ArrayList<String>();
+	  try {
+		  File file = FileAccess.getFile("/outputs.txt");
+		  Scanner in = new Scanner(file);
+		  while (in.hasNextLine()) {
+			  categories.add(in.nextLine());
+		  }
+		  in.close();
+		  categories.add("General Question"); // Always at end of list
+	  } catch (Exception e) {
+		  System.out.println("Error reading in output labels: " + e);
+	  }
+	  double[] percents = new double[categories.size()];
+	  
+	  for (int i = 0; i < caseList.size(); i++) {
+		  for (int j = 0; j < categories.size(); j++) {
+			  if (caseList.get(i).getCategory().equals(categories.get(j))) {
+				  percents[j]++;
+				  break;
+			  }
+			  if (j == categories.size() - 1) System.out.println(caseList.get(i).getCategory());			  
+		  }
+	  }
+//	  for (int i = 0; i < percents.length; i++) {
+//		  percents[i] = percents[i] / (double) caseList.size();
+//	  }
+	  
+	  return percents;
+  }
+    
 }

@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
@@ -12,6 +13,8 @@ import java.awt.geom.Rectangle2D;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
+import org.jfree.chart.plot.PiePlot;
 import org.jfree.data.general.DefaultPieDataset;
 
 import java.util.ArrayList;
@@ -36,13 +39,13 @@ import Objects.Categorized;
 public class PDF_Out {
 	
 	public Categorized cases;
-	public static void main(String[] args) {		
-		PDF_Out test = new PDF_Out();
-//		test.outputPDF();
-	}
+//	public static void main(String[] args) {		
+//		PDF_Out test = new PDF_Out();
+////		test.outputPDF();
+//	}
 
 	
-	public void outputPDF(Categorized categorized) {	// ArrayList<Case>() caseList, String name, String dateCreated
+	public void outputPDF(Categorized categorized, int numInPie) {	// ArrayList<Case>() caseList, String name, String dateCreated
 //		Categorized categorized = new Categorized();
 //		ArrayList<Case> caseList = categorized.getCaseList();
 		
@@ -217,8 +220,10 @@ public class PDF_Out {
         
         
         // TESTING PIE CHARTS!
-        DefaultPieDataset testPieData = new DefaultPieDataset();
-        double[] percents = Categorized.getPercents(categorized.getCaseList());
+        DefaultPieDataset pieData = new DefaultPieDataset();
+        
+        // reading in categories
+        double[] percents = Categorized.getCounts(categorized.getCaseList());
 	    ArrayList<String> categories = new ArrayList<String>();
 	    try {
 	  	  File file = FileAccess.getFile("/outputs.txt");
@@ -231,14 +236,26 @@ public class PDF_Out {
 	    } catch (Exception e) {
 		  System.out.println("Error reading in output labels: " + e);
 	    }
-	    for (int i = 0; i < percents.length-1; i++) {
-	      testPieData.setValue(categories.get(i), percents[i]);
-	    }
-
-        
+	    
+	    ArrayList<String> topCategories = Categorized.findTopCategories(categorized.getCaseList(), numInPie);
+	    
+	    // adding the data to the pie chart
+	    for (int i = 0; i < percents.length; i++) {
+		      if (topCategories.contains(categories.get(i))) {
+		    	  pieData.setValue(categories.get(i), percents[i]);
+		      }
+		    }
+	    
         
         /* Specify chart title, dataset, legend, tooltip and URLs in this method as input */
-        JFreeChart pieChart = ChartFactory.createPieChart("Test Pie Chart", testPieData, true, true, false);
+        JFreeChart pieChart = ChartFactory.createPieChart("Frequencies of Top " + numInPie + " Categories", pieData, true, true, false);
+        
+        StandardPieSectionLabelGenerator labelGen = new StandardPieSectionLabelGenerator( " {1} ",
+        		new DecimalFormat("0"), new DecimalFormat("0%"));
+        
+        PiePlot plot = (PiePlot) pieChart.getPlot();
+        plot.setLabelGenerator(labelGen);        
+        
 //        CategoryPlot plot = pieChart.getCategoryPlot();
 //        LegendTitle legend = new LegendTitle(plot.getRenderer());
 //        legend.setItemFont(new Font("Courier", Font.NORMAL, 8f));

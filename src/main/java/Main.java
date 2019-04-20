@@ -10,10 +10,10 @@ public class Main {
   // Demo Functionality for Iteration 1 Demo
   public static void main (String[] args) {
     System.out.println("Hello, Welcome to Data Analyzer for DoIT");
-    Window_Main.createMainWindow();
+//    Window_Main.createMainWindow();
 	PDF_Out test = new PDF_Out();
 	Categorized cat = Categorized_In.readFromDatabase("cats/data1.cat");
-	test.outputPDF(cat);
+	test.outputPDF(cat,10);
   }
 
 //    /*
