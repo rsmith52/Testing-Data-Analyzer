@@ -28,5 +28,14 @@ public class csv_in_test {
 
 	}
 	
+	@Test
+
+	public void testCsvRead_TestData() throws IOException, URISyntaxException {
+		File file = FileAccess.getFile("/Bascom_Pull.csv");
+		ArrayList<Case> cases = CSV_In.csvRead(file, true);
+	}
+	
+	
+	
 
 }

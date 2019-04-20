@@ -3,7 +3,7 @@ package Neural_Network;
 import java.io.Serializable;
 
 public class Cell implements Serializable {
-
+  static final long serialVersionUID = 13;
   String functionType; // ReLU or Sigmoid
   final int cellNum; // Just an index to help with calculating weights of input edges
 

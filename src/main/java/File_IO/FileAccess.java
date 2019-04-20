@@ -35,6 +35,7 @@ public class FileAccess {
 		}
 		try {
 			file = new File(pathname);
+			file.createNewFile();
 			if (!file.isFile())
 			{
 				throw new IOException("Directory");
