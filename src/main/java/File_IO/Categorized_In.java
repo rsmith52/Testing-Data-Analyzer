@@ -10,7 +10,7 @@ public class Categorized_In {
 	public static Categorized readFromDatabase(String filename) {
 		try {
 			File database;
-			database = FileAccess.createFile(filename);
+			database = FileAccess.createFile("cats/" + filename);
 			Categorized alreadyCategorized;
 			FileInputStream fin = new FileInputStream(database);
 			ObjectInputStream in = new ObjectInputStream(fin);

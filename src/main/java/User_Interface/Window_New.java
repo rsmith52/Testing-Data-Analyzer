@@ -112,10 +112,8 @@ public class Window_New extends JFrame {
 					    	LocalDate dateCreated = LocalDate.now();
 					    	String dateString = dateCreated.format(dtf);
 					    	Categorized cat = new Categorized(text, dateString, cases);
-					    	System.out.println("Name: " + text);
-					    	Window_Main.catList.add(cat);
-					    	Window_Main.createMainWindow();
 					    	Categorized_Out.writeToDatabase(cat.getName() + ".cat", cat);
+					    	Window_Main.createMainWindow();
 					    	dispose();
 					    }
 					} else {

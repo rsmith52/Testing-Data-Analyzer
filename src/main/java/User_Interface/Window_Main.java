@@ -27,6 +27,7 @@ import javax.swing.border.MatteBorder;
 import File_IO.CSV_In;
 import File_IO.Categorized_In;
 import File_IO.FileAccess;
+import Objects.Case;
 import Objects.Categorized;
 
 import java.awt.Cursor;
@@ -38,7 +39,6 @@ import java.awt.ScrollPane;
 public class Window_Main extends JFrame {
 
 	private JPanel contentPane;
-	public static ArrayList<Categorized> catList = new ArrayList<Categorized>();
 
 	/**
 	 * Launch the application.
@@ -61,7 +61,6 @@ public class Window_Main extends JFrame {
 	 * Create the frame.
 	 */
 	public Window_Main() {
-		//catList = new ArrayList<Categorized>();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 623, 643);
 		contentPane = new JPanel();
@@ -73,7 +72,6 @@ public class Window_Main extends JFrame {
 		lblTets.setFont(new Font("Arial Black", Font.PLAIN, 17));
 		lblTets.setAlignmentX(Component.CENTER_ALIGNMENT);
 		contentPane.add(lblTets);
-		//Load all of the .cat files into the catList
 
 		File folder = new File(System.getProperty("user.dir") + "/cats"); //check this
 		File[] listOfFiles = folder.listFiles();
@@ -95,14 +93,14 @@ public class Window_Main extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 		        JList theList = (JList) e.getSource();
 		        if (e.getClickCount() == 2) {
-		          int index = theList.locationToIndex(e.getPoint());
-		          if (index >= 0) {
-		            String o = (String) theList.getModel().getElementAt(index);
-
-		            Categorized cat = Categorized_In.readFromDatabase(o + ".cat");
-		            Window_Categorized.createCategorizedWindow(cat);
-		            dispose();
-		          }
+		        	int index = theList.locationToIndex(e.getPoint());
+		        	if (index >= 0) {
+		        		String o = (String) theList.getModel().getElementAt(index);
+		        		Categorized cat = Categorized_In.readFromDatabase(o + ".cat");
+		        		ArrayList<Case> list = cat.getCaseList();
+		        		Window_Categorized.createCategorizedWindow(cat);
+		        		dispose();
+		        	}
 		        }
 			}
 		});

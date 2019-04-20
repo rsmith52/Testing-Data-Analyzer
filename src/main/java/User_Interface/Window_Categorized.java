@@ -29,16 +29,16 @@ import java.util.ArrayList;
 public class Window_Categorized extends JFrame {
 
 	private Container contentPane;
-	private Categorized cat;
+	private static Categorized cat;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void createCategorizedWindow(Categorized cat) {
+	public static void createCategorizedWindow(Categorized inputCat) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Window_Categorized frame = new Window_Categorized(cat);
+					Window_Categorized frame = new Window_Categorized(inputCat);
 					frame.setTitle("Categorized Dataset");
 					frame.setVisible(true);
 					frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -50,11 +50,11 @@ public class Window_Categorized extends JFrame {
 	}
 
 	public Categorized getCategorized() {
-		return this.cat;
+		return cat;
 	}
 
-	public Window_Categorized(Categorized cat) {
-		this.cat = cat;
+	public Window_Categorized(Categorized inputCat) {
+		cat = inputCat;
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 500, 500);
@@ -63,7 +63,7 @@ public class Window_Categorized extends JFrame {
 		//"Data Set: _____"
 		JPanel titlePane = new JPanel();
 		titlePane.setLayout(new BoxLayout(titlePane, BoxLayout.Y_AXIS));
-		JLabel lblDataSet = new JLabel("Data Set: " + getCategorized().name);
+		JLabel lblDataSet = new JLabel("Data Set: " + getCategorized().getName());
 		titlePane.add(lblDataSet);
 
 		final JLabel lblOutput = new JLabel("");
@@ -90,10 +90,9 @@ public class Window_Categorized extends JFrame {
 		btnOutputMetricsPdf.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent m) {
-				//TODO call PDF_Out
 				try {
-//					outputPDF(getCategorized().caseList, getCategorized().name,
-//							getCategorized.dateCreated);
+//					PDF_Out.outputPDF(getCategorized().caseList, getCategorized().name,
+//							getCategorized().dateCreated);
 					lblOutput.setText("Output metrics successful");
 				} catch(Exception e) {
 					lblOutput.setText("Output metrics failed");
@@ -123,7 +122,7 @@ public class Window_Categorized extends JFrame {
 						} else {
 							Categorized cat2 = Categorized_In.readFromDatabase(file);
 							Categorized mergedCat = Categorized.combineLists(getCategorized(), cat2);
-							Window_Main.catList.add(mergedCat);
+							//Window_Main.catList.add(mergedCat);
 							Categorized_Out.writeToDatabase(mergedCat.getName() + ".cat", mergedCat);
 							lblOutput.setText("Dataset merge successful");
 						}

@@ -1,5 +1,7 @@
 
 import User_Interface.*;
+import Objects.*;
+import File_IO.*;
 
 
 public class Main7 {
