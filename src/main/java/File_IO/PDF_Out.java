@@ -11,6 +11,8 @@ import java.awt.geom.Rectangle2D;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
+import org.jfree.chart.plot.PiePlot;
 import org.jfree.data.general.DefaultPieDataset;
 
 import java.util.ArrayList;
@@ -31,6 +33,7 @@ import com.itextpdf.text.Image;
 
 import Objects.Case;
 import Objects.Categorized;
+
 
 public class PDF_Out {
 	
@@ -225,7 +228,9 @@ public class PDF_Out {
         
         
         /* Specify chart title, dataset, legend, tooltip and URLs in this method as input */
-        JFreeChart pieChart = ChartFactory.createPieChart("Test Pie Chart", testPieData, true, true, false);
+        JFreeChart pieChart = ChartFactory.createPieChart("Top Categories", testPieData, true, true, false);
+        PiePlot plot = (PiePlot) pieChart.getPlot();
+//        plot.setLabelGenerator(new StandardPieSectionLabelGenerator("{0}"));
 //        CategoryPlot plot = pieChart.getCategoryPlot();
 //        LegendTitle legend = new LegendTitle(plot.getRenderer());
 //        legend.setItemFont(new Font("Courier", Font.NORMAL, 8f));
