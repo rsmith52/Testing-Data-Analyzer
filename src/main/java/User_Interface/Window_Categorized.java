@@ -93,7 +93,7 @@ public class Window_Categorized extends JFrame {
 				//TODO call PDF_Out
 				try {
 					PDF_Out pdfMaker = new PDF_Out();
-					pdfMaker.outputPDF();
+					pdfMaker.outputPDF(cat, 10);
 					lblOutput.setText("Output metrics successful");
 				} catch(Exception e) {
 					lblOutput.setText("Output metrics failed");
