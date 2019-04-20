@@ -5,12 +5,16 @@ import java.awt.Graphics2D;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Scanner;
 import java.awt.geom.Rectangle2D;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
+import org.jfree.chart.plot.PiePlot;
 //import org.jfree.chart.labels.StandardPieSectionLabelGenerator;
 //import org.jfree.chart.plot.PiePlot;
 import org.jfree.data.general.DefaultPieDataset;
@@ -50,7 +54,7 @@ public class PDF_Out {
 		ArrayList<Case> caseList = categorized.getCaseList();
 		ArrayList<Case> temp = null;
 		ArrayList<String> topRequestors = Categorized.findTopRequestors(caseList, 5);
-		ArrayList<String> topCategories = Categorized.findTopCategories(caseList, 5);
+		ArrayList<String> topCategories = Categorized.findTopCategories(caseList, 5, false);
 		ArrayList<String> topPerRequestor = new ArrayList<String>();
 		ArrayList<String> topPerCategory = new ArrayList<String>();
 
@@ -184,7 +188,7 @@ public class PDF_Out {
 		borderC1.addElement(leftTable);
 		borderTable2.addCell(borderC1);
 
-		
+
 		// Requestors of Top Categories Table (Bottom Right)
 		String catName = topCategories.get(0);
 		PdfPCell borderC2 = new PdfPCell();
@@ -202,7 +206,7 @@ public class PDF_Out {
 		rightTable.addCell(cell);
 		cell = new PdfPCell(new Phrase("# Cases", catFont));
 		rightTable.addCell(cell);
-		
+
 		topPerCategory = Categorized.getTopPerCategory(caseList, catName, 3);
 		size = 3;
 		if (topPerCategory.size() < 3) {
@@ -223,29 +227,49 @@ public class PDF_Out {
 		paragraph2.add(borderTable2);
 
 
-		// TESTING PIE CHARTS!
-		DefaultPieDataset testPieData = new DefaultPieDataset();
-		testPieData.setValue("Phishing", 45);
-		testPieData.setValue("O365", 37);
-		testPieData.setValue("Printer", 10);
-		testPieData.setValue("Malware", 47);
-		testPieData.setValue("Adobe", 20);
+		// Pie Chart Data
+		DefaultPieDataset pieData = new DefaultPieDataset();      // reading in categories
+		double[] percents = Categorized.getCounts(categorized.getCaseList());
+		ArrayList<String> categories = new ArrayList<String>();
+		try {
+			File file = FileAccess.getFile("/outputs.txt");
+			Scanner in = new Scanner(file);
+			while (in.hasNextLine()) {
+				categories.add(in.nextLine());
+			}
+			in.close();
+			categories.add("General Question"); // Always at end of list
+		} catch (Exception e) {
+			System.out.println("Error reading in output labels: " + e);
+		}
 
+		topCategories = Categorized.findTopCategories(categorized.getCaseList(), 10, false);
 
+		// adding the data to the pie chart
+		for (int i = 0; i < percents.length; i++) {
+			if (topCategories.contains(categories.get(i))) {
+				pieData.setValue(categories.get(i), percents[i]);
+			}
+		}
 		/* Specify chart title, dataset, legend, tooltip and URLs in this method as input */
-		JFreeChart pieChart = ChartFactory.createPieChart("Top Categories", testPieData, true, true, false);
+		JFreeChart pieChart = ChartFactory.createPieChart("Counts of Top 10 Categories", pieData, true, true, false);        
+		StandardPieSectionLabelGenerator labelGen = new StandardPieSectionLabelGenerator( " {1} ",
+				new DecimalFormat("0"), new DecimalFormat("0%"));        
+		PiePlot plot = (PiePlot) pieChart.getPlot();
+		plot.setLabelGenerator(labelGen);
+
 		int w = 500;	// Width of chart 
-		int h = 400;	// Height of chart 
-
-
+		int h = 400;	// Height of chart
+		
 		try {	// create the pdf 
-			String dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+			String dateTime = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
 			String dt = new SimpleDateFormat("yyy-MM-dd HH.mm.ss").format(new Date());
 			OutputStream file = new FileOutputStream(new File(dt + ".pdf"));
 			Document document = new Document();
 			PdfWriter write = PdfWriter.getInstance(document, file);
 
 			document.open(); 
+//			document.add(new Paragraph("Title"));
 			document.add(new Paragraph(dateTime));
 			document.add(Chunk.NEWLINE);
 			document.add(paragraph1);
