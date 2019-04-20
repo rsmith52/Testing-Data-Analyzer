@@ -122,7 +122,9 @@ public class Window_Categorized extends JFrame {
 							lblOutput.setText("Merge failed, identical datasets detected");
 						} else {
 							Categorized cat2 = Categorized_In.readFromDatabase(file);
-							Categorized.combineLists(getCategorized(), cat2);
+							Categorized mergedCat = Categorized.combineLists(getCategorized(), cat2);
+							Window_Main.catList.add(mergedCat);
+							Categorized_Out.writeToDatabase(mergedCat.getName() + ".cat", mergedCat);
 							lblOutput.setText("Dataset merge successful");
 						}
 					} catch(Exception e){

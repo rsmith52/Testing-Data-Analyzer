@@ -52,7 +52,8 @@ public class Categorized implements Serializable{
   }
 
   public static Categorized combineLists(Categorized list1, Categorized list2) {
-	Case[] listArray = (Case[])list1.getCaseList().toArray();
+	Case[] listArray = new Case[list1.getCaseList().size()];
+	listArray = list1.getCaseList().toArray(listArray);
     Categorized newList = new Categorized(list1.getName() + ", " + list2.getName(), "DATE ADD", listArray);
     for (int i = 0; i < list2.getCaseList().size(); i++) {
     	newList.getCaseList().add(list2.getCaseList().get(i));
