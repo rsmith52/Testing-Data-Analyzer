@@ -54,7 +54,7 @@ public class Categorized implements Serializable{
     
   }
 
-  public static ArrayList<String> findTopCategories(ArrayList<Case> cases){
+  public static ArrayList<String> findTopCategories(ArrayList<Case> cases, int numCategories){
 	  ArrayList<String> categories = new ArrayList<String>();
 	  ArrayList<Integer> counts = new ArrayList<Integer>();
 	  boolean found = false;
@@ -82,17 +82,21 @@ public class Categorized implements Serializable{
 			  }
 		  }
 	  }
-	  int[] topArray = new int[5];
-	  int[] indexes = new int[5];
+	  if(numCategories > categories.size())
+	  {
+		  numCategories = categories.size();
+	  }
+	  int[] topArray = new int[numCategories];
+	  int[] indexes = new int[numCategories];
 	  ArrayList<String> topCategories = new ArrayList<String>();
-	  for(int i = 0; i < 5; i++) {
+	  for(int i = 0; i < numCategories; i++) {
 		  topArray[i] = counts.get(i);
 		  indexes[i] = i;
 	  }
-	  for(int i = 6; i < counts.size(); i++) {
+	  for(int i = numCategories + 1; i < counts.size(); i++) {
 		  int value = counts.get(i);
 		  int ind = i;
-		  for(int k = 0; k < 5; k++) {
+		  for(int k = 0; k < numCategories; k++) {
 			  if(topArray[k] < value) {
 				  int tempInt = topArray[k];
 				  int tempInd = indexes[k];
@@ -104,15 +108,14 @@ public class Categorized implements Serializable{
 			  
 		  }
 	  }
-	  for(int i = 0; i < 5; i++) {
+	  for(int i = 0; i < numCategories; i++) {
 		  topCategories.add(categories.get(indexes[i]));
 	  }
 	  
 	  return topCategories;
 }
 
-  
-  public static ArrayList<String> findTopRequestors(ArrayList<Case> cases){
+  public static ArrayList<String> findTopRequestors(ArrayList<Case> cases, int numRequestors){
 	  ArrayList<String> requestors = new ArrayList<String>();
 	  ArrayList<Integer> requestorTotals = new ArrayList<Integer>();
 	  boolean found = false;
@@ -144,21 +147,25 @@ public class Categorized implements Serializable{
 	  }
 	  
 
-	  int[] topArray = new int[5];
-	  int[] topArrayInd = new int[5];
+	  if(numRequestors > requestors.size())
+	  {
+		  numRequestors = requestors.size();
+	  }
+	  int[] topArray = new int[numRequestors];
+	  int[] topArrayInd = new int[numRequestors];
 	  
-	  for(int i = 0; i < 5; i++)
+	  for(int i = 0; i < numRequestors; i++)
 	  {
 		  topArray[i] = requestorTotals.get(i);
 		  topArrayInd[i] = i;
 	  }
 	  
-	  for(int i = 6; i < requestors.size(); i++)
+	  for(int i = numRequestors + 1; i < requestors.size(); i++)
 	  {
 		  int value = requestorTotals.get(i);
 		  int ind = i;
 		  
-		  for(int k = 0; k < 5; k++)
+		  for(int k = 0; k < numRequestors; k++)
 		  {
 			  if(topArray[k] < value)
 			  {
@@ -175,7 +182,7 @@ public class Categorized implements Serializable{
 	  }
 	  
 	  ArrayList<String> returnStrings = new ArrayList<String>();
-	  for(int i = 0; i < 5; i++)
+	  for(int i = 0; i < numRequestors; i++)
 	  {
 		  returnStrings.add(requestors.get(topArrayInd[i]));
 	  }
@@ -228,7 +235,91 @@ public class Categorized implements Serializable{
 	  
 	  return requestors.get(topInd);
   }
+  public static String findTopCategory(ArrayList<Case> cases){
+	  ArrayList<String> categories = new ArrayList<String>();
+	  ArrayList<Integer> counts = new ArrayList<Integer>();
+	  boolean found = false;
+	  int index = 0;
+	  
+	  for(Case data : cases) {
+		  found = false;
+		  index = 0;
+		  for(int i = 0; i < categories.size(); i++) {
+			  if(categories.get(i).equals(data.getCategory())) {
+				  found = true;
+				  index = i;
+				  break;
+			  }
+		  }
+		  
+		  if(found)
+		  {
+			  Integer value = counts.get(index);// get value
+			  value = value + 1; // increment value
+			  counts.set(index, value); // replace value
+		  } else {
+			  categories.add(data.getCategory());
+			  counts.add(new Integer(1));
+		  }
+		  
+	  }
+	  
+	  int top = counts.get(0);
+	  int topInd = 0;
+	  
+	  for(int i = 1; i < counts.size(); i++)
+	  {
+		  if(counts.get(i) > top) {
+			  top = counts.get(i);
+			  topInd = i;
+		  }
+	  }
+	  
+	  
+	  
+	  return categories.get(topInd);
+  }
+  public static ArrayList<Case> allRequestorCases(ArrayList<Case> cases, String requestor)
+  {
+	  ArrayList<Case> sortedCases = new ArrayList<Case>();
+	  for(Case data : cases)
+	  {
+		  if(data.getCaseRequestor().equals(requestor))
+		  {
+			  sortedCases.add(data);
+		  }
+	  }
+	  return sortedCases;
+	  
+  }
   
-
+  public static ArrayList<Case> allCategoryCases(ArrayList<Case> cases, String category)
+  {
+	  ArrayList<Case> sortedCases = new ArrayList<Case>();
+	  for(Case data : cases)
+	  {
+		  if(data.getCategory().equals(category))
+		  {
+			  sortedCases.add(data);
+		  }
+	  }
+	  return sortedCases;
+	  
+}
+  
+  public static ArrayList<String> getTopPerRequestor(ArrayList<Case> cases, String requestor, int numCategories){
+	  ArrayList<Case> requestCases = new ArrayList<Case>();
+	  ArrayList<String> topCategories = new ArrayList<String>();
+	  requestCases = allRequestorCases(cases, requestor);
+	  topCategories = findTopCategories(requestCases, numCategories);
+	  return topCategories;
+  }
+  public static ArrayList<String> getTopPerCategory(ArrayList<Case> cases, String category, int numRequestors){
+	  ArrayList<Case> requestCases = new ArrayList<Case>();
+	  ArrayList<String> topRequestors = new ArrayList<String>();
+	  requestCases = allCategoryCases(cases, category);
+	  topRequestors = findTopRequestors(requestCases, numRequestors);
+	  return topRequestors;
+  }
   
 }
