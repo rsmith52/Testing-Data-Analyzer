@@ -135,9 +135,5 @@ public class Window_New extends JFrame {
 			}
 		});
 		contentPane.add(btnNewButton, BorderLayout.WEST);
-		//Watch for close of application
-
-
 	}
-
 }

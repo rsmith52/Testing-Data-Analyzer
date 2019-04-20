@@ -13,16 +13,16 @@ import Objects.Case;
 
 public class CSV_Out {
 	
-	public static void writeCSV(ArrayList<Case> cases) throws IOException
+	public static void writeCSV(ArrayList<Case> cases, String fileName) throws IOException
 	{
 		File file;
 		BufferedWriter writer;
 		CSVPrinter csvprint;
 		
 		try {
-			file = FileAccess.createFile("dataOut.csv");
+			file = FileAccess.createFile(fileName);
 			writer = new BufferedWriter(new FileWriter(file));
-			csvprint = new CSVPrinter(writer, CSVFormat.DEFAULT .withHeader("Incident ID", 
+			csvprint = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader("Incident ID", 
 																			"Owned By", 
 																			"Customer Display Name", 
 																			"Category", 

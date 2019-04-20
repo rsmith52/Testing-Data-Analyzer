@@ -77,8 +77,10 @@ public class Window_Categorized extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent m) {
 				try {
-					CSV_Out.writeCSV(getCategorized().caseList);
-					lblOutput.setText("CSV output successful");
+					String folder = "csv";
+					String fileName = getCategorized().name + ".csv";
+					CSV_Out.writeCSV(getCategorized().caseList, folder + "/" + fileName);
+					lblOutput.setText("CSV output as " + fileName + " in folder " + folder);
 				} catch (IOException e) {
 					lblOutput.setText("CSV output failed");
 					e.printStackTrace();
@@ -106,7 +108,6 @@ public class Window_Categorized extends JFrame {
 		btnMergeDatasets.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent m) {
-				//get other Categorized or case list somehow
 				JFileChooser chooser = new JFileChooser();
 				File currentDir = new File(System.getProperty("user.dir") + "/cats");
 				chooser.setCurrentDirectory(currentDir);
@@ -122,9 +123,9 @@ public class Window_Categorized extends JFrame {
 						} else {
 							Categorized cat2 = Categorized_In.readFromDatabase(file);
 							Categorized mergedCat = Categorized.combineLists(getCategorized(), cat2);
-							//Window_Main.catList.add(mergedCat);
-							Categorized_Out.writeToDatabase(mergedCat.getName() + ".cat", mergedCat);
-							lblOutput.setText("Dataset merge successful");
+							String fileName = mergedCat.getName() + ".cat";
+							Categorized_Out.writeToDatabase(fileName, mergedCat);
+							lblOutput.setText("Dataset merged into " + fileName + " in folder cats");
 						}
 					} catch(Exception e){
 						lblOutput.setText("Dataset merge failed; an exception occurred");
