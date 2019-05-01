@@ -9,14 +9,13 @@ Use Branch: FInalTesting
 
 Our code is in the form of a Maven java project, and can be imported to most java IDE's such as Eclipse as a Maven project and then run from Main.java. 
 
+* Download the complete project folder
+* Install eclipse or similar IDE, and select File>Import>Maven Project and select our project folder you downloaded
+* Run Main.java from the default package
+
 
 In the folder called "Test Datasets" there are 3 .csv data files you can use that contain cases to be run through the program. When selecting a .csv file, select one of these.
 All output files are output to the main project folder, with pdfs writing to the pdfs folder, and csvs writing to the main project folder. The cats folder stores internal data
 for datasets that have already been categorized by the neural network.
 
 From the main menu, you can double click on the name of a categorized data set to access it's page, and then output metrics and data.
-
-## Known Issues
-* UI has some sizing issues on some displays, where text may appear very small
-* Cannot close application from the dataset view screen, need to go back to main screen before you can close it
-* When running program from standalone jar it crashes when dependencies are used - cannot start to run by opening a .csv
