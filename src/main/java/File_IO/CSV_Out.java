@@ -5,9 +5,13 @@ import org.apache.commons.csv.CSVPrinter;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import Objects.Case;
 
@@ -20,7 +24,9 @@ public class CSV_Out {
 		CSVPrinter csvprint;
 		
 		try {
-			file = FileAccess.createFile("dataOut.csv");
+			String dateTime = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+			String dt = new SimpleDateFormat("yyy-MM-dd HH.mm.ss").format(new Date());
+			file = FileAccess.createFile("csvs/" + dt + ".csv");
 			writer = new BufferedWriter(new FileWriter(file));
 			csvprint = new CSVPrinter(writer, CSVFormat.DEFAULT .withHeader("Incident ID", 
 																			"Owned By", 
