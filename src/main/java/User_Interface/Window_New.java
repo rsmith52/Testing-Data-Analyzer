@@ -70,7 +70,7 @@ public class Window_New extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 
-		JLabel lblPleaseEnterIn = new JLabel("Please click the Open .CSV button and choose the .CSV file with the data to be categorized");
+		JLabel lblPleaseEnterIn = new JLabel("Please enter a name for your dataset and click the Open .CSV button");
 		contentPane.add(lblPleaseEnterIn, BorderLayout.NORTH);
 
 		//Text field to enter the categorized data set name
