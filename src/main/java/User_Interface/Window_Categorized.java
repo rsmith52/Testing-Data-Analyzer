@@ -123,9 +123,9 @@ public class Window_Categorized extends JFrame {
 						} else {
 							Categorized cat2 = Categorized_In.readFromDatabase(file);
 							Categorized mergedCat = Categorized.combineLists(getCategorized(), cat2);
-							Window_Main.catList.add(mergedCat);
-							Categorized_Out.writeToDatabase(mergedCat.getName() + ".cat", mergedCat);
-							lblOutput.setText("Dataset merge successful");
+							String fileName = mergedCat.getName() + ".cat";
+							Categorized_Out.writeToDatabase(fileName, mergedCat);
+							lblOutput.setText("Dataset merged into " + fileName + " in folder cats");
 						}
 					} catch(Exception e){
 						lblOutput.setText("Dataset merge failed; an exception occurred");

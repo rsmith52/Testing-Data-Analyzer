@@ -3,6 +3,8 @@ package Objects;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import File_IO.FileAccess;
 
@@ -48,12 +50,16 @@ public class Categorized implements Serializable{
 	}
 
 	public static Categorized combineLists(Categorized list1, Categorized list2) {
-		Case[] listArray = (Case[])list1.getCaseList().toArray();
-		Categorized newList = new Categorized(list1.getName() + ", " + list2.getName(), "DATE ADD", listArray);
-		for (int i = 0; i < list2.getCaseList().size(); i++) {
-			newList.getCaseList().add(list2.getCaseList().get(i));
-		}
-		return newList;
+		Case[] listArray = new Case[list1.getCaseList().size()];
+		listArray = list1.getCaseList().toArray(listArray);
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+		LocalDate dateCreated = LocalDate.now();
+		String dateString = dateCreated.format(dtf);
+	    Categorized newList = new Categorized(list1.getName() + ", " + list2.getName(), dateString, listArray);
+	    for (int i = 0; i < list2.getCaseList().size(); i++) {
+	    	newList.getCaseList().add(list2.getCaseList().get(i));
+	    }
+	return newList;
 
 	}
 
