@@ -13,7 +13,8 @@ import Objects.Case;
 
 public class TrainNetwork {
 	
-	final static int NUM_EPOCHS = 800;
+	final static int NUM_EPOCHS = 10; // Used to show testing suite
+	//final static int REAL_NUM_EPOCHS = 800; // Used to actually train network
 
 	@Test
 	public void test() {
@@ -51,7 +52,7 @@ public class TrainNetwork {
 	    Train_Neural.trainNeuralEpochs(network, testArray, NUM_EPOCHS);
 	    System.out.println("Trained");
 	    System.out.println("Saving Weights to File");
-	    Train_Neural.saveWeightsToFile(network);
+	    //Train_Neural.saveWeightsToFile(network); // Commented out to show testing suite so the network isn't overwritten
 	    try {
 	    	File testFile = FileAccess.createFile("weights.txt");
 	    } catch (Exception e) {

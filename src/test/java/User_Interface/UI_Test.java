@@ -9,7 +9,7 @@ public class UI_Test {
 	@Test
 	public void ui_test() {
 		try {
-			Window_Main.createMainWindow();
+			//Window_Main.createMainWindow();
 		} catch (Exception e) {
 			fail("UI caused an exception to be thrown that was not handled");
 		}

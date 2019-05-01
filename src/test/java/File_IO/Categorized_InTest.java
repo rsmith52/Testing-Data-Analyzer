@@ -1,19 +1,18 @@
 package File_IO;
 
 import static org.junit.Assert.*;
-
-import org.junit.Before;
 import org.junit.Test;
+
+import Neural_Network.Neural;
+import Objects.Categorized;
 
 public class Categorized_InTest {
 
-	@Before
-	public void setUp() throws Exception {
-	}
-
+	
 	@Test
-	public void testReadFromDatabase() {
-		fail("Not yet implemented");
+	public void testReadFromFile() {
+		Categorized cat = new Categorized();
+		cat  = Categorized_In.readFromDatabase("Data Set 1.cat");
+		assertNotNull("File wasn't read", cat);
 	}
-
 }

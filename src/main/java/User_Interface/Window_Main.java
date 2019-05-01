@@ -99,7 +99,7 @@ public class Window_Main extends JFrame {
 		    	files.add(name);
 		    }
 		}
-		String[] values = files.toArray(new String[files.size()]);
+		final String[] values = files.toArray(new String[files.size()]);
 		JScrollPane scrollPane = new JScrollPane();
 		JList list = new JList();
 		revalidate();
