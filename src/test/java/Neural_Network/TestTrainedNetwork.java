@@ -34,6 +34,7 @@ public class TestTrainedNetwork {
 	    	newCases = CSV_In.csvRead(testFile, true);
 	    	//newCases = CSV_In.csvRead(testFile);
 	    } catch (Exception e) {
+	    	fail("Failed to read from csv");
 	    	System.out.println(e);
 	    }
 	    Case[] testArray = new Case[newCases.size()];
@@ -72,12 +73,15 @@ public class TestTrainedNetwork {
 	    }
 	    
 	    System.out.println("Percentage Correct: " + correctness);
+	    assertTrue("Network Correctness above 70%", correctness > 0.7);
 	    
 	    // Make categorized object - Test reading and writing to file
 	    
 	    Categorized list = new Categorized("testNetwork", "Now", testArray);
 	    Categorized_Out.writeToDatabase("data3.txt", list);
 	    Categorized list2 = Categorized_In.readFromDatabase("data3.txt");
+	    
+	    assertNotNull("Reading in categorized file", list2);
 	    
 	}
 

@@ -29,6 +29,7 @@ public class TrainNetwork {
 	    	newCases = CSV_In.csvRead(newFile, true);
 	    } catch (Exception e) {
 	    	System.out.println(e);
+	    	fail("Failed to read in csv file");
 	    }
 	    Case[] testArray = new Case[newCases.size()];
 	    for (int i = 0; i < testArray.length; i++) {
@@ -51,6 +52,13 @@ public class TrainNetwork {
 	    System.out.println("Trained");
 	    System.out.println("Saving Weights to File");
 	    Train_Neural.saveWeightsToFile(network);
+	    try {
+	    	File testFile = FileAccess.createFile("weights.txt");
+	    } catch (Exception e) {
+	    	fail("weights file not created");
+	    }
+	    
+	    assertNotNull("checking for neural network existance", network);
 	}
 
 }

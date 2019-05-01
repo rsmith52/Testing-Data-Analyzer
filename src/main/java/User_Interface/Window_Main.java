@@ -12,6 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -24,6 +25,7 @@ import java.awt.Font;
 import java.awt.Color;
 import javax.swing.AbstractListModel;
 import javax.swing.border.MatteBorder;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import File_IO.CSV_In;
 import File_IO.Categorized_In;
@@ -145,6 +147,44 @@ public class Window_Main extends JFrame {
 		btnNewButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnNewButton.setAlignmentY(0.0f);
 		contentPane.add(btnNewButton);
+		
+		Component verticalStrut_2 = Box.createVerticalStrut(5);
+		contentPane.add(verticalStrut_2);
+		
+		JButton btnNewButton_1 = new JButton("Delete Categorization");
+		btnNewButton_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				JFileChooser chooser = new JFileChooser();
+				File currentDir = new File(System.getProperty("user.dir") + "/cats");
+				chooser.setCurrentDirectory(currentDir);
+				FileNameExtensionFilter filter = new FileNameExtensionFilter(
+						"CAT Files", "CAT");
+				chooser.setFileFilter(filter);
+				int returnVal = chooser.showOpenDialog(contentPane);
+				if(returnVal == JFileChooser.APPROVE_OPTION) {
+					File file = chooser.getSelectedFile();
+					if((file.getPath().contains("\\Data-Analyzer\\cats\\") || file.getPath().contains("Data-Analyzer/cats")) && file.getName().contains(".cat")){
+						try {
+							if(file.delete()) {
+								dispose();
+								JOptionPane.showMessageDialog(null, "File was deleted");
+								createMainWindow();
+							}
+							else
+								JOptionPane.showMessageDialog(null, "File was not deleted, an unexpected error occurred");
+						} catch(Exception e){
+							JOptionPane.showMessageDialog(null, "File was not deleted, an unexpected error occurred");
+						}
+					}
+					else{
+						JOptionPane.showMessageDialog(null, "File was not deleted, the flie must be a .cat file in the \\cats folder");
+					}
+				}	
+			}
+		});
+		btnNewButton_1.setAlignmentX(Component.CENTER_ALIGNMENT);
+		contentPane.add(btnNewButton_1);
 
 		Component verticalStrut_1 = Box.createVerticalStrut(20);
 		contentPane.add(verticalStrut_1);
